@@ -116,6 +116,8 @@ function init() {
 
     render();
 
+    window.addEventListener("resize", onResize);
+
     document.onkeydown = function(e){
         e = e || window.event;
         switch(e.which || e.keyCode){
@@ -129,7 +131,11 @@ function init() {
             break;
             case 38:
             //up
-            pushChairForward();
+            animate("u", -1);
+            if (acceleration<2.5){
+                acceleration+=0.10;
+            }
+            stopAnimation=false;
             break;
             case 39:
             //right
@@ -141,7 +147,11 @@ function init() {
             break;
             case 40:
             //down
-            pushChairBackward();
+            animate("d", 1);
+            if (acceleration<2.5){
+                acceleration+=0.10;
+            }
+            stopAnimation=false;
             break;
             case 65:
             //A
@@ -184,7 +194,11 @@ function init() {
             break;
             case 38:
             //up
-            pushChairForward();
+            stopAnimation=true;
+            animate("u", 1);
+            while(acceleration>0){
+                acceleration-=0.05;
+            }
             break;
             case 39:
             //right
@@ -196,7 +210,11 @@ function init() {
             break;
             case 40:
             //down
-            pushChairBackward();
+            stopAnimation=true;
+            animate("d", -1);
+            while(acceleration>0){
+                acceleration-=0.05;
+            }
             break;
         }
         e.preventDefault();
@@ -231,5 +249,16 @@ function animate(keyPressed, keyValue){
         chairGroup.rotation.y += acceleration*keyValue;
     }
 
+    if (keyPressed == "u" || keyPressed == "d"){
+        var direction = new THREE.Vector3();
+        chairGroup.getWorldDirection(direction);
+        console.log(direction.multiplyScalar(acceleration));
+        chairGroup.position.add((direction.multiplyScalar(acceleration)).multiplyScalar(keyValue));
+    }
+
     renderer.render(scene, currentCamera);
+}
+
+function onResize(){
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
