@@ -1,12 +1,13 @@
 // var THREE = require('three');
 var scene = new THREE.Scene();
-var currentCamera, currentMaterial;
+var currentMaterial, animId, acceleration=0.01;
 scene.add(new THREE.AxesHelper(10));
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.x = 0;
 camera.position.y = 100;
 camera.position.z = 0;
 camera.lookAt(scene.position);
+var currentCamera = camera;
 
 var camera2 = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera2.position.x = 0;
@@ -115,7 +116,11 @@ function init() {
         switch(e.which || e.keyCode){
             case 37:
             //left
-            rotateChairLeft();
+            animate("l", 1);
+            if (acceleration<0.25){
+                acceleration+=0.01;
+            }
+            cancelAnimationFrame(animId);
             break;
             case 38:
             //up
@@ -123,7 +128,10 @@ function init() {
             break;
             case 39:
             //right
-            rotateChairRight();
+            animate("l", -1);
+            if (acceleration<0.25){
+                acceleration+=0.01;
+            }
             break;
             case 40:
             //down
@@ -157,6 +165,38 @@ function init() {
         e.preventDefault();
     }
 
+    document.onkeyup = function(e){
+        e = e || window.event;
+        switch(e.which || e.keyCode){
+            case 37:
+            //left
+            while(acceleration>0){
+                animate("l", 1);
+                acceleration-=0.01;
+            }
+            cancelAnimationFrame(animId);
+
+            break;
+            case 38:
+            //up
+            pushChairForward();
+            break;
+            case 39:
+            //right
+            while(acceleration>0){
+                animate("r", -1);
+                acceleration-=0.01;
+            }
+            cancelAnimationFrame(animId);
+            break;
+            case 40:
+            //down
+            pushChairBackward();
+            break;
+        }
+        e.preventDefault();
+    }
+
 }
 
 function render() {
@@ -174,5 +214,17 @@ function changeRepresentation(){
             }
         }
     }
+    renderer.render(scene, currentCamera);
+}
+
+function animate(keyPressed, keyValue){
+    animId = requestAnimationFrame(animate);
+
+    console.log(acceleration);
+
+    if (keyPressed == "l" && acceleration<1 && acceleration>=0){
+        chairGroup.rotation.y += acceleration*keyValue;
+    }
+
     renderer.render(scene, currentCamera);
 }
