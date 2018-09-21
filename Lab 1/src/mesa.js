@@ -1,6 +1,11 @@
 // var THREE = require('three');
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
 var scene = new THREE.Scene();
-var currentMaterial, animId, acceleration=0.01;
+var currentMaterial, stopAnimation=false, acceleration=0.01;
 scene.add(new THREE.AxesHelper(10));
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.x = 0;
@@ -120,7 +125,7 @@ function init() {
             if (acceleration<0.25){
                 acceleration+=0.01;
             }
-            cancelAnimationFrame(animId);
+            stopAnimation=false;
             break;
             case 38:
             //up
@@ -128,10 +133,11 @@ function init() {
             break;
             case 39:
             //right
-            animate("l", -1);
+            animate("r", -1);
             if (acceleration<0.25){
                 acceleration+=0.01;
             }
+            stopAnimation=false;
             break;
             case 40:
             //down
@@ -170,12 +176,11 @@ function init() {
         switch(e.which || e.keyCode){
             case 37:
             //left
+            stopAnimation=true;
+            animate("l", 1);
             while(acceleration>0){
-                animate("l", 1);
                 acceleration-=0.01;
             }
-            cancelAnimationFrame(animId);
-
             break;
             case 38:
             //up
@@ -183,11 +188,11 @@ function init() {
             break;
             case 39:
             //right
+            stopAnimation=true;
+            animate("r", -1);
             while(acceleration>0){
-                animate("r", -1);
                 acceleration-=0.01;
             }
-            cancelAnimationFrame(animId);
             break;
             case 40:
             //down
@@ -218,11 +223,11 @@ function changeRepresentation(){
 }
 
 function animate(keyPressed, keyValue){
-    animId = requestAnimationFrame(animate);
+    if (stopAnimation==false){
+        requestAnimationFrame(animate);
+    }
 
-    console.log(acceleration);
-
-    if (keyPressed == "l" && acceleration<1 && acceleration>=0){
+    if (keyPressed == "l" || keyPressed == "r"){
         chairGroup.rotation.y += acceleration*keyValue;
     }
 
