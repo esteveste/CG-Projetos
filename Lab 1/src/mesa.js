@@ -1,4 +1,4 @@
-// var THREE = require('three');
+'use strict';
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -7,6 +7,8 @@ var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimat
 var scene = new THREE.Scene();
 var currentMaterial, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
 scene.add(new THREE.AxesHelper(10));
+
+//Camera setup
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.x = 0;
 camera.position.y = 100;
@@ -26,10 +28,12 @@ camera3.position.y = 25;
 camera3.position.z = 0;
 camera3.lookAt(scene.position);
 
+//render setup
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 var material1 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
 
+//table build
 var tableGroup = new THREE.Group();
 var legPosArray = [[-26, -3, -8], [-26, -3, 8], 
                    [26, -3, 8], [26, -3, -8]];
@@ -37,15 +41,16 @@ var legPosArray = [[-26, -3, -8], [-26, -3, 8],
 var geometry = new THREE.BoxGeometry(60, 2, 20);
 var tableTop = new THREE.Mesh(geometry, material1);
 
-for(var i = 0; i<4; i++){
+for(let i = 0; i<4; i++){
     geometry = new THREE.CylinderGeometry(2, 2, 6);
-    var tableLeg = new THREE.Mesh(geometry, material1);
+    let tableLeg = new THREE.Mesh(geometry, material1);
     tableLeg.position.set(legPosArray[i][0], legPosArray[i][1], legPosArray[i][2]);
     tableGroup.add( tableLeg );
 }
 
 tableGroup.add( tableTop );
 
+// chair build
 var chairGroup = new THREE.Group();
 //var armRestPos = [];
 var wheelPosArray = [[-8, -13.5, -8], [8, -13.5, 8], [8, -13.5, -8], [-8, -13.5, 8]];
@@ -68,7 +73,7 @@ var chairPole = new THREE.Mesh(geometry, material1);
 chairPole.position.set(0, -6, 0);
 chairGroup.add(chairPole);
 
-for(i=0; i<2; i++){
+for(let i=0; i<2; i++){
     geometry = new THREE.CylinderGeometry(0.75, 0.75, 22.7);
     var chairWheelSupp = new THREE.Mesh(geometry, material1);
     chairWheelSupp.position.set(wheelSuppPosArray[i][0], wheelSuppPosArray[i][1], wheelSuppPosArray[i][2]);
@@ -78,13 +83,15 @@ for(i=0; i<2; i++){
     chairGroup.add(chairWheelSupp);
 }
 
-for(i=0; i<4; i++){
+for(let i=0; i<4; i++){
     geometry = new THREE.TorusGeometry(1.25, 0.75, 16, 100);
     var chairWheel = new THREE.Mesh(geometry, material1);
     chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
+    chairWheel.rotateY(Math.PI/2);
     chairGroup.add(chairWheel);
 }
 
+//lamp build
 var officeLampGroup = new THREE.Group();
 
 geometry = new THREE.CylinderGeometry(3, 7, 10, 32, 8, true);
@@ -120,6 +127,7 @@ function init() {
     animate();
 
     document.onkeydown = function(e){
+        console.log(e);
         e = e || window.event;
         switch(e.which || e.keyCode){
             case 39:
@@ -164,7 +172,7 @@ function init() {
             default: return;
         }
         e.preventDefault();
-    }
+    };
 
     document.onkeyup = function(e){
         e = e || window.event;
@@ -230,7 +238,7 @@ function animate(){
         accelRotRight -= 0.01;
 
     if (moveForward){
-        var direction = new THREE.Vector3();
+        let direction = new THREE.Vector3();
         chairGroup.getWorldDirection(direction);
         chairGroup.position.add(direction.multiplyScalar(-accelPosZ));
         if (accelPosZ < 1.7)
@@ -241,7 +249,7 @@ function animate(){
         accelPosZ-= 0.05;
 
     if (moveBackward){
-        var direction = new THREE.Vector3();
+        let direction = new THREE.Vector3();
         chairGroup.getWorldDirection(direction);
         chairGroup.position.add(direction.multiplyScalar(accelNegZ));
         if (accelNegZ < 1.7)
