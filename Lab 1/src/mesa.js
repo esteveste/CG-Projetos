@@ -122,7 +122,7 @@ function init() {
     document.onkeydown = function(e){
         e = e || window.event;
         switch(e.which || e.keyCode){
-            case 37:
+            case 39:
             //left
             rotateLeft=true;
             break;
@@ -130,7 +130,7 @@ function init() {
             //up
             moveForward=true;
             break;
-            case 39:
+            case 37:
             //right
             rotateRight=true;
             break;
@@ -169,7 +169,7 @@ function init() {
     document.onkeyup = function(e){
         e = e || window.event;
         switch(e.which || e.keyCode){
-            case 37:
+            case 39:
             //left
             rotateLeft=false;
             break;
@@ -177,7 +177,7 @@ function init() {
             //up
             moveForward=false;
             break;
-            case 39:
+            case 37:
             //right
             rotateRight=false;
             break;
