@@ -5,7 +5,7 @@ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAni
 var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
 var scene = new THREE.Scene();
-var currentMaterial, stopAnimation=false, acceleration=0.01;
+var currentMaterial, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
 scene.add(new THREE.AxesHelper(10));
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.x = 0;
@@ -117,41 +117,26 @@ function init() {
     render();
 
     window.addEventListener("resize", onResize);
+    animate();
 
     document.onkeydown = function(e){
         e = e || window.event;
         switch(e.which || e.keyCode){
             case 37:
             //left
-            animate("l", 1);
-            if (acceleration<0.25){
-                acceleration+=0.01;
-            }
-            stopAnimation=false;
+            rotateLeft=true;
             break;
             case 38:
             //up
-            animate("u", -1);
-            if (acceleration<2.5){
-                acceleration+=0.10;
-            }
-            stopAnimation=false;
+            moveForward=true;
             break;
             case 39:
             //right
-            animate("r", -1);
-            if (acceleration<0.25){
-                acceleration+=0.01;
-            }
-            stopAnimation=false;
+            rotateRight=true;
             break;
             case 40:
             //down
-            animate("d", 1);
-            if (acceleration<2.5){
-                acceleration+=0.10;
-            }
-            stopAnimation=false;
+            moveBackward=true;
             break;
             case 65:
             //A
@@ -186,35 +171,19 @@ function init() {
         switch(e.which || e.keyCode){
             case 37:
             //left
-            stopAnimation=true;
-            animate("l", 1);
-            while(acceleration>0){
-                acceleration-=0.01;
-            }
+            rotateLeft=false;
             break;
             case 38:
             //up
-            stopAnimation=true;
-            animate("u", 1);
-            while(acceleration>0){
-                acceleration-=0.05;
-            }
+            moveForward=false;
             break;
             case 39:
             //right
-            stopAnimation=true;
-            animate("r", -1);
-            while(acceleration>0){
-                acceleration-=0.01;
-            }
+            rotateRight=false;
             break;
             case 40:
             //down
-            stopAnimation=true;
-            animate("d", -1);
-            while(acceleration>0){
-                acceleration-=0.05;
-            }
+            moveBackward=false;
             break;
         }
         e.preventDefault();
@@ -240,22 +209,50 @@ function changeRepresentation(){
     renderer.render(scene, currentCamera);
 }
 
-function animate(keyPressed, keyValue){
-    if (stopAnimation==false){
-        requestAnimationFrame(animate);
+function animate(){
+    if (rotateLeft){
+        chairGroup.rotation.y -= accelRotLeft;
+        if (accelRotLeft < 0.15){
+            accelRotLeft += 0.01;
+        }
     }
 
-    if (keyPressed == "l" || keyPressed == "r"){
-        chairGroup.rotation.y += acceleration*keyValue;
+    if (accelRotLeft>0 && !rotateLeft)
+        accelRotLeft -= 0.01;
+
+    if (rotateRight){
+        chairGroup.rotation.y += accelRotRight;
+        if (accelRotRight < 0.15)
+            accelRotRight += 0.01;
     }
 
-    if (keyPressed == "u" || keyPressed == "d"){
+    if (accelRotRight>0 && !rotateRight)
+        accelRotRight -= 0.01;
+
+    if (moveForward){
         var direction = new THREE.Vector3();
         chairGroup.getWorldDirection(direction);
-        console.log(direction.multiplyScalar(acceleration));
-        chairGroup.position.add((direction.multiplyScalar(acceleration)).multiplyScalar(keyValue));
+        chairGroup.position.add(direction.multiplyScalar(-accelPosZ));
+        if (accelPosZ < 1.7)
+            accelPosZ+= 0.05;
     }
 
+    if (accelPosZ > 0 && !moveForward)
+        accelPosZ-= 0.05;
+
+    if (moveBackward){
+        var direction = new THREE.Vector3();
+        chairGroup.getWorldDirection(direction);
+        chairGroup.position.add(direction.multiplyScalar(accelNegZ));
+        if (accelNegZ < 1.7)
+            accelNegZ+= 0.05;
+    }
+    
+    if (accelNegZ > 0 && !moveBackward)
+        accelNegZ-= 0.05;
+
+
+    requestAnimationFrame(animate);
     renderer.render(scene, currentCamera);
 }
 
