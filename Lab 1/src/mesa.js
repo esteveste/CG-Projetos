@@ -35,7 +35,7 @@ var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false 
 
 //table build
 var tableGroup = new THREE.Group();
-var legPosArray = [[-26, -3, -8], [-26, -3, 8], 
+var legPosArray = [[-26, -3, -8], [-26, -3, 8],
                    [26, -3, 8], [26, -3, -8]];
 
 var geometry = new THREE.BoxGeometry(60, 2, 20);
@@ -104,11 +104,21 @@ var lampBase = new THREE.Mesh(geometry, material1);
 lampBase.position.set(0, -3, 0);
 officeLampGroup.add(lampBase);
 
-geometry = new THREE.CylinderGeometry(0.4, 0.4, 16.5);
+geometry = new THREE.CylinderGeometry(0.5, 0.5, 10.5);
 var lampPole = new THREE.Mesh(geometry, material1);
-lampPole.position.set(0, 5.5, 0);
+lampPole.position.set(0, 2.5, 0);
 officeLampGroup.add(lampPole);
 
+//lightbulb
+geometry = new THREE.CylinderGeometry(1, 0.5, 2);
+var lampBulbDown = new THREE.Mesh(geometry, material1);
+lampBulbDown.position.set(0, 8.75, 0);
+officeLampGroup.add(lampBulbDown);
+
+geometry = new THREE.SphereGeometry(1, 10, 10,0,2*Math.PI,0,Math.PI/2);
+var lampBulbUpper = new THREE.Mesh(geometry, material1);
+lampBulbUpper.position.set(0, 9.75, 0);
+officeLampGroup.add(lampBulbUpper);
 
 chairGroup.position.set(0, 0, 35);
 officeLampGroup.position.set(50, 0, 0);
@@ -127,7 +137,6 @@ function init() {
     animate();
 
     document.onkeydown = function(e){
-        console.log(e);
         e = e || window.event;
         switch(e.which || e.keyCode){
             case 39:
