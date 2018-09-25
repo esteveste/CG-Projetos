@@ -4,17 +4,19 @@ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAni
 
 var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
+
 var scene = new THREE.Scene();
-var currentMaterial, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
+var currentMaterial,currentCamera, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
 scene.add(new THREE.AxesHelper(10));
 
 //Camera setup
+// function cameraSetup(){
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera.position.x = 0;
 camera.position.y = 100;
 camera.position.z = 0;
 camera.lookAt(scene.position);
-var currentCamera = camera;
+currentCamera = camera;
 
 var camera2 = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 camera2.position.x = 0;
@@ -27,11 +29,12 @@ camera3.position.x = 80;
 camera3.position.y = 25;
 camera3.position.z = 0;
 camera3.lookAt(scene.position);
+// }
 
 //render setup
 var renderer = new THREE.WebGLRenderer({ antialias: true });
-var material1 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
+var material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+// var material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
 
 //table build
 var tableGroup = new THREE.Group();
@@ -39,11 +42,11 @@ var legPosArray = [[-26, -3, -8], [-26, -3, 8],
                    [26, -3, 8], [26, -3, -8]];
 
 var geometry = new THREE.BoxGeometry(60, 2, 20);
-var tableTop = new THREE.Mesh(geometry, material1);
+var tableTop = new THREE.Mesh(geometry, material);
 
 for(let i = 0; i<4; i++){
     geometry = new THREE.CylinderGeometry(2, 2, 6);
-    let tableLeg = new THREE.Mesh(geometry, material1);
+    let tableLeg = new THREE.Mesh(geometry, material);
     tableLeg.position.set(legPosArray[i][0], legPosArray[i][1], legPosArray[i][2]);
     tableGroup.add( tableLeg );
 }
@@ -57,25 +60,25 @@ var wheelPosArray = [[-8, -13.5, -8], [8, -13.5, 8], [8, -13.5, -8], [-8, -13.5,
 var wheelSuppPosArray = [[8, -7.5, 8, Math.PI/4, Math.PI/2], [-8, -7.5, 8, -Math.PI/4, Math.PI/2]];
 
 geometry = new THREE.BoxGeometry(16, 2, 16);
-var chairSeat = new THREE.Mesh(geometry, material1);
+var chairSeat = new THREE.Mesh(geometry, material);
 chairGroup.add(chairSeat);
 
 geometry = new THREE.BoxGeometry(16, 25, 2);
-var chairBack = new THREE.Mesh(geometry, material1);
+var chairBack = new THREE.Mesh(geometry, material);
 chairBack.position.set(0, 12, 7);
 chairGroup.add(chairBack);
 
 //geometry = new THREE.BoxGeometry(16, 1, 2);
-//var chairArmRest = new THREE.Mesh(geometry, material1);
+//var chairArmRest = new THREE.Mesh(geometry, material);
 
 geometry = new THREE.CylinderGeometry(0.75, 0.75, 12);
-var chairPole = new THREE.Mesh(geometry, material1);
+var chairPole = new THREE.Mesh(geometry, material);
 chairPole.position.set(0, -6, 0);
 chairGroup.add(chairPole);
 
 for(let i=0; i<2; i++){
     geometry = new THREE.CylinderGeometry(0.75, 0.75, 22.7);
-    var chairWheelSupp = new THREE.Mesh(geometry, material1);
+    var chairWheelSupp = new THREE.Mesh(geometry, material);
     chairWheelSupp.position.set(wheelSuppPosArray[i][0], wheelSuppPosArray[i][1], wheelSuppPosArray[i][2]);
     chairWheelSupp.rotateX(wheelSuppPosArray[i][4]);
     chairWheelSupp.rotateZ(wheelSuppPosArray[i][3]);
@@ -84,8 +87,8 @@ for(let i=0; i<2; i++){
 }
 
 for(let i=0; i<4; i++){
-    geometry = new THREE.TorusGeometry(1.25, 0.75, 16, 100);
-    var chairWheel = new THREE.Mesh(geometry, material1);
+    geometry = new THREE.TorusGeometry(1.25, 0.75, 16, 10);
+    var chairWheel = new THREE.Mesh(geometry, material);
     chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
     chairWheel.rotateY(Math.PI/2);
     chairGroup.add(chairWheel);
@@ -95,28 +98,28 @@ for(let i=0; i<4; i++){
 var officeLampGroup = new THREE.Group();
 
 geometry = new THREE.CylinderGeometry(3, 7, 10, 32, 8, true);
-var lampTop = new THREE.Mesh(geometry, material1);
+var lampTop = new THREE.Mesh(geometry, material);
 lampTop.position.set(0, 10, 0);
 officeLampGroup.add(lampTop);
 
 geometry = new THREE.CylinderGeometry(5, 5, 0.5, 32, 8);
-var lampBase = new THREE.Mesh(geometry, material1);
+var lampBase = new THREE.Mesh(geometry, material);
 lampBase.position.set(0, -3, 0);
 officeLampGroup.add(lampBase);
 
 geometry = new THREE.CylinderGeometry(0.5, 0.5, 10.5);
-var lampPole = new THREE.Mesh(geometry, material1);
+var lampPole = new THREE.Mesh(geometry, material);
 lampPole.position.set(0, 2.5, 0);
 officeLampGroup.add(lampPole);
 
 //lightbulb
 geometry = new THREE.CylinderGeometry(1, 0.5, 2);
-var lampBulbDown = new THREE.Mesh(geometry, material1);
+var lampBulbDown = new THREE.Mesh(geometry, material);
 lampBulbDown.position.set(0, 8.75, 0);
 officeLampGroup.add(lampBulbDown);
 
 geometry = new THREE.SphereGeometry(1, 10, 10,0,2*Math.PI,0,Math.PI/2);
-var lampBulbUpper = new THREE.Mesh(geometry, material1);
+var lampBulbUpper = new THREE.Mesh(geometry, material);
 lampBulbUpper.position.set(0, 9.75, 0);
 officeLampGroup.add(lampBulbUpper);
 
@@ -157,11 +160,12 @@ function init() {
             break;
             case 65:
             //A
-            if(currentMaterial==material1){
-                currentMaterial = material2;
-            }
-            else currentMaterial = material1;
-            changeRepresentation();
+                material.wireframe=! material.wireframe;
+            // if(material){
+            //     currentMaterial = material2;
+            // }
+            // else currentMaterial = material;
+            // changeRepresentation();
             break;
             case 49:
             //1
@@ -212,19 +216,19 @@ function render() {
     renderer.render(scene, camera);
 }
 
-function changeRepresentation(){
-    for(var i=1; i< scene.children.length; i++){
-        for(var j=0; j< scene.children[i].children.length; j++){
-            if (scene.children[i].children[j].material == material1){
-                scene.children[i].children[j].material = material2;
-            }
-            else{
-                scene.children[i].children[j].material = material1;
-            }
-        }
-    }
-    renderer.render(scene, currentCamera);
-}
+// function changeRepresentation(){
+//     for(var i=1; i< scene.children.length; i++){
+//         for(var j=0; j< scene.children[i].children.length; j++){
+//             if (scene.children[i].children[j].material == material){
+//                 scene.children[i].children[j].material = material2;
+//             }
+//             else{
+//                 scene.children[i].children[j].material = material;
+//             }
+//         }
+//     }
+//     renderer.render(scene, currentCamera);
+// }
 
 function animate(){
     if (rotateLeft){
