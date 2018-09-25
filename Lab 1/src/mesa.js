@@ -4,32 +4,23 @@ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAni
 
 var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 
+const TOPVIEW=[0,100,0];
+const FRONTVIEW=[0,25,70];
+const SIDEVIEW=[80,25,0];
+
 
 var scene = new THREE.Scene();
-var currentMaterial,currentCamera, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
+var camera, rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
 scene.add(new THREE.AxesHelper(10));
 
 //Camera setup
-// function cameraSetup(){
-var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-camera.position.x = 0;
-camera.position.y = 100;
-camera.position.z = 0;
-camera.lookAt(scene.position);
-currentCamera = camera;
-
-var camera2 = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-camera2.position.x = 0;
-camera2.position.y = 25;
-camera2.position.z = 70;
-camera2.lookAt(scene.position);
-
-var camera3 = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-camera3.position.x = 80;
-camera3.position.y = 25;
-camera3.position.z = 0;
-camera3.lookAt(scene.position);
-// }
+function cameraSetup(x,y,z){
+    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.x = x;
+    camera.position.y = y;
+    camera.position.z = z;
+    camera.lookAt(scene.position);
+}
 
 //render setup
 var renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -130,6 +121,9 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+
+    cameraSetup(...TOPVIEW); //... ->spread operator, passa o tuplo para argumentos
+
     scene.add(tableGroup);
     scene.add(chairGroup);
     scene.add(officeLampGroup);
@@ -168,20 +162,20 @@ function init() {
             // changeRepresentation();
             break;
             case 49:
-            //1
-            renderer.render(scene, camera);
-            currentCamera = camera;
-            break;
+                //1
+                cameraSetup(...TOPVIEW);
+                renderer.render(scene, camera);
+                break;
             case 50:
-            //2
-            renderer.render(scene, camera2);
-            currentCamera = camera2;
-            break;
+                //2
+                cameraSetup(...FRONTVIEW);
+                renderer.render(scene, camera);
+                break;
             case 51:
-            //3
-            renderer.render(scene, camera3);
-            currentCamera = camera3;
-            break;
+                //3
+                cameraSetup(...SIDEVIEW);
+                renderer.render(scene, camera);
+                break;
             default: return;
         }
         e.preventDefault();
@@ -216,19 +210,6 @@ function render() {
     renderer.render(scene, camera);
 }
 
-// function changeRepresentation(){
-//     for(var i=1; i< scene.children.length; i++){
-//         for(var j=0; j< scene.children[i].children.length; j++){
-//             if (scene.children[i].children[j].material == material){
-//                 scene.children[i].children[j].material = material2;
-//             }
-//             else{
-//                 scene.children[i].children[j].material = material;
-//             }
-//         }
-//     }
-//     renderer.render(scene, currentCamera);
-// }
 
 function animate(){
     if (rotateLeft){
@@ -274,7 +255,7 @@ function animate(){
 
 
     requestAnimationFrame(animate);
-    renderer.render(scene, currentCamera);
+    renderer.render(scene, camera);
 }
 
 function onResize(){
