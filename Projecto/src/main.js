@@ -12,10 +12,6 @@ function init() {
 
     cameraSetup(...TOPVIEW); //... ->spread operator, passa o tuplo para argumentos
 
-    scene.add(tableGroup);
-    scene.add(chairGroup);
-    scene.add(officeLampGroup);
-
     render();
 
     window.addEventListener("resize", onResize);

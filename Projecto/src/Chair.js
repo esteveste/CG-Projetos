@@ -54,7 +54,56 @@ class Chair extends GraphicalEntity{
 
     	this.position.set(0, 0, 35);
 
-	}
+    }
+
+    animate() {
+        if (rotateLeft) {
+            this.rotation.y -= accelRotLeft;
+            if (accelRotLeft < 0.15) {
+                accelRotLeft += 0.01;
+            }
+        }
+
+        if (accelRotLeft > 0 && !rotateLeft)
+            accelRotLeft -= 0.01;
+
+        if (rotateRight) {
+            this.rotation.y += accelRotRight;
+            if (accelRotRight < 0.15)
+                accelRotRight += 0.01;
+        }
+
+        if (accelRotRight > 0 && !rotateRight)
+            accelRotRight -= 0.01;
+
+        if (moveForward) {
+            let direction = new THREE.Vector3();
+            this.getWorldDirection(direction);
+            this.position.add(direction.multiplyScalar(-accelPosZ));
+            if (accelPosZ < 1.7)
+                accelPosZ += 0.05;
+        }
+
+        if (accelPosZ > 0 && !moveForward)
+            accelPosZ -= 0.05;
+
+        if (moveBackward) {
+            let direction = new THREE.Vector3();
+            this.getWorldDirection(direction);
+            this.position.add(direction.multiplyScalar(accelNegZ));
+            if (accelNegZ < 1.7)
+                accelNegZ += 0.05;
+        }
+
+        if (accelNegZ > 0 && !moveBackward)
+            accelNegZ -= 0.05;
+
+
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+
 }
 
 
