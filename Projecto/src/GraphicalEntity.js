@@ -1,0 +1,2 @@
+class GraphicalEntity extends Group{
+}
