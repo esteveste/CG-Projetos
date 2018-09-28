@@ -34,20 +34,14 @@ function Input() {
             case 49:
                 //1
                 this.ONE=true;
-                cameraSetup(...TOPVIEW);
-                renderer.render(scene, camera);
                 break;
             case 50:
                 //2
                 this.TWO=true;
-                cameraSetup(...FRONTVIEW);
-                renderer.render(scene, camera);
                 break;
             case 51:
                 //3
                 this.THREE=true;
-                cameraSetup(...SIDEVIEW);
-                renderer.render(scene, camera);
                 break;
             default: return;
         }

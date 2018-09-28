@@ -1,18 +1,19 @@
 material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
 
-lampTop_geo = [3, 7, 10, 32, 8, true];
-lampBae_geo = [5, 5, 0.5, 32, 8];
-lampPole_geo = [0.5, 0.5, 10.5];
-lampBulbDown_geo = [1, 0.5, 2];
-lampBulbUpper_geo = [1, 10, 10,0,2*Math.PI,0,Math.PI/2];
+const lampTop_geo = [3, 7, 10, 32, 8, true];
+const lampBase_geo = [5, 5, 0.5, 32, 8];
+const lampPole_geo = [0.5, 0.5, 10.5];
+const lampBulbDown_geo = [1, 0.5, 2];
+const lampBulbUpper_geo = [1, 10, 10,0,2*Math.PI,0,Math.PI/2];
 
 
 
 class Lamp extends GraphicalEntity{
 
 	constructor(){
-		var lampTop = new THREE.Mesh(lampTop_geo, material);
+        super();
+        var lampTop = new THREE.Mesh(lampTop_geo, material);
 		var lampBase = new THREE.Mesh(lampBase_geo, material);
 		var lampPole = new THREE.Mesh(lampPole_geo, material);
 		var lampBulbDown = new THREE.Mesh(lampBulbDown_geo, material);

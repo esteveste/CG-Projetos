@@ -2,8 +2,9 @@ var material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 
 
 
-class GraphicalEntity extends Group{
+class GraphicalEntity extends THREE.Group{
 	constructor(){
-		this.material = material;
+        super();
+        this.material = material;
 	}
 }

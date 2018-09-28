@@ -7,9 +7,11 @@ var sceneManager,input;
 
 function init() {
 
+    input=new Input();
+
     sceneManager=new SceneManager();
 
-    input=new Input();
+
 
     window.addEventListener("resize", sceneManager.onResize);
 
