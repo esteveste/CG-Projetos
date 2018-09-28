@@ -5,8 +5,8 @@ var chair, lamp, table;
 function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
-    this.FRONTVIEW=[0,25,70];
-    this.SIDEVIEW=[80,25,0];
+    this.FRONTVIEW=[0,0,100];
+    this.SIDEVIEW=[100,0,0];
 
 
     var scene = new THREE.Scene();
@@ -21,7 +21,6 @@ function SceneManager() {
     var camera = new THREE.OrthographicCamera( window.innerWidth / - 8, window.innerWidth / 8, window.innerHeight / 8, window.innerHeight / - 8, 1, 1000 );
 
     this.changeCamera = function (x, y, z) {
-        console.log("yes");
         camera.position.x = x;
         camera.position.y = y;
         camera.position.z = z;
