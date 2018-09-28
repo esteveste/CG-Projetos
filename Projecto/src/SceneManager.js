@@ -39,8 +39,6 @@ function SceneManager() {
 
     animate();
 
-
-
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.left = window.innerWidth / - 8;

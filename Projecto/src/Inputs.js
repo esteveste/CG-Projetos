@@ -24,13 +24,7 @@ function Input() {
             case 65:
                 //A
                 this.A = true;
-
                 material.wireframe=! material.wireframe;
-                // if(material){
-                //     currentMaterial = material2;
-                // }
-                // else currentMaterial = material;
-                // changeRepresentation();
                 break;
             case 49:
                 //1

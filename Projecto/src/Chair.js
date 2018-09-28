@@ -29,7 +29,8 @@ class Chair extends GraphicalEntity{
 		let chairBack = new THREE.Mesh(cbgeo, material);
 
 		let cpgeo = new THREE.BoxGeometry(chairPole_g[0],chairPole_g[1],chairPole_g[2]);
-		let chairPole = new THREE.Mesh(cpgeo, material);
+        let chairPole = new THREE.Mesh(cpgeo, material);
+        chairPole.rotateX(Math.PI / 2);
 
 		for(let i=0; i<2; i++){
     		let cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0],chairWheelSupp_g[1],chairWheelSupp_g[2]);
@@ -37,14 +38,16 @@ class Chair extends GraphicalEntity{
     		chairWheelSupp.position.set(wheelSuppPosArray[i][0], wheelSuppPosArray[i][1], wheelSuppPosArray[i][2]);
     		chairWheelSupp.rotateX(wheelSuppPosArray[i][4]);
     		chairWheelSupp.rotateZ(wheelSuppPosArray[i][3]);
-    		chairWheelSupp.position.set(0, -12, 0);
+            chairWheelSupp.position.set(0, -12, 0);
+            this.add(chairWheelSupp);
     		
     	}
     	for(let i=0; i<4; i++){
     		let cwgeo = new THREE.TorusGeometry(chairWheel_g[0], chairWheel_g[1], chairWheel_g[2], chairWheel_g[3]);
     		var chairWheel = new THREE.Mesh(cwgeo, material);
     		chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
-    		chairWheel.rotateY(Math.PI/2);
+            chairWheel.rotateY(Math.PI / 2);
+            this.add(chairWheel);
     	}
 
     	chairBack.position.set(0, 12, 7);
@@ -53,17 +56,15 @@ class Chair extends GraphicalEntity{
     	this.add(chairSeat);
     	this.add(chairBack);
     	this.add(chairPole);
-    	this.add(chairWheelSupp);
-    	this.add(chairWheel);
 
     	this.position.set(0, 0, 35);
-
 
         window.addEventListener('animate', this.animate);
 
     }
 
     animate() {
+        //
         if (input.LEFT) {
             this.rotation.y -= accelRotLeft;
             if (accelRotLeft < 0.15) {
@@ -84,6 +85,7 @@ class Chair extends GraphicalEntity{
             accelRotRight -= 0.01;
 
         if (input.UP) {
+            console.log("soueu");
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
@@ -91,8 +93,12 @@ class Chair extends GraphicalEntity{
                 accelPosZ += 0.05;
         }
 
-        if (accelPosZ > 0 && !input.UP)
+        /*if (accelPosZ > 0 && !input.UP) {
+            let direction = new THREE.Vector3();
+            this.getWorldDirection(direction);
+            this.position.add(direction.multiplyScalar(-accelPosZ));
             accelPosZ -= 0.05;
+        }*/
 
         if (input.DOWN) {
             let direction = new THREE.Vector3();
@@ -102,8 +108,13 @@ class Chair extends GraphicalEntity{
                 accelNegZ += 0.05;
         }
 
-        if (accelNegZ > 0 && !input.DOWN)
+        /*if (accelNegZ > 0 && !input.DOWN) {
             accelNegZ -= 0.05;
+            let direction = new THREE.Vector3();
+            this.getWorldDirection(direction);
+            this.position.add(direction.multiplyScalar(accelNegZ));
+        }*/
+        
     }
 
 
