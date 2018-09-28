@@ -104,7 +104,6 @@ class Chair extends GraphicalEntity{
 
         if (accelNegZ > 0 && !input.DOWN)
             accelNegZ -= 0.05;
-
     }
 
 

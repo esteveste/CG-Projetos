@@ -1,6 +1,6 @@
 'use strict';
 
-
+var chair, lamp, table;
 
 function SceneManager() {
 
@@ -20,24 +20,22 @@ function SceneManager() {
 
     var camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 1000 );
 
-    this.changeCamera=function(x,y,z){
+    this.changeCamera = function (x, y, z) {
+        console.log("yes");
         camera.position.x = x;
         camera.position.y = y;
         camera.position.z = z;
         camera.lookAt(scene.position);
+        renderer.render(scene, camera);
     };
 
     this.changeCamera(...this.TOPVIEW);
-
-
-
-    renderer.render(scene, camera);
 
     function animate(){
         createEventAnimate();
 
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(chair.animate);
         renderer.render(scene, camera);
     }
 
@@ -65,9 +63,9 @@ function createEventAnimate() {
 function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
 
-    var chair = new Chair();
-    var table = new Table();
-    var lamp = new Lamp();
+    chair = new Chair();
+    table = new Table();
+    lamp = new Lamp();
 
     scene.add(chair);
     scene.add(table);

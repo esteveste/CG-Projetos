@@ -33,15 +33,18 @@ function Input() {
                 break;
             case 49:
                 //1
-                this.ONE=true;
+                this.ONE = true;
+                sceneManager.changeCamera(...sceneManager.TOPVIEW);
                 break;
             case 50:
                 //2
-                this.TWO=true;
+                this.TWO = true;
+                sceneManager.changeCamera(...sceneManager.FRONTVIEW);
                 break;
             case 51:
                 //3
-                this.THREE=true;
+                this.THREE = true;
+                sceneManager.changeCamera(...sceneManager.SIDEVIEW);
                 break;
             default: return;
         }
