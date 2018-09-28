@@ -43,6 +43,11 @@ function SceneManager() {
 
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.left = window.innerWidth / - 8;
+        camera.right = window.innerWidth / 8;
+        camera.top = window.innerHeight / 8;
+        camera.bottom = window.innerHeight / - 8;
+        camera.updateProjectionMatrix();
     }
 
 }
