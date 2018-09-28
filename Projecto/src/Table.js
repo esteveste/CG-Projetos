@@ -1,4 +1,6 @@
-//var tableGroup = new THREE.Group();
+material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+
 var legPosArray = [[-26, -3, -8], [-26, -3, 8],
                    [26, -3, 8], [26, -3, -8]];
 

@@ -1,3 +1,5 @@
+material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
 
 lampTop_geo = [3, 7, 10, 32, 8, true];
 lampBae_geo = [5, 5, 0.5, 32, 8];
