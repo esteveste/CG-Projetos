@@ -16,19 +16,20 @@ chair_position = [0, 0, 35];
 class Chair extends GraphicalEntity{
 
 	constructor(){
+        super();
 
 
-		csgeo = new THREE.BoxGeometry(chairSeat_g[0],chairSeat_g[1],chairSeat_g[2]);
+        let csgeo = new THREE.BoxGeometry(chairSeat_g[0],chairSeat_g[1],chairSeat_g[2]);
 		chairSeat = new THREE.Mesh(csgeo, material);
 
-		cbgeo = new THREE.BoxGeometry(chairBack_g[0],chairBack_g[1],chairBack_g[2]);
+		let cbgeo = new THREE.BoxGeometry(chairBack_g[0],chairBack_g[1],chairBack_g[2]);
 		chairBack = new THREE.Mesh(cbgeo, material);
 
-		cpgeo = new THREE.BoxGeometry(chairPole_g[0],chairPole_g[1],chairPole_g[2]);
+		let cpgeo = new THREE.BoxGeometry(chairPole_g[0],chairPole_g[1],chairPole_g[2]);
 		chairPole = new THREE.Mesh(cpgeo, material);
 
 		for(let i=0; i<2; i++){
-    		cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0],chairWheelSupp_g[1],chairWheelSupp_g[2]);
+    		let cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0],chairWheelSupp_g[1],chairWheelSupp_g[2]);
     		chairWheelSupp = new THREE.Mesh(cwsgeo, material);
     		chairWheelSupp.position.set(wheelSuppPosArray[i][0], wheelSuppPosArray[i][1], wheelSuppPosArray[i][2]);
     		chairWheelSupp.rotateX(wheelSuppPosArray[i][4]);
@@ -37,7 +38,7 @@ class Chair extends GraphicalEntity{
     		
     	}
     	for(let i=0; i<4; i++){
-    		cwgeo = new THREE.TorusGeometry(chairWheel_g[0], chairWheel_g[1], chairWheel_g[2], chairWheel_g[3]);
+    		let cwgeo = new THREE.TorusGeometry(chairWheel_g[0], chairWheel_g[1], chairWheel_g[2], chairWheel_g[3]);
     		chairWheel = new THREE.Mesh(cwgeo, material);
     		chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
     		chairWheel.rotateY(Math.PI/2);
@@ -54,29 +55,32 @@ class Chair extends GraphicalEntity{
 
     	this.position.set(0, 0, 35);
 
+
+        window.addEventListener('animate', this.animate);
+
     }
 
     animate() {
-        if (rotateLeft) {
+        if (input.LEFT) {
             this.rotation.y -= accelRotLeft;
             if (accelRotLeft < 0.15) {
                 accelRotLeft += 0.01;
             }
         }
 
-        if (accelRotLeft > 0 && !rotateLeft)
+        if (accelRotLeft > 0 && !input.LEFT)
             accelRotLeft -= 0.01;
 
-        if (rotateRight) {
+        if (input.RIGHT) {
             this.rotation.y += accelRotRight;
             if (accelRotRight < 0.15)
                 accelRotRight += 0.01;
         }
 
-        if (accelRotRight > 0 && !rotateRight)
+        if (accelRotRight > 0 && !input.RIGHT)
             accelRotRight -= 0.01;
 
-        if (moveForward) {
+        if (input.UP) {
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
@@ -84,10 +88,10 @@ class Chair extends GraphicalEntity{
                 accelPosZ += 0.05;
         }
 
-        if (accelPosZ > 0 && !moveForward)
+        if (accelPosZ > 0 && !input.UP)
             accelPosZ -= 0.05;
 
-        if (moveBackward) {
+        if (input.DOWN) {
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));
@@ -95,12 +99,9 @@ class Chair extends GraphicalEntity{
                 accelNegZ += 0.05;
         }
 
-        if (accelNegZ > 0 && !moveBackward)
+        if (accelNegZ > 0 && !input.DOWN)
             accelNegZ -= 0.05;
 
-
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
     }
 
 
