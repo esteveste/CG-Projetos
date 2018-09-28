@@ -34,8 +34,7 @@ function SceneManager() {
     function animate(){
         createEventAnimate();
 
-
-        requestAnimationFrame(chair.animate);
+        requestAnimationFrame(animate);
         renderer.render(scene, camera);
     }
 

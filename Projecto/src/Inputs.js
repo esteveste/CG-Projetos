@@ -23,8 +23,9 @@ function Input() {
                 break;
             case 65:
                 //A
-                this.A=true;
-                // material.wireframe=! material.wireframe;
+                this.A = true;
+
+                material.wireframe=! material.wireframe;
                 // if(material){
                 //     currentMaterial = material2;
                 // }

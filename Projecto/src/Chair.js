@@ -1,5 +1,5 @@
 'use strict';
-material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+//material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
 
 const wheelPosArray = [[-8, -13.5, -8], [8, -13.5, 8], [8, -13.5, -8], [-8, -13.5, 8]];
