@@ -64,28 +64,26 @@ class Chair extends GraphicalEntity{
     }
 
     animate() {
-        //
-        if (input.LEFT) {
+        if (INPUT_LEFT) {
             this.rotation.y -= accelRotLeft;
             if (accelRotLeft < 0.15) {
                 accelRotLeft += 0.01;
             }
         }
 
-        if (accelRotLeft > 0 && !input.LEFT)
+        if (accelRotLeft > 0 && !INPUT_LEFT)
             accelRotLeft -= 0.01;
 
-        if (input.RIGHT) {
+        if (INPUT_RIGHT) {
             this.rotation.y += accelRotRight;
             if (accelRotRight < 0.15)
                 accelRotRight += 0.01;
         }
 
-        if (accelRotRight > 0 && !input.RIGHT)
+        if (accelRotRight > 0 && !INPUT_RIGHT)
             accelRotRight -= 0.01;
 
-        if (input.UP) {
-            console.log("soueu");
+        if (INPUT_UP) {
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
@@ -100,7 +98,7 @@ class Chair extends GraphicalEntity{
             accelPosZ -= 0.05;
         }*/
 
-        if (input.DOWN) {
+        if (INPUT_DOWN) {
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));

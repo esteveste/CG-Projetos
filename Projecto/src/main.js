@@ -12,7 +12,6 @@ function init() {
     sceneManager=new SceneManager();
 
 
-
     window.addEventListener("resize", sceneManager.onResize);
 
 

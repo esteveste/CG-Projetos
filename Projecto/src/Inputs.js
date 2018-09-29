@@ -1,44 +1,44 @@
-function Input() {
+var INPUT_UP,INPUT_DOWN,INPUT_LEFT,INPUT_RIGHT,INPUT_A,INPUT_1,INPUT_2,INPUT_3;
 
-    this.LEFT=false;this.DOWN=false;this.UP=false;this.RIGHT=false;this.ONE=false;this.TWO=false;this.THREE=false;
+function Input() {
 
     document.onkeydown = function(e){
         e = e || window.event;
         switch(e.which || e.keyCode){
             case 39:
                 //left
-                this.LEFT=true;
+                INPUT_LEFT=true;
                 break;
             case 38:
                 //up
-                this.UP=true;
+                INPUT_UP=true;
                 break;
             case 37:
                 //right
-                this.RIGHT=true;
+                INPUT_RIGHT=true;
                 break;
             case 40:
                 //down
-                this.DOWN=true;
+                INPUT_DOWN=true;
                 break;
             case 65:
                 //A
-                this.A = true;
+                INPUT_A = true;
                 material.wireframe=! material.wireframe;
                 break;
             case 49:
                 //1
-                this.ONE = true;
+                INPUT_1 = true;
                 sceneManager.changeCamera(...sceneManager.TOPVIEW);
                 break;
             case 50:
                 //2
-                this.TWO = true;
+                INPUT_2 = true;
                 sceneManager.changeCamera(...sceneManager.FRONTVIEW);
                 break;
             case 51:
                 //3
-                this.THREE = true;
+                INPUT_3 = true;
                 sceneManager.changeCamera(...sceneManager.SIDEVIEW);
                 break;
             default: return;
@@ -51,31 +51,31 @@ function Input() {
         switch(e.which || e.keyCode){
             case 39:
                 //left
-                this.LEFT=false;
+                INPUT_LEFT=false;
                 break;
             case 38:
                 //up
-                this.UP=false;
+                INPUT_UP=false;
                 break;
             case 37:
                 //right
-                this.RIGHT=false;
+                INPUT_RIGHT=false;
                 break;
             case 40:
                 //down
-                this.DOWN=false;
+                INPUT_DOWN=false;
                 break;
             case 49:
                 //1
-                this.ONE=false;
+                INPUT_1=false;
                 break;
             case 50:
                 //2
-                this.TWO=false;
+                INPUT_2=false;
                 break;
             case 51:
                 //3
-                this.THREE=false;
+                INPUT_3=false;
                 break;
         }
         e.preventDefault();

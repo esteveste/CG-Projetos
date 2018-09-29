@@ -18,7 +18,7 @@ function SceneManager() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    var camera = new THREE.OrthographicCamera( window.innerWidth / - 8, window.innerWidth / 8, window.innerHeight / 8, window.innerHeight / - 8, 1, 1000 );
+    var camera = new THREE.OrthographicCamera( window.innerWidth / - 12, window.innerWidth / 12, window.innerHeight / 12, window.innerHeight / - 12, 1, 1000 );
 
     this.changeCamera = function (x, y, z) {
         camera.position.x = x;
@@ -55,7 +55,7 @@ function SceneManager() {
 
 
 function createEventAnimate() {
-    var evt = new CustomEvent('animate', { });
+    var evt = new CustomEvent('animate', {  });
 
     window.dispatchEvent(evt);
 }
