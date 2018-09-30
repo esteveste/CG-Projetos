@@ -1,6 +1,6 @@
 'use strict';
 
-var chair, lamp, table;
+var chair, lamp, table, cameratrackball, control;
 
 function SceneManager() {
 
@@ -18,7 +18,7 @@ function SceneManager() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    var camera = new THREE.OrthographicCamera( window.innerWidth / - 12, window.innerWidth / 12, window.innerHeight / 12, window.innerHeight / - 12, 1, 1000 );
+    var camera = new THREE.OrthographicCamera(window.innerWidth / - 12, window.innerWidth / 12, window.innerHeight / 12, window.innerHeight / - 12, 1, 1000);
 
     this.changeCamera = function (x, y, z) {
         camera.position.x = x;
@@ -41,13 +41,36 @@ function SceneManager() {
 
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.left = window.innerWidth / - 8;
-        camera.right = window.innerWidth / 8;
-        camera.top = window.innerHeight / 8;
-        camera.bottom = window.innerHeight / - 8;
+        camera.left = window.innerWidth / - 12;
+        camera.right = window.innerWidth / 12;
+        camera.top = window.innerHeight / 12;
+        camera.bottom = window.innerHeight / - 12;
         camera.updateProjectionMatrix();
     }
 
+    this.useTrackball = function () {
+        console.log("tb");
+        cameratrackball = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        cameratrackball.position.set(100, 100, 100);
+        cameratrackball.lookAt(scene.position);
+
+        control = new THREE.TrackballControls(cameratrackball, renderer.domElement);
+        control.rotateSpeed = 3.0;
+        control.zoomSpeed = 3.0;
+        control.panSpeed = 3.0;
+        control.addEventListener('change', trackballRender);
+
+        trackballAnimate();
+    }
+
+    function trackballAnimate() {
+        requestAnimationFrame(trackballAnimate);
+        control.update();
+    }
+
+    function trackballRender() {
+        renderer.render(scene, cameratrackball);
+    }
 }
 
 

@@ -41,6 +41,9 @@ function Input() {
                 INPUT_3 = true;
                 sceneManager.changeCamera(...sceneManager.SIDEVIEW);
                 break;
+            case 52:
+                //4
+                sceneManager.useTrackball();
             default: return;
         }
         e.preventDefault();
