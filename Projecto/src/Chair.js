@@ -3,7 +3,7 @@
 
 
 const wheelPosArray = [[-8, -13.5, -8], [8, -13.5, 8], [8, -13.5, -8], [-8, -13.5, 8]];
-const wheelSuppPosArray = [[8, -7.5, 8, Math.PI/4, Math.PI/2], [-8, -7.5, 8, -Math.PI/4, Math.PI/2]];
+const wheelSuppPosArray = [[8, -7.5, 8, Math.PI / 4, Math.PI / 2], [-8, -7.5, 8, -Math.PI / 4, Math.PI / 2]];
 
 let chairSeat_g = [16, 2, 16];
 let chairBack_g = [16, 25, 2];
@@ -13,23 +13,24 @@ let chairWheel_g = [1.25, 0.75, 16, 10];
 
 let chair_position = [0, 0, 35];
 
-var rotateRight=false, rotateLeft=false, moveForward=false, moveBackward=false, accelRotLeft=0.01, accelRotRight=0.01, accelPosZ=0.25, accelNegZ=0.25;
+var rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false, accelRotLeft = 0.01,
+    accelRotRight = 0.01, accelPosZ = 0.25, accelNegZ = 0.25;
 
 
-var Chair = function(){
+var Chair = function () {
     GraphicalEntity.call(this);
-    let csgeo = new THREE.BoxGeometry(chairSeat_g[0],chairSeat_g[1],chairSeat_g[2]);
+    let csgeo = new THREE.BoxGeometry(chairSeat_g[0], chairSeat_g[1], chairSeat_g[2]);
     let chairSeat = new THREE.Mesh(csgeo, material);
 
-    let cbgeo = new THREE.BoxGeometry(chairBack_g[0],chairBack_g[1],chairBack_g[2]);
+    let cbgeo = new THREE.BoxGeometry(chairBack_g[0], chairBack_g[1], chairBack_g[2]);
     let chairBack = new THREE.Mesh(cbgeo, material);
 
-    let cpgeo = new THREE.BoxGeometry(chairPole_g[0],chairPole_g[1],chairPole_g[2]);
+    let cpgeo = new THREE.BoxGeometry(chairPole_g[0], chairPole_g[1], chairPole_g[2]);
     let chairPole = new THREE.Mesh(cpgeo, material);
     chairPole.rotateX(Math.PI / 2);
 
-    for(let i=0; i<2; i++){
-        let cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0],chairWheelSupp_g[1],chairWheelSupp_g[2]);
+    for (let i = 0; i < 2; i++) {
+        let cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0], chairWheelSupp_g[1], chairWheelSupp_g[2]);
         var chairWheelSupp = new THREE.Mesh(cwsgeo, material);
         chairWheelSupp.position.set(wheelSuppPosArray[i][0], wheelSuppPosArray[i][1], wheelSuppPosArray[i][2]);
         chairWheelSupp.rotateX(wheelSuppPosArray[i][4]);
@@ -38,7 +39,7 @@ var Chair = function(){
         this.add(chairWheelSupp);
 
     }
-    for(let i=0; i<4; i++){
+    for (let i = 0; i < 4; i++) {
         let cwgeo = new THREE.TorusGeometry(chairWheel_g[0], chairWheel_g[1], chairWheel_g[2], chairWheel_g[3]);
         var chairWheel = new THREE.Mesh(cwgeo, material);
         chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
@@ -55,7 +56,7 @@ var Chair = function(){
 
     this.position.set(0, 0, 35);
 
-    this.animate=() =>{
+    this.animate = () => {
 
         if (INPUT_LEFT) {
             this.rotation.y -= accelRotLeft;
@@ -106,7 +107,7 @@ var Chair = function(){
             this.position.add(direction.multiplyScalar(accelNegZ));
         }*/
 
-    }
+    };
 
     window.addEventListener('animate', this.animate);
 
@@ -114,4 +115,4 @@ var Chair = function(){
 };
 
 
-Chair.prototype=Object.create(GraphicalEntity.prototype);
+Chair.prototype = Object.create(GraphicalEntity.prototype);
