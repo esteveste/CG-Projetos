@@ -10,11 +10,21 @@ const lampBulbUpper_geo = [1, 10, 10, 0, 2 * Math.PI, 0, Math.PI / 2];
 
 var Lamp = function () {
     GraphicalEntity.call(this);
-    var lampTop = new THREE.Mesh(lampTop_geo, material);
-    var lampBase = new THREE.Mesh(lampBase_geo, material);
-    var lampPole = new THREE.Mesh(lampPole_geo, material);
-    var lampBulbDown = new THREE.Mesh(lampBulbDown_geo, material);
-    var lampBulbUpper = new THREE.Mesh(lampBulbUpper_geo, material);
+    let ltgeo = new THREE.CylinderGeometry(...lampTop_geo);
+    var lampTop = new THREE.Mesh(ltgeo, material);
+
+    let lbgeo = new THREE.CylinderGeometry(...lampBase_geo);
+    var lampBase = new THREE.Mesh(lbgeo, material);
+
+    let lpgeo = new THREE.CylinderGeometry(...lampPole_geo);
+    var lampPole = new THREE.Mesh(lpgeo, material);
+
+    let lbdgeo = new THREE.CylinderGeometry(...lampBulbDown_geo);
+    var lampBulbDown = new THREE.Mesh(lbdgeo, material);
+
+    let lbugeo = new THREE.CylinderGeometry(...lampBulbUpper_geo);
+    var lampBulbUpper = new THREE.Mesh(lbugeo, material);
+
 
     lampTop.position.set(0, 10, 0);
     lampBase.position.set(0, -3, 0);
@@ -28,7 +38,7 @@ var Lamp = function () {
     this.add(lampBulbDown);
     this.add(lampBulbUpper);
 
-    this.position.set(50, 0, 0);
+    this.position.set(20, 4.5, 0);
 
 };
 Lamp.prototype = Object.create(GraphicalEntity.prototype);

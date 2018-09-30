@@ -70,5 +70,5 @@ function sceneSetup(scene) {
 
     scene.add(chair);
     scene.add(table);
-    // scene.add(lamp);
+    scene.add(lamp);
 }
