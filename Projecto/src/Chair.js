@@ -29,6 +29,8 @@ var Chair = function () {
     let chairPole = new THREE.Mesh(cpgeo, material);
     chairPole.rotateX(Math.PI / 2);
 
+    this.chairBottomGroup = new THREE.Group();
+
     for (let i = 0; i < 2; i++) {
         let cwsgeo = new THREE.CylinderGeometry(chairWheelSupp_g[0], chairWheelSupp_g[1], chairWheelSupp_g[2]);
         var chairWheelSupp = new THREE.Mesh(cwsgeo, material);
@@ -36,7 +38,7 @@ var Chair = function () {
         chairWheelSupp.rotateX(wheelSuppPosArray[i][4]);
         chairWheelSupp.rotateZ(wheelSuppPosArray[i][3]);
         chairWheelSupp.position.set(0, -12, 0);
-        this.add(chairWheelSupp);
+        this.chairBottomGroup.add(chairWheelSupp);
 
     }
 
@@ -47,7 +49,7 @@ var Chair = function () {
         var chairWheel = new THREE.Mesh(cwgeo, material);
         chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
         chairWheel.rotateY(Math.PI / 2);
-        this.add(chairWheel);
+        this.chairBottomGroup.add(chairWheel);
         this.chairWheelArray.push(chairWheel);
     }
 
@@ -59,7 +61,8 @@ var Chair = function () {
     this.chairSitGroup.add(chairBack);
 
     this.add(this.chairSitGroup);
-    this.add(chairPole);
+    this.chairBottomGroup.add(chairPole);
+    this.add(this.chairBottomGroup);
 
     this.position.set(0, -2, 35);
 
@@ -125,10 +128,14 @@ var Chair = function () {
         //wheel rotation
         if(accelPosZ > 0 || accelNegZ > 0){
             this.chairWheelArray.forEach((el)=>{
-               el.rotation.y = 0.49*el.rotation.y + 0.51* (this.chairSitGroup.rotation.y + Math.PI/2);
+               el.rotation.y = 0.9*(el.rotation.y )+ 0.1* ((this.chairSitGroup.rotation.y+Math.PI/2) - this.chairBottomGroup.rotation.y );
             });
         }
 
+        //metal bar rotation
+        if(accelPosZ > 0 || accelNegZ > 0){
+            this.chairBottomGroup.rotation.y = 0.97*this.chairBottomGroup.rotation.y + 0.03* (this.chairSitGroup.rotation.y%(Math.PI/2));
+        }
     };
 
     window.addEventListener('animate', this.animate);
