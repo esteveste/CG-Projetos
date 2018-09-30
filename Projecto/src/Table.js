@@ -4,7 +4,7 @@
 var legPosArray = [[-26, -9, -8], [-26, -9, 8],
     [26, -9, 8], [26, -9, -8]];
 
-var tableTop_geo = [60, 2, 20];
+var tableTop_geo = [60, 2,21];
 var tableLeg_geo = [2, 2, 16];
 
 
