@@ -54,30 +54,35 @@ var Chair = function () {
     this.add(chairBack);
     this.add(chairPole);
 
-    this.position.set(0, 0, 35);
+    this.position.set(0, -2, 35);
 
     this.animate = () => {
 
         if (INPUT_LEFT) {
             this.rotation.y -= accelRotLeft;
-            if (accelRotLeft < 0.15) {
+            if (accelRotLeft < 0.10) {
                 accelRotLeft += 0.01;
             }
         }
 
-        if (accelRotLeft > 0 && !INPUT_LEFT)
+        if (accelRotLeft > 0 && !INPUT_LEFT) {
             accelRotLeft -= 0.01;
+            this.rotation.y -= accelRotLeft;
+        }
 
         if (INPUT_RIGHT) {
             this.rotation.y += accelRotRight;
-            if (accelRotRight < 0.15)
+            if (accelRotRight < 0.10)
                 accelRotRight += 0.01;
         }
 
-        if (accelRotRight > 0 && !INPUT_RIGHT)
+        if (accelRotRight > 0 && !INPUT_RIGHT) {
             accelRotRight -= 0.01;
+            this.rotation.y += accelRotRight;
+        }
 
         if (INPUT_UP) {
+            console.log("up");
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
@@ -85,14 +90,16 @@ var Chair = function () {
                 accelPosZ += 0.05;
         }
 
-        /*if (accelPosZ > 0 && !input.UP) {
+        if (accelPosZ > 0 && !INPUT_UP) {
+            console.log("!up");
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
             accelPosZ -= 0.05;
-        }*/
+        }
 
         if (INPUT_DOWN) {
+            console.log("down");
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));
@@ -100,12 +107,13 @@ var Chair = function () {
                 accelNegZ += 0.05;
         }
 
-        /*if (accelNegZ > 0 && !input.DOWN) {
+        if (accelNegZ > 0 && !INPUT_DOWN) {
+            console.log("!down");
             accelNegZ -= 0.05;
             let direction = new THREE.Vector3();
             this.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));
-        }*/
+        }
 
     };
 

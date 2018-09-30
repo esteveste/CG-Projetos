@@ -1,11 +1,11 @@
 //material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
 
-var legPosArray = [[-26, -3, -8], [-26, -3, 8],
-    [26, -3, 8], [26, -3, -8]];
+var legPosArray = [[-26, -9, -8], [-26, -9, 8],
+    [26, -9, 8], [26, -9, -8]];
 
 var tableTop_geo = [60, 2, 20];
-var tableLeg_geo = [2, 2, 6];
+var tableLeg_geo = [2, 2, 16];
 
 
 var Table = function () {
