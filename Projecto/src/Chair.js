@@ -39,19 +39,26 @@ var Chair = function () {
         this.add(chairWheelSupp);
 
     }
+
+    this.chairWheelArray=[];
+
     for (let i = 0; i < 4; i++) {
         let cwgeo = new THREE.TorusGeometry(chairWheel_g[0], chairWheel_g[1], chairWheel_g[2], chairWheel_g[3]);
         var chairWheel = new THREE.Mesh(cwgeo, material);
         chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
         chairWheel.rotateY(Math.PI / 2);
         this.add(chairWheel);
+        this.chairWheelArray.push(chairWheel);
     }
 
     chairBack.position.set(0, 12, 7);
     chairPole.position.set(0, -6, 0);
 
-    this.add(chairSeat);
-    this.add(chairBack);
+    this.chairSitGroup = new THREE.Group();
+    this.chairSitGroup.add(chairSeat);
+    this.chairSitGroup.add(chairBack);
+
+    this.add(this.chairSitGroup);
     this.add(chairPole);
 
     this.position.set(0, -2, 35);
@@ -59,7 +66,7 @@ var Chair = function () {
     this.animate = () => {
 
         if (INPUT_LEFT) {
-            this.rotation.y -= accelRotLeft;
+            this.chairSitGroup.rotation.y -= accelRotLeft;
             if (accelRotLeft < 0.10) {
                 accelRotLeft += 0.01;
             }
@@ -67,24 +74,24 @@ var Chair = function () {
 
         if (accelRotLeft > 0 && !INPUT_LEFT) {
             accelRotLeft -= 0.01;
-            this.rotation.y -= accelRotLeft;
+            this.chairSitGroup.rotation.y -= accelRotLeft;
         }
 
         if (INPUT_RIGHT) {
-            this.rotation.y += accelRotRight;
+            this.chairSitGroup.rotation.y += accelRotRight;
             if (accelRotRight < 0.10)
                 accelRotRight += 0.01;
         }
 
         if (accelRotRight > 0 && !INPUT_RIGHT) {
             accelRotRight -= 0.01;
-            this.rotation.y += accelRotRight;
+            this.chairSitGroup.rotation.y += accelRotRight;
         }
 
         if (INPUT_UP) {
             console.log("up");
             let direction = new THREE.Vector3();
-            this.getWorldDirection(direction);
+            this.chairSitGroup.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
             if (accelPosZ < 1.7)
                 accelPosZ += 0.05;
@@ -93,7 +100,7 @@ var Chair = function () {
         if (accelPosZ > 0 && !INPUT_UP) {
             console.log("!up");
             let direction = new THREE.Vector3();
-            this.getWorldDirection(direction);
+            this.chairSitGroup.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(-accelPosZ));
             accelPosZ -= 0.05;
         }
@@ -101,7 +108,7 @@ var Chair = function () {
         if (INPUT_DOWN) {
             console.log("down");
             let direction = new THREE.Vector3();
-            this.getWorldDirection(direction);
+            this.chairSitGroup.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));
             if (accelNegZ < 1.7)
                 accelNegZ += 0.05;
@@ -111,8 +118,15 @@ var Chair = function () {
             console.log("!down");
             accelNegZ -= 0.05;
             let direction = new THREE.Vector3();
-            this.getWorldDirection(direction);
+            this.chairSitGroup.getWorldDirection(direction);
             this.position.add(direction.multiplyScalar(accelNegZ));
+        }
+
+        //wheel rotation
+        if(accelPosZ > 0 || accelNegZ > 0){
+            this.chairWheelArray.forEach((el)=>{
+               el.rotation.y = 0.49*el.rotation.y + 0.51* (this.chairSitGroup.rotation.y + Math.PI/2);
+            });
         }
 
     };
