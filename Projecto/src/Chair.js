@@ -83,10 +83,9 @@ var Chair = function () {
         }
 
         if (INPUT_RIGHT) { 
-            if (vright < 0.10){
+            if (vright < 0.10)
                 vright += accelRotRight*deltaTime
             this.chairSitGroup.rotation.y += vright;
-            }
         }
         else{
             if (vright > 0){
