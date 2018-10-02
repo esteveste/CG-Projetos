@@ -13,8 +13,9 @@ let chairWheel_g = [1.25, 0.75, 16, 10];
 
 let chair_position = [0, 0, 35];
 
-var rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false, accelRotLeft = 0.01,
-    accelRotRight = 0.01, accelPosZ = 0.25, accelNegZ = 0.25;
+var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false, 
+    accelRotLeft = 0.05,accelRotRight = 0.05, accelPosZ = 0.15, accelNegZ = 0.15,
+    vleft=0, vright=0, vforward=0, vbackward=0;
 
 
 var Chair = function () {
@@ -67,75 +68,76 @@ var Chair = function () {
     this.position.set(0, -2, 35);
 
     this.animate = () => {
+        deltaTime = clock.getDelta();
 
-        if (INPUT_LEFT) {
-            this.chairSitGroup.rotation.y -= accelRotLeft;
-            if (accelRotLeft < 0.10) {
-                accelRotLeft += 0.01;
+        if (INPUT_LEFT) { 
+            if (vleft < 0.10)
+                vleft += accelRotLeft*deltaTime
+            this.chairSitGroup.rotation.y -= vleft;
+        }
+        else{
+            if (vleft > 0){
+                vleft -= accelRotLeft*deltaTime;
+                this.chairSitGroup.rotation.y -= vleft;
             }
         }
 
-        if (accelRotLeft > 0 && !INPUT_LEFT) {
-            accelRotLeft -= 0.01;
-            this.chairSitGroup.rotation.y -= accelRotLeft;
+        if (INPUT_RIGHT) { 
+            if (vright < 0.10){
+                vright += accelRotRight*deltaTime
+            this.chairSitGroup.rotation.y += vright;
+            }
         }
-
-        if (INPUT_RIGHT) {
-            this.chairSitGroup.rotation.y += accelRotRight;
-            if (accelRotRight < 0.10)
-                accelRotRight += 0.01;
-        }
-
-        if (accelRotRight > 0 && !INPUT_RIGHT) {
-            accelRotRight -= 0.01;
-            this.chairSitGroup.rotation.y += accelRotRight;
+        else{
+            if (vright > 0){
+                vright -= accelRotRight*deltaTime;
+                this.chairSitGroup.rotation.y += vright;
+            }
         }
 
         if (INPUT_UP) {
-            console.log("up");
+            if (vforward < 1.7)
+                vforward += accelPosZ*deltaTime;
             let direction = new THREE.Vector3();
             this.chairSitGroup.getWorldDirection(direction);
-            this.position.add(direction.multiplyScalar(-accelPosZ));
-            if (accelPosZ < 1.7)
-                accelPosZ += 0.05;
+            this.position.add(direction.multiplyScalar(-vforward));
         }
-
-        if (accelPosZ > 0 && !INPUT_UP) {
-            console.log("!up");
-            let direction = new THREE.Vector3();
-            this.chairSitGroup.getWorldDirection(direction);
-            this.position.add(direction.multiplyScalar(-accelPosZ));
-            accelPosZ -= 0.05;
+        else{
+            if (vforward > 0){
+                vforward -= accelPosZ*deltaTime;
+                let direction = new THREE.Vector3();
+                this.chairSitGroup.getWorldDirection(direction);
+                this.position.add(direction.multiplyScalar(-vforward));
+            }
         }
 
         if (INPUT_DOWN) {
-            console.log("down");
+            if (vbackward < 1.7)
+                vbackward += accelNegZ*deltaTime;
             let direction = new THREE.Vector3();
             this.chairSitGroup.getWorldDirection(direction);
-            this.position.add(direction.multiplyScalar(accelNegZ));
-            if (accelNegZ < 1.7)
-                accelNegZ += 0.05;
+            this.position.add(direction.multiplyScalar(+vbackward));
         }
-
-        if (accelNegZ > 0 && !INPUT_DOWN) {
-            console.log("!down");
-            accelNegZ -= 0.05;
-            let direction = new THREE.Vector3();
-            this.chairSitGroup.getWorldDirection(direction);
-            this.position.add(direction.multiplyScalar(accelNegZ));
+        else{
+            if (vbackward > 0){
+                vbackward -= accelNegZ*deltaTime;
+                let direction = new THREE.Vector3();
+                this.chairSitGroup.getWorldDirection(direction);
+                this.position.add(direction.multiplyScalar(+vbackward));
+            }
         }
 
         //wheel rotation
-        if(accelPosZ > 0 || accelNegZ > 0){
+        if(vbackward > 0 || vforward > 0 ){
             this.chairWheelArray.forEach((el)=>{
                el.rotation.y = 0.9*(el.rotation.y )+ 0.1* ((this.chairSitGroup.rotation.y+Math.PI/2) - this.chairBottomGroup.rotation.y );
             });
         }
 
         //metal bar rotation
-        if(accelPosZ > 0 || accelNegZ > 0){
+        /*if(accelPosZ > 0 || accelNegZ > 0){
             this.chairBottomGroup.rotation.y = 0.97*this.chairBottomGroup.rotation.y + 0.03* (this.chairSitGroup.rotation.y%(Math.PI/2));
-        }
+        }*/
     };
 
     window.addEventListener('animate', this.animate);

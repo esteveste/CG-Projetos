@@ -1,6 +1,6 @@
 'use strict';
 
-var chair, lamp, table, cameratrackball, control;
+var chair, lamp, table, cameratrackball, control, clock;
 
 function SceneManager() {
 
@@ -37,6 +37,8 @@ function SceneManager() {
         renderer.render(scene, camera);
     }
 
+    clock = new THREE.Clock();
+    clock.start();
     animate();
 
     this.onResize=function (){
