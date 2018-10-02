@@ -13,7 +13,7 @@ let chairWheel_g = [1.25, 0.75, 16, 10];
 
 let chair_position = [0, 0, 35];
 
-var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false, 
+var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false,
     accelRotLeft = 0.05,accelRotRight = 0.05, accelPosZ = 0.15, accelNegZ = 0.15,
     vleft=0, vright=0, vforward=0, vbackward=0;
 
@@ -68,11 +68,11 @@ var Chair = function () {
     this.position.set(0, -2, 35);
 
     this.animate = () => {
-        deltaTime = clock.getDelta();
+        deltaTime = clock.getDelta()*10;
 
         if (INPUT_LEFT) { 
             if (vleft < 0.10)
-                vleft += accelRotLeft*deltaTime
+                vleft += accelRotLeft*deltaTime;
             this.chairSitGroup.rotation.y -= vleft;
         }
         else{
@@ -84,7 +84,7 @@ var Chair = function () {
 
         if (INPUT_RIGHT) { 
             if (vright < 0.10)
-                vright += accelRotRight*deltaTime
+                vright += accelRotRight*deltaTime;
             this.chairSitGroup.rotation.y += vright;
         }
         else{
@@ -130,6 +130,7 @@ var Chair = function () {
         if(vbackward > 0 || vforward > 0 ){
             this.chairWheelArray.forEach((el)=>{
                el.rotation.y = 0.9*(el.rotation.y )+ 0.1* ((this.chairSitGroup.rotation.y+Math.PI/2) - this.chairBottomGroup.rotation.y );
+               el.rotation.z-=((vforward-vbackward)/chairWheel_g[0]);
             });
         }
 
