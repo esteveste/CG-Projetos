@@ -1,6 +1,7 @@
 'use strict';
 
-var chair, lamp, table, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let chair, lamp, table, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let h_orig = window.innerHeight,w_orig=window.innerWidth;
 
 function SceneManager() {
 
@@ -36,14 +37,14 @@ function SceneManager() {
         createEventAnimate();
 
         requestAnimationFrame(this.animate);
-        console.log(TRACKBALL_CAMERA);
+
         if(TRACKBALL_CAMERA){
             renderer.render(scene, cameratrackball);
         }else {
             renderer.render(scene, camera);
         }
 
-    }
+    };
 
     clock = new THREE.Clock();
     clock.start();
@@ -51,11 +52,17 @@ function SceneManager() {
 
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.left = window.innerWidth / - 12;
-        camera.right = window.innerWidth / 12;
-        camera.top = window.innerHeight / 12;
-        camera.bottom = window.innerHeight / - 12;
+        // let aspectRation =
+        let zoomFactor = (window.innerHeight/h_orig)*(window.innerWidth/w_orig);
+        camera.left = window.innerWidth / - (12*zoomFactor);
+        camera.right = window.innerWidth / (12*zoomFactor);
+        camera.top = window.innerHeight / (12*zoomFactor);
+        camera.bottom = window.innerHeight / - (12*zoomFactor);
         camera.updateProjectionMatrix();
+
+        //trackball update
+        cameratrackball.aspect = window.innerWidth / window.innerHeight;
+        cameratrackball.updateProjectionMatrix();
     };
 
     this.setupTrackball = function () {
@@ -79,7 +86,9 @@ function SceneManager() {
     }
 
     function trackballRender() {
-        renderer.render(scene, cameratrackball);
+        if(TRACKBALL_CAMERA) {
+            renderer.render(scene, cameratrackball);
+        }
     }
 
     this.setupTrackball();
@@ -91,7 +100,7 @@ function SceneManager() {
 
 
 function createEventAnimate() {
-    var evt = new CustomEvent('animate', {  });
+    let evt = new CustomEvent('animate', {  });
 
     window.dispatchEvent(evt);
 }
