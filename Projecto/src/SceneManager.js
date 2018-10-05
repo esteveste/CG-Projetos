@@ -1,7 +1,7 @@
 'use strict';
 
 let chair, lamp, table, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
-let h_orig = window.innerHeight,w_orig=window.innerWidth;
+let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=150;
 
 function SceneManager() {
 
@@ -19,7 +19,9 @@ function SceneManager() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    var camera = new THREE.OrthographicCamera(window.innerWidth / - 12, window.innerWidth / 12, window.innerHeight / 12, window.innerHeight / - 12, 1, 1000);
+    // this.canvas = document.getElementsByTagName( 'canvas' );
+    let aspectRatio=window.innerWidth/ window.innerHeight;
+    var camera = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
 
     this.changeCamera = function (x, y, z) {
         TRACKBALL_CAMERA=false;
@@ -52,17 +54,27 @@ function SceneManager() {
 
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
-        // let aspectRation =
-        let zoomFactor = (window.innerHeight/h_orig)*(window.innerWidth/w_orig);
-        camera.left = window.innerWidth / - (12*zoomFactor);
-        camera.right = window.innerWidth / (12*zoomFactor);
-        camera.top = window.innerHeight / (12*zoomFactor);
-        camera.bottom = window.innerHeight / - (12*zoomFactor);
+
+        let aspectRatio=window.innerWidth/window.innerHeight;
+        if(aspectRatio>1){
+            camera.left =-aspectRatio*VIEW_SIZE / 2;
+            camera.right = aspectRatio*VIEW_SIZE / 2;
+            camera.top = VIEW_SIZE / 2;
+            camera.bottom = -VIEW_SIZE / 2;
+        }else {
+            camera.left =-VIEW_SIZE / 2;
+            camera.right =VIEW_SIZE / 2;
+            camera.top = VIEW_SIZE / (2*aspectRatio);
+            camera.bottom = -VIEW_SIZE / (2*aspectRatio);
+        }
         camera.updateProjectionMatrix();
 
         //trackball update
         cameratrackball.aspect = window.innerWidth / window.innerHeight;
         cameratrackball.updateProjectionMatrix();
+
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
     this.setupTrackball = function () {
