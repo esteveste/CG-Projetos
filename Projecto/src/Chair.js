@@ -129,7 +129,8 @@ var Chair = function () {
         //wheel rotation
         if(vbackward > 0 || vforward > 0 ){
             this.chairWheelArray.forEach((el)=>{
-               el.rotation.y = 0.9*(el.rotation.y )+ 0.1* ((this.chairSitGroup.rotation.y+Math.PI/2) - this.chairBottomGroup.rotation.y );
+               // el.rotation.y = 0.9*(el.rotation.y )+ 0.1* ((this.chairSitGroup.rotation.y+Math.PI/2) - this.chairBottomGroup.rotation.y );
+               el.rotation.y=this.chairSitGroup.rotation.y+Math.PI/2;
                el.rotation.z-=((vforward-vbackward)/chairWheel_g[0]);
             });
         }
