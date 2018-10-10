@@ -10,6 +10,9 @@ const lampBulbUpper_geo = [0.6, 1, 2];
 
 var Lamp = function () {
     GraphicalEntity.call(this);
+
+    let material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+
     let ltgeo = new THREE.CylinderGeometry(...lampTop_geo);
     var lampTop = new THREE.Mesh(ltgeo, material);
 

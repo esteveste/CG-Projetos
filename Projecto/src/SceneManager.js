@@ -92,6 +92,12 @@ function SceneManager() {
         trackballAnimate();
     };
 
+    this.changeWireframe=()=>{
+        chair.changeWireframe();
+        table.changeWireframe();
+        lamp.changeWireframe();
+    };
+
     function trackballAnimate() {
         requestAnimationFrame(trackballAnimate);
         control.update();

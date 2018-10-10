@@ -20,6 +20,9 @@ var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, mov
 
 var Chair = function () {
     GraphicalEntity.call(this);
+
+    let material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
     let csgeo = new THREE.BoxGeometry(chairSeat_g[0], chairSeat_g[1], chairSeat_g[2]);
     let chairSeat = new THREE.Mesh(csgeo, material);
 

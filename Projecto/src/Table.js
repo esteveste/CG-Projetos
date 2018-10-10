@@ -10,6 +10,9 @@ var tableLeg_geo = [2, 2, 16];
 
 var Table = function () {
     GraphicalEntity.call(this);
+
+    let material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+
     let ttgeo = new THREE.BoxGeometry(tableTop_geo[0], tableTop_geo[1], tableTop_geo[2]);
     let tableTop = new THREE.Mesh(ttgeo, material);
 
