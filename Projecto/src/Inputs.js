@@ -24,7 +24,8 @@ function Input() {
             case 65:
                 //A
                 INPUT_A = true;
-                material.wireframe=! material.wireframe;
+                // material.wireframe=! material.wireframe;
+                sceneManager.changeWireframe();
                 break;
             case 49:
                 //1

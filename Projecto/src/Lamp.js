@@ -1,4 +1,4 @@
-//material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+//this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
 
 const lampTop_geo = [3, 7, 10, 32, 8, true];
@@ -11,19 +11,19 @@ const lampBulbUpper_geo = [0.6, 1, 2];
 var Lamp = function () {
     GraphicalEntity.call(this);
     let ltgeo = new THREE.CylinderGeometry(...lampTop_geo);
-    var lampTop = new THREE.Mesh(ltgeo, material);
+    var lampTop = new THREE.Mesh(ltgeo, this.material);
 
     let lbgeo = new THREE.CylinderGeometry(...lampBase_geo);
-    var lampBase = new THREE.Mesh(lbgeo, material);
+    var lampBase = new THREE.Mesh(lbgeo, this.material);
 
     let lpgeo = new THREE.CylinderGeometry(...lampPole_geo);
-    var lampPole = new THREE.Mesh(lpgeo, material);
+    var lampPole = new THREE.Mesh(lpgeo, this.material);
 
     let lbdgeo = new THREE.CylinderGeometry(...lampBulbDown_geo);
-    var lampBulbDown = new THREE.Mesh(lbdgeo, material);
+    var lampBulbDown = new THREE.Mesh(lbdgeo, this.material);
 
     let lbugeo = new THREE.CylinderGeometry(...lampBulbUpper_geo);
-    var lampBulbUpper = new THREE.Mesh(lbugeo, material);
+    var lampBulbUpper = new THREE.Mesh(lbugeo, this.material);
 
 
     lampTop.position.set(0, 35, 0);
