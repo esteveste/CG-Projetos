@@ -5,9 +5,6 @@ var GraphicalEntity = function () {
 };
 GraphicalEntity.prototype = Object.create(THREE.Group.prototype);
 
-GraphicalEntity.prototype.test= function(a) {
-    console.log("sup",a);
-};
 
 GraphicalEntity.prototype.changeWireframe= function() {
     this.traverse((child)=> {
