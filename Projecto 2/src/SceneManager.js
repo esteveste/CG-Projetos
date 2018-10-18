@@ -6,7 +6,7 @@ let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
-    this.FRONTVIEW=[0,0,100];
+    this.FRONTVIEW=[0,50,100];
     this.SIDEVIEW=[100,0,0];
 
 
