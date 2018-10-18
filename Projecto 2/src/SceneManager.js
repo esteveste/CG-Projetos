@@ -21,19 +21,28 @@ function SceneManager() {
 
     // this.canvas = document.getElementsByTagName( 'canvas' );
     let aspectRatio=window.innerWidth/ window.innerHeight;
-    var camera = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
 
-    this.changeCamera = function (x, y, z) {
+    this.camera1 = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
+    this.camera2 = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+    this.camera3 = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+
+    this.camera1.position.set(...this.TOPVIEW);
+    this.camera2.position.set(...this.FRONTVIEW);
+    this.camera3.position.set(...this.SIDEVIEW);
+
+    this.camera1.lookAt(scene.position);
+    this.camera2.lookAt(scene.position);
+    this.camera3.lookAt(scene.position);
+
+
+    this.changeCamera = function (camera) {
         TRACKBALL_CAMERA=false;
+        this.camera = camera;
 
-        camera.position.x = x;
-        camera.position.y = y;
-        camera.position.z = z;
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
+        renderer.render(scene, this.camera);
     };
 
-    this.changeCamera(...this.TOPVIEW);
+    this.changeCamera(this.camera1);
 
     this.animate=()=>{
         createEventAnimate();
@@ -43,7 +52,7 @@ function SceneManager() {
         if(TRACKBALL_CAMERA){
             renderer.render(scene, cameratrackball);
         }else {
-            renderer.render(scene, camera);
+            renderer.render(scene, this.camera);
         }
 
     };
@@ -126,7 +135,7 @@ function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
     arena = new Arena();
 
-    for (let i=0; i<20; i++){
+    for (let i=0; i<10; i++){
         ball = new Ball();
         scene.add(ball);
     }

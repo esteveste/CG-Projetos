@@ -29,17 +29,17 @@ function Input() {
             case 49:
                 //1
                 INPUT_1 = true;
-                sceneManager.changeCamera(...sceneManager.TOPVIEW);
+                sceneManager.changeCamera(sceneManager.camera1);
                 break;
             case 50:
                 //2
                 INPUT_2 = true;
-                sceneManager.changeCamera(...sceneManager.FRONTVIEW);
+                sceneManager.changeCamera(sceneManager.camera2);
                 break;
             case 51:
                 //3
                 INPUT_3 = true;
-                sceneManager.changeCamera(...sceneManager.SIDEVIEW);
+                sceneManager.changeCamera(sceneManager.camera3);
                 break;
             case 52:
                 //4
