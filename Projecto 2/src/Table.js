@@ -1,30 +1,44 @@
 //material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
+var depth = 30
 
-var legPosArray = [[-26, -9, -8], [-26, -9, 8],
-    [26, -9, 8], [26, -9, -8]];
+var arenabase_geo = [depth*2, 1,depth];
+var arenalat1_geo = [depth*2, 40, 1];
+var arenalat2_geo = [1, 40, depth];
 
-var tableTop_geo = [60, 2,30];
-var tableLeg_geo = [2, 2, 16];
+var arenaLat1PosArray = [[0, 0, 0],[0, 0, 0]]
+var arenaLat2PosArray = [[0, 0, 0],[0, 0, 0]]
 
 
-var Table = function () {
+var Arena = function () {
     GraphicalEntity.call(this);
 
     let material = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
 
-    let ttgeo = new THREE.BoxGeometry(tableTop_geo[0], tableTop_geo[1], tableTop_geo[2]);
-    let tableTop = new THREE.Mesh(ttgeo, material);
+    let arenaBaseGeo = new THREE.BoxGeometry(arenabase_geo[0], arenabase_geo[1], arenabase_geo[2]);
+    let arenaLat1Geo = new THREE.BoxGeometry(arenalat1_geo[0], arenalat1_geo[1], arenalat1_geo[2]);
+    let arenaLat2Geo = new THREE.BoxGeometry(arenalat2_geo[0], arenalat2_geo[1], arenalat2_geo[2]);
+
+    let arenaBase = new THREE.Mesh(arenaBaseGeo, material);
+
+    this.add(arenaBase);
 
 
-    for (let i = 0; i < 4; i++) {
-        let tlgeo = new THREE.CylinderGeometry(tableLeg_geo[0], tableLeg_geo[1], tableLeg_geo[2]);
-        let tableLeg = new THREE.Mesh(tlgeo, material);
-        tableLeg.position.set(legPosArray[i][0], legPosArray[i][1], legPosArray[i][2]);
-        this.add(tableLeg);
+    for (let i = 0; i < 2; i++) {
+        let arenaLat1 = new THREE.Mesh(arenaLat1Geo, material);
+        arenaLat1.position.set(arenaLat1PosArray[i][0], arenaLat1PosArray[i][1], arenaLat1PosArray[i][2]);
+        this.add(arenaLat1);
     }
 
-    this.add(tableTop);
+    for (let i = 0; i < 2; i++) {
+        let arenaLat2 = new THREE.Mesh(arenaLat2Geo, material);
+        arenaLat2.position.set(arenaLat2PosArray[i][0], arenaLat2PosArray[i][1], arenaLat2PosArray[i][2]);
+        this.add(arenaLat2);
+    }
+
+        
+
+
 
 };
 Table.prototype = Object.create(GraphicalEntity.prototype);
