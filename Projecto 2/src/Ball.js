@@ -21,8 +21,10 @@ var Ball = function () {
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, material);
 
-    let x=Math.random()*(width-radius*2) - width/2;
-    let z=Math.random()*(depth-radius*2) - depth/2;
+    let x = Math.random() * ((width/2)-radius-0.5 - (-width/2 + radius+0.5)) + (-width/2 + radius+0.5);
+    let z = Math.random() * ((depth/2)-radius-0.5 - (-depth/2 + radius+0.5)) + (-depth/2 + radius+0.5);
+
+    //Math.random() * (max - min) + min;
 
     ball.position.set(x, height/2 + 0.5 ,z);
 
