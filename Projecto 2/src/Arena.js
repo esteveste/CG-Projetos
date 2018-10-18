@@ -1,13 +1,16 @@
 //material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
-var depth = 30
+var depth = 30;
+var width = depth*2;
+var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
+console.log(height);
 
 var arenabase_geo = [depth*2, 1,depth];
-var arenalat1_geo = [depth*2, 40, 1];
-var arenalat2_geo = [1, 40, depth];
+var arenalat1_geo = [depth*2, height, 1];
+var arenalat2_geo = [1, height, depth];
 
-var arenaLat1PosArray = [[0, 0, 0],[0, 0, 0]]
-var arenaLat2PosArray = [[0, 0, 0],[0, 0, 0]]
+var arenaLat1PosArray = [[0, height/2, depth/2],[0, height/2, -depth/2]]
+var arenaLat2PosArray = [[-depth, height/2, 0],[depth, height/2, 0 ]]
 
 
 var Arena = function () {
@@ -41,4 +44,4 @@ var Arena = function () {
 
 
 };
-Table.prototype = Object.create(GraphicalEntity.prototype);
+Arena.prototype = Object.create(GraphicalEntity.prototype);
