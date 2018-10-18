@@ -1,6 +1,6 @@
 'use strict';
 
-let chair, lamp, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let chair, ball, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 function SceneManager() {
@@ -126,5 +126,11 @@ function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
     arena = new Arena();
 
+    for (let i=0; i<20; i++){
+        ball = new Ball();
+        scene.add(ball);
+    }
+
     scene.add(arena);
+    
 }
