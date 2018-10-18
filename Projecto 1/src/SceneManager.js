@@ -131,7 +131,5 @@ function sceneSetup(scene) {
     table = new Table();
     lamp = new Lamp();
 
-    scene.add(chair);
-    scene.add(table);
-    scene.add(lamp);
+    scene.add(chair,table,lamp);
 }
