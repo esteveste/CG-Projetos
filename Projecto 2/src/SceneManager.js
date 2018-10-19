@@ -6,6 +6,10 @@ let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 var balls_positions = [];
 var balls = [];
 
+var colidiu =false;
+
+var num_balls = 10;
+
 function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
@@ -132,12 +136,12 @@ function createEventAnimate() {
 }
 
 function checkBallCollision(pos1, pos2, radius) {
-    let dist = Math.sqrt((pos1[2] - pos2[2])**2 + (pos1[0] - pos2[0])**2);
+    let dist = Math.sqrt(((pos1[2] - pos2[2])**2) + ((pos1[0] - pos2[0])**2));
     if (radius*2 > dist){
-        return True;
+        return true;
     }  
     else{
-        return False;
+        return false;
     }
 
 }
@@ -145,32 +149,40 @@ function checkBallCollision(pos1, pos2, radius) {
 
 function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
-    arena = new Arena();
+    let arena = new Arena();
     scene.add(arena);
 
+    var ball = new Ball();
+    var pos = ball.getPosition();
+    balls.push(ball);
+    balls_positions.push(pos);  
+    scene.add(ball);
 
-    console.log("ola");
-    let l = balls.length;
-    /*while(l < 10){
-        let ball = new Ball();
-        let pos = ball.getPosition();
-        for (let j = 0; j<balls_positions.length; j++){
-            console.log("antes collision");
-            let flag = checkBallCollision(pos,balls_positions[j]);
-            if (flag){
-                console.log("if");
+
+
+    
+
+    while(balls.length<num_balls){
+
+        ball = new Ball();
+        pos = ball.getPosition();
+
+
+        let tamanho = balls_positions.length;
+
+        colidiu=false;
+
+        for(let j = 0; j<tamanho; j++){
+
+            if (checkBallCollision(pos, balls_positions[j], ball.getRadius())){
+                colidiu = true;
                 break;
             }
-            else{
-                console.log("else");
-                balls.push(ball);
-                balls_positions.push(pos);
-                scene.add(ball);
-            }
         }
-        l = balls.length;
-    }*/
-
-    console.log("saiu");
-    
+        if(!colidiu){
+            balls.push(ball);
+            balls_positions.push(pos);
+            scene.add(ball);
+        }
+    }    
 }
