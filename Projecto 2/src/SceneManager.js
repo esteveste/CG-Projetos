@@ -3,12 +3,14 @@
 let chair, ball, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
+var balls_positions = [];
+var balls = [];
+
 function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
     this.FRONTVIEW=[0,50,100];
     this.SIDEVIEW=[100,0,0];
-
 
     var scene = new THREE.Scene();
 
@@ -87,7 +89,6 @@ function SceneManager() {
     };
 
     this.setupTrackball = function () {
-        console.log("tb");
         cameratrackball = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         cameratrackball.position.set(100, 100, 100);
         cameratrackball.lookAt(scene.position);
@@ -130,16 +131,46 @@ function createEventAnimate() {
     window.dispatchEvent(evt);
 }
 
+function checkBallCollision(pos1, pos2, radius) {
+    let dist = Math.sqrt((pos1[2] - pos2[2])**2 + (pos1[0] - pos2[0])**2);
+    if (radius*2 > dist){
+        return True;
+    }  
+    else{
+        return False;
+    }
+
+}
+
 
 function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
     arena = new Arena();
-
-    for (let i=0; i<10; i++){
-        ball = new Ball();
-        scene.add(ball);
-    }
-
     scene.add(arena);
+
+
+    console.log("ola");
+    let l = balls.length;
+    /*while(l < 10){
+        let ball = new Ball();
+        let pos = ball.getPosition();
+        for (let j = 0; j<balls_positions.length; j++){
+            console.log("antes collision");
+            let flag = checkBallCollision(pos,balls_positions[j]);
+            if (flag){
+                console.log("if");
+                break;
+            }
+            else{
+                console.log("else");
+                balls.push(ball);
+                balls_positions.push(pos);
+                scene.add(ball);
+            }
+        }
+        l = balls.length;
+    }*/
+
+    console.log("saiu");
     
 }

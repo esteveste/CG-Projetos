@@ -3,7 +3,7 @@
 var depth = 30;
 var width = depth*2;
 var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
-console.log(height);
+
 
 var arenabase_geo = [depth*2, 1,depth];
 var arenalat1_geo = [depth*2, height, 1];
