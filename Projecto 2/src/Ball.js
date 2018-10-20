@@ -1,7 +1,7 @@
 'use strict';
 //material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
-var deltaTime, velocity;
+var deltaTime, levelUpTime=0, collisionParameters=[];
 var depth = 30;
 var width = depth*2;
 var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
@@ -31,12 +31,15 @@ var Ball = function () {
 
     ball.position.set(this.x, this.y ,this.z);
     ball.rotation.y = Math.random()*360;
-    velocity = Math.random()*45;
+    let velocity = Math.random()*5;
+    let accel = Math.random()*0.1;
+    let vectorVelocity=new THREE.Vector3()
+    ball.getWorldDirection(vectorVelocity);
     this.add(ball);
 
 
     this.getPosition=function (){
-        return [this.x, this.y, this.z]
+        return [this.x, this.y, this.z];
     }
 
     this.setPosition=function (x1, z1){
@@ -46,12 +49,25 @@ var Ball = function () {
     this.getRadius=function(){
         return radius;
     }
+
+    this.getVelocityVector=function(){
+        return vectorVelocity;
+    }
+
+    this.setCollision=function(ballCollVel, ballCollPos){
+        let v1minusv2 = vectorVelocity.add(-ballCollVel);
+        let c1minusc2 = new THREE.Vector3(this.x - ballCollPos[0],this.y - ballCollPos[1],this.z - ballCollPos[2]);
+        let c1c2norm = Math.sqrt((this.x - ballCollPos[0])**2 + (this.y - ballCollPos[1])**2 + (this.z - ballCollPos[2])**2)**2;
+        let calc1 = v1minusv2.dot(c1minusc2);
+        vectorVelocity = c1minusc2.multiplyScalar((calc1/c1c2norm));
+    }
   
     this.animate=function(){
-        deltaTime = clock.getDelta();
-        let direction = new THREE.Vector3();
-        this.getWorldDirection(direction);
-        this.position.add(direction.multiplyScalar(velocity));
+        deltaTime=clock.getDelta();
+        levelUpTime+=deltaTime;
+        if (levelUpTime >= 5)
+            velocity+=levelUpTime*accel;
+        ball.position.add(vectorVelocity);
     }
 
     window.addEventListener('animate', this.animate);

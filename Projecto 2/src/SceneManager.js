@@ -63,9 +63,24 @@ function SceneManager() {
 
     };
 
+    this.collisionAnimate=()=>{
+        for(let i=0; i<balls.length; i++){
+            for(let j=i+1; j<balls.length; j++){
+                if(checkBallCollision(balls[i].getPosition(), balls[j].getPosition(), balls[i].getRadius())){
+                    console.log("imin");
+                    balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
+                    balls[j].setCollision(balls[i].getVelocityVector(), balls[i].getPosition());
+                }
+            }
+        }
+        requestAnimationFrame(this.collisionAnimate);
+    }
+
     clock = new THREE.Clock();
     clock.start();
+
     this.animate();
+    this.collisionAnimate();
 
     this.onResize=function (){
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -157,10 +172,6 @@ function sceneSetup(scene) {
     balls.push(ball);
     balls_positions.push(pos);  
     scene.add(ball);
-
-
-
-    
 
     while(balls.length<num_balls){
 
