@@ -1,6 +1,7 @@
 'use strict';
 //material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
+var deltaTime, velocity;
 var depth = 30;
 var width = depth*2;
 var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
@@ -30,6 +31,7 @@ var Ball = function () {
 
     ball.position.set(this.x, this.y ,this.z);
     ball.rotation.y = Math.random()*360;
+    velocity = Math.random()*45;
     this.add(ball);
 
 
@@ -45,7 +47,14 @@ var Ball = function () {
         return radius;
     }
   
+    this.animate=function(){
+        deltaTime = clock.getDelta();
+        let direction = new THREE.Vector3();
+        this.getWorldDirection(direction);
+        this.position.add(direction.multiplyScalar(velocity));
+    }
 
+    window.addEventListener('animate', this.animate);
 };
 
 
