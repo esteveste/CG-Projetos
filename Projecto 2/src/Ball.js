@@ -68,6 +68,8 @@ var Ball = function () {
         levelUpTime+=deltaTime;
         if (levelUpTime >= 5)
             velocity+=levelUpTime*accel;
+        if (ball.position.x >= 30 || ball.position.x <= -30 || ball.position.z >= 15 || ball.position.z <= -15)
+            vectorVelocity.multiplyScalar(-1);
         ball.position.add(vectorVelocity);
         //console.log(ball.position);
     }
