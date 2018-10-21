@@ -151,7 +151,7 @@ function createEventAnimate() {
 }
 
 function checkBallCollision(pos1, pos2, radius) {
-    let dist = Math.sqrt(((pos1[2] - pos2[2])**2) + ((pos1[0] - pos2[0])**2));
+    let dist = Math.sqrt(((pos1.z - pos2.z)**2) + ((pos1.x - pos2.x)**2));
     if (radius*2 > dist){
         return true;
     }  
@@ -168,31 +168,30 @@ function sceneSetup(scene) {
     scene.add(arena);
 
     var ball = new Ball();
-    var pos = ball.getPosition();
+    //var pos = ball.getPosition();
     balls.push(ball);
-    balls_positions.push(pos);  
+    //balls_positions.push(pos);  
     scene.add(ball);
 
     while(balls.length<num_balls){
 
         ball = new Ball();
-        pos = ball.getPosition();
+        let pos = ball.getPosition();
 
-
-        let tamanho = balls_positions.length;
+        let tamanho = balls.length;
 
         colidiu=false;
 
         for(let j = 0; j<tamanho; j++){
 
-            if (checkBallCollision(pos, balls_positions[j], ball.getRadius())){
+            if (checkBallCollision(pos, balls[j].getPosition(), ball.getRadius())){
                 colidiu = true;
                 break;
             }
         }
         if(!colidiu){
             balls.push(ball);
-            balls_positions.push(pos);
+            //balls_positions.push(pos);
             scene.add(ball);
         }
     }    
