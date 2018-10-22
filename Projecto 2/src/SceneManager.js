@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 10;
+var num_balls = 2;
 
 function SceneManager() {
 
@@ -67,7 +67,21 @@ function SceneManager() {
         for(let i=0; i<balls.length; i++){
             for(let j=i+1; j<balls.length; j++){
                 if(checkBallCollision(balls[i].getPosition(), balls[j].getPosition(), balls[i].getRadius())){
-                    console.log("imin");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    console.log("A");
+                    balls[i].saveOldPosition();
+                    balls[j].saveOldPosition();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
                     balls[j].setCollision(balls[i].getVelocityVector(), balls[i].getPosition());
                 }
@@ -160,6 +174,11 @@ function checkBallCollision(pos1, pos2, radius) {
     }
 
 }
+
+/*function getBallIntersection(pos1, pos2, radius) {
+    let dist = Math.sqrt(((pos1.z - pos2.z)**2) + ((pos1.x - pos2.x)**2));
+    return ((radius*2) - dist)/2;
+}*/
 
 
 function sceneSetup(scene) {
