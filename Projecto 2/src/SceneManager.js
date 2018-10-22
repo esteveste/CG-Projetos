@@ -89,7 +89,7 @@ function SceneManager() {
         for(let i=0; i<balls.length; i++){
             for(let j=i+1; j<balls.length; j++){
                 if(checkBallCollision(balls[i].getPosition(), balls[j].getPosition(), balls[i].getRadius())){
-                    console.log("A");
+                    //console.log("A");
                     balls[i].saveOldPosition();
                     balls[j].saveOldPosition();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());

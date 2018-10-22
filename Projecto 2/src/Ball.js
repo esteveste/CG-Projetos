@@ -62,14 +62,14 @@ var Ball = function () {
     }
 
     this.setCollision=function(ballCollVel, ballCollPos){
-        let v1minusv2 = vectorVelocity.add(ballCollVel.multiplyScalar(-1));
+        let vectorVelocityTemp = vectorVelocity;
+        let v1minusv2 = vectorVelocityTemp.add(ballCollVel.multiplyScalar(-1));
         let c1minusc2 = new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
-        let c1c2norm = Math.sqrt((ball.position.x - ballCollPos.x)**2 + (ball.position.y - ballCollPos.y)**2 + (ball.position.z - ballCollPos.z)**2)**2;
+        let c1c2norm = (c1minusc2.length())**2;
         let calc1 = v1minusv2.dot(c1minusc2);
-        ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
         vectorVelocity.add(calcfinal.multiplyScalar(-1));
-        console.log(c1minusc2);
+        ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
     }
   
     this.animate=function(){
@@ -86,7 +86,7 @@ var Ball = function () {
         //console.log("old: ",old_position);
         //console.log("");
         ball.position.add(vectorVelocity);
-        console.log(ball.position);
+        //console.log(ball.position);
     }
 
     window.addEventListener('animate', this.animate);
