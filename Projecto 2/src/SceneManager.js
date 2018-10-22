@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 10;
+var num_balls = 2;
 
 function SceneManager() {
 
@@ -40,11 +40,37 @@ function SceneManager() {
     this.camera2.lookAt(scene.position);
     this.camera3.lookAt(scene.position);
 
+    this.onResize=()=>{
+        console.log("REZISE");
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    this.changeCamera = function (camera) {
+        let aspectRatio=window.innerWidth/window.innerHeight;
+        if(this.camera.type=="PerspectiveCamera"){
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+        }else {
+            if (aspectRatio > 1) {
+                this.camera.left = -aspectRatio * VIEW_SIZE / 2;
+                this.camera.right = aspectRatio * VIEW_SIZE / 2;
+                this.camera.top = VIEW_SIZE / 2;
+                this.camera.bottom = -VIEW_SIZE / 2;
+            } else {
+                this.camera.left = -VIEW_SIZE / 2;
+                this.camera.right = VIEW_SIZE / 2;
+                this.camera.top = VIEW_SIZE / (2 * aspectRatio);
+                this.camera.bottom = -VIEW_SIZE / (2 * aspectRatio);
+            }
+            this.camera.updateProjectionMatrix();
+        }
+
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    this.changeCamera = (camera) =>{
         TRACKBALL_CAMERA=false;
         this.camera = camera;
-
+        this.onResize();
         renderer.render(scene, this.camera);
     };
 
@@ -55,11 +81,7 @@ function SceneManager() {
 
         requestAnimationFrame(this.animate);
 
-        if(TRACKBALL_CAMERA){
-            renderer.render(scene, cameratrackball);
-        }else {
-            renderer.render(scene, this.camera);
-        }
+        renderer.render(scene, this.camera);
 
     };
 
@@ -67,6 +89,9 @@ function SceneManager() {
         for(let i=0; i<balls.length; i++){
             for(let j=i+1; j<balls.length; j++){
                 if(checkBallCollision(balls[i].getPosition(), balls[j].getPosition(), balls[i].getRadius())){
+                    console.log("A");
+                    balls[i].saveOldPosition();
+                    balls[j].saveOldPosition();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
                     balls[j].setCollision(balls[i].getVelocityVector(), balls[i].getPosition());
                 }
@@ -81,30 +106,7 @@ function SceneManager() {
     this.animate();
     this.collisionAnimate();
 
-    this.onResize=function (){
-        renderer.setSize(window.innerWidth, window.innerHeight);
 
-        let aspectRatio=window.innerWidth/window.innerHeight;
-        if(aspectRatio>1){
-            camera.left =-aspectRatio*VIEW_SIZE / 2;
-            camera.right = aspectRatio*VIEW_SIZE / 2;
-            camera.top = VIEW_SIZE / 2;
-            camera.bottom = -VIEW_SIZE / 2;
-        }else {
-            camera.left =-VIEW_SIZE / 2;
-            camera.right =VIEW_SIZE / 2;
-            camera.top = VIEW_SIZE / (2*aspectRatio);
-            camera.bottom = -VIEW_SIZE / (2*aspectRatio);
-        }
-        camera.updateProjectionMatrix();
-
-        //trackball update
-        cameratrackball.aspect = window.innerWidth / window.innerHeight;
-        cameratrackball.updateProjectionMatrix();
-
-
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    };
 
     this.setupTrackball = function () {
         cameratrackball = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -159,6 +161,11 @@ function checkBallCollision(pos1, pos2, radius) {
     }
 
 }
+
+/*function getBallIntersection(pos1, pos2, radius) {
+    let dist = Math.sqrt(((pos1.z - pos2.z)**2) + ((pos1.x - pos2.x)**2));
+    return ((radius*2) - dist)/2;
+}*/
 
 
 function sceneSetup(scene) {

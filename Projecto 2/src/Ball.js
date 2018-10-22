@@ -27,11 +27,14 @@ var Ball = function () {
     this.z = Math.random() * ((depth/2)-radius-0.5 - (-depth/2 + radius+0.5)) + (-depth/2 + radius+0.5);
     this.y = y;
 
+
     //Math.random() * (max - min) + min;
 
     ball.position.set(this.x, this.y ,this.z);
+    this.old_position = ball.position;
+
     ball.rotation.y = Math.random()*360;
-    let velocity = Math.random()*5;
+    let velocity = Math.random()*2;
     let accel = Math.random()*0.1;
     let vectorVelocity=new THREE.Vector3()
     ball.getWorldDirection(vectorVelocity);
@@ -54,11 +57,16 @@ var Ball = function () {
         return vectorVelocity;
     }
 
+    this.saveOldPosition=function(){
+        this.old_position = ball.position;
+    }
+
     this.setCollision=function(ballCollVel, ballCollPos){
         let v1minusv2 = vectorVelocity.add(ballCollVel.multiplyScalar(-1));
         let c1minusc2 = new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
         let c1c2norm = Math.sqrt((ball.position.x - ballCollPos.x)**2 + (ball.position.y - ballCollPos.y)**2 + (ball.position.z - ballCollPos.z)**2)**2;
         let calc1 = v1minusv2.dot(c1minusc2);
+        ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         vectorVelocity = c1minusc2.multiplyScalar((calc1/c1c2norm));
         console.log(c1minusc2);
     }
@@ -68,10 +76,16 @@ var Ball = function () {
         levelUpTime+=deltaTime;
         if (levelUpTime >= 5)
             velocity+=levelUpTime*accel;
-        if (ball.position.x >= 30 || ball.position.x <= -30 || ball.position.z >= 15 || ball.position.z <= -15)
-            vectorVelocity.multiplyScalar(-1);
+        if (ball.position.x >= 30 - radius || ball.position.x <= -30 + radius)
+            vectorVelocity.x *= -1;
+        if (ball.position.z >= 15 - radius || ball.position.z <= -15 + radius)
+            vectorVelocity.z *= -1;
+        //console.log("ball: ",ball.position);
+        //this.old_position = ball.position;
+        //console.log("old: ",old_position);
+        //console.log("");
         ball.position.add(vectorVelocity);
-        //console.log(ball.position);
+        console.log(ball.position);
     }
 
     window.addEventListener('animate', this.animate);

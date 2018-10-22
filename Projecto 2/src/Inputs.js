@@ -43,7 +43,7 @@ function Input() {
                 break;
             case 52:
                 //4
-                TRACKBALL_CAMERA=true;
+                sceneManager.changeCamera(cameratrackball);
             default: return;
         }
         e.preventDefault();
