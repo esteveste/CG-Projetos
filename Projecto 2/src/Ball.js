@@ -67,7 +67,8 @@ var Ball = function () {
         let c1c2norm = Math.sqrt((ball.position.x - ballCollPos.x)**2 + (ball.position.y - ballCollPos.y)**2 + (ball.position.z - ballCollPos.z)**2)**2;
         let calc1 = v1minusv2.dot(c1minusc2);
         ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
-        vectorVelocity = c1minusc2.multiplyScalar((calc1/c1c2norm));
+        let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
+        vectorVelocity.add(calcfinal.multiplyScalar(-1));
         console.log(c1minusc2);
     }
   
