@@ -84,8 +84,9 @@ var Ball = function () {
         let c1c2norm = (c1minusc2.length())**2;
         let calc1 = v1minusv2.dot(c1minusc2);
         let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
-        vectorVelocity.add(calcfinal.multiplyScalar(-1));
-
+        vectorVelocity=vectorVelocity.add(calcfinal.multiplyScalar(-1));
+        vectorVelocity.y=0;
+        console.log("vel",vectorVelocity);
         // var ang = Math.atan2(-ballCollPos.x + ball.position.x,-ballCollPos.z + ball.position.z);
         //
         // let d1 = Math.atan2(vectorVelocity.z, vectorVelocity.x); //ball 1 direction in angles
@@ -111,10 +112,12 @@ var Ball = function () {
         // vectorVelocity=new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
         // vectorVelocity=calcfinal.multiplyScalar(1);
         // console.log("old:"+this.old_position.x)
-
-
+        //
+        //
+        //
 
         this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
+        // this.position.add(vectorVelocity);
         // ball.position.add(vectorVelocity);
     }
   
@@ -136,6 +139,7 @@ var Ball = function () {
         let matrix = new THREE.Matrix4();
         matrix.makeRotationAxis(rotate_axis.normalize(),vectorVelocity.length()/ball_geo[0])
         // console.log(rotate_axis.normalize());
+        // console.log(matrix);
         ball.applyMatrix(matrix);
         // ball.rotateOnWorldAxis(rotate_axis.normalize(),0.05)
         // let rot=vectorVelocity.clone().divideScalar(ball_geo[0]);
