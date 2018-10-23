@@ -77,11 +77,17 @@ function SceneManager() {
     this.changeCamera(this.camera1);
 
     this.animate=()=>{
-        createEventAnimate();
+        //createEventAnimate();
+        balls.forEach(el=>{
+            el.animate();
+        })
 
+
+        this.collisionAnimate();
         requestAnimationFrame(this.animate);
 
         renderer.render(scene, this.camera);
+ 
 
     };
 
@@ -90,14 +96,13 @@ function SceneManager() {
             for(let j=i+1; j<balls.length; j++){
                 if(checkBallCollision(balls[i].getPosition(), balls[j].getPosition(), balls[i].getRadius())){
                     //console.log("A");
-                    balls[i].saveOldPosition();
-                    balls[j].saveOldPosition();
+                    //balls[i].saveOldPosition();
+                    //balls[j].saveOldPosition();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
                     balls[j].setCollision(balls[i].getVelocityVector(), balls[i].getPosition());
                 }
             }
         }
-        requestAnimationFrame(this.collisionAnimate);
     }
 
     clock = new THREE.Clock();
@@ -153,12 +158,7 @@ function createEventAnimate() {
 
 function checkBallCollision(pos1, pos2, radius) {
     let dist = Math.sqrt(((pos1.z - pos2.z)**2) + ((pos1.x - pos2.x)**2));
-    if (radius*2 > dist){
-        return true;
-    }  
-    else{
-        return false;
-    }
+    return radius*2 > dist;
 
 }
 
