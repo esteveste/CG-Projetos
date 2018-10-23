@@ -44,6 +44,10 @@ function Input() {
             case 52:
                 //4
                 sceneManager.changeCamera(cameratrackball);
+                break;
+            case 69:
+                //e
+                break;
             default: return;
         }
         e.preventDefault();

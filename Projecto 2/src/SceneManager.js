@@ -10,6 +10,8 @@ var colidiu =false;
 
 var num_balls = 4;
 
+
+
 function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
@@ -145,7 +147,11 @@ function SceneManager() {
     };
 
     this.changeWireframe=()=>{
-        table.changeWireframe();
+        arena.changeWireframe();
+        balls.forEach(el=>{
+            el.changeWireframe();
+        });
+
     };
 
     function trackballAnimate() {
@@ -187,7 +193,7 @@ function checkBallCollision(pos1, pos2, radius) {
 
 function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
-    let arena = new Arena();
+    arena = new Arena();
     scene.add(arena);
 
     var ball = new Ball();
