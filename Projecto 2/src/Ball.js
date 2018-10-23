@@ -72,7 +72,7 @@ var Ball = function () {
         let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
         vectorVelocity.add(calcfinal.multiplyScalar(-1));
         //vectorVelocity=new THREE.Vector3(0,0,0)
-        console.log("old:"+this.old_position.x)
+        // console.log("old:"+this.old_position.x)
         ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         //ball.position.add(vectorVelocity);
     }
@@ -82,16 +82,16 @@ var Ball = function () {
         levelUpTime+=deltaTime;
         if (levelUpTime >= 5)
             velocity+=levelUpTime*accel;
-        if (ball.position.x >= 30 - radius - 0.5 || ball.position.x <= -30 + radius + 0.5)
+        if ((ball.position.x >= 30 - radius - 0.5 && vectorVelocity.x>0) || ( ball.position.x <= -30 + radius + 0.5 && vectorVelocity.x<0))
             vectorVelocity.x *= -1;
-        if (ball.position.z >= 15 - radius - 0.5 || ball.position.z <= -15 + radius + 0.5)
+        if ((ball.position.z >= 15 - radius - 0.5 && vectorVelocity.z>0)|| (ball.position.z <= -15 + radius + 0.5 && vectorVelocity.z<0))
             vectorVelocity.z *= -1;
         //console.log("ball: ",ball.position);
         this.old_position = ball.position.clone();
         //console.log("old: ",old_position);
         //console.log("");
         ball.position.add(vectorVelocity);
-        console.log("new"+ball.position.x);
+        // console.log("new"+ball.position.x);
     }
 
     //window.addEventListener('animate', this.animate);
