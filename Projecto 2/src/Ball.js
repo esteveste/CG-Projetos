@@ -8,7 +8,7 @@ var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
 var radius = height/2;
 var y = height/2 + 0.5;
 
-let ball_geo = [radius, 32, 32];
+let ball_geo = [radius, 10, 5];
 
 /*var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false,
     accelRotLeft = 0.05,accelRotRight = 0.05, accelPosZ = 0.15, accelNegZ = 0.15,
@@ -30,24 +30,25 @@ var Ball = function () {
 
     //Math.random() * (max - min) + min;
 
-    ball.position.set(this.x, this.y ,this.z);
-    this.old_position = ball.position;
+    this.position.set(this.x, this.y ,this.z);
+    this.old_position = this.position;
 
-    ball.rotation.y = Math.random()*360;
+    ball.rotateY(Math.random()*360);
     let velocity = Math.random()*2;
     let accel = Math.random()*0.1;
-    let vectorVelocity=new THREE.Vector3()
+    let vectorVelocity=new THREE.Vector3();
     ball.getWorldDirection(vectorVelocity);
+    vectorVelocity.multiplyScalar(0.1);
     this.add(ball);
-    ball.add(new THREE.AxesHelper(10))
+    this.add(new THREE.AxesHelper(10))
 
 
     this.getPosition=function (){
-        return ball.position;
+        return this.position;
     }
 
     this.setPosition=function (x1, z1){
-        ball.position.set(x1, this.y, z1);
+        this.position.set(x1, this.y, z1);
     }
 
     this.getRadius=function(){
@@ -59,7 +60,7 @@ var Ball = function () {
     }
 
     this.saveOldPosition=function(){
-        this.old_position = ball.position;
+        this.old_position = this.position;
     }
 
     this.setCollision=(ballCollVel, ballCollPos)=>{
@@ -112,7 +113,7 @@ var Ball = function () {
 
 
 
-        ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
+        this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         // ball.position.add(vectorVelocity);
     }
   
@@ -121,15 +122,24 @@ var Ball = function () {
         levelUpTime+=deltaTime;
         if (levelUpTime >= 5)
             velocity+=levelUpTime*accel;
-        if ((ball.position.x >= 30 - radius - 0.5 && vectorVelocity.x>0) || ( ball.position.x <= -30 + radius + 0.5 && vectorVelocity.x<0))
+        if ((this.position.x >= 30 - radius - 0.5 && vectorVelocity.x>0) || ( this.position.x <= -30 + radius + 0.5 && vectorVelocity.x<0))
             vectorVelocity.x *= -1;
-        if ((ball.position.z >= 15 - radius - 0.5 && vectorVelocity.z>0)|| (ball.position.z <= -15 + radius + 0.5 && vectorVelocity.z<0))
+        if ((this.position.z >= 15 - radius - 0.5 && vectorVelocity.z>0)|| (this.position.z <= -15 + radius + 0.5 && vectorVelocity.z<0))
             vectorVelocity.z *= -1;
         //console.log("ball: ",ball.position);
-        this.old_position = ball.position.clone();
+        this.old_position = this.position.clone();
         //console.log("old: ",old_position);
         //console.log("");
-        ball.position.add(vectorVelocity);
+        this.position.add(vectorVelocity);
+        // let rot=vectorVelocity.clone().divideScalar(ball_geo[0]);
+        // console.log(ball.rotation)
+        // console.log(rot)
+        // ball.rotateOnAxis(rot);
+        // ball.rotation.x-=rot.x;
+        // ball.rotateZ((vectorVelocity.z)/ball_geo[0]);
+        // ball.rotateX((vectorVelocity.x)/ball_geo[0]);
+        // ball.rotation.z-=rot.z;
+
         // console.log("new"+ball.position.x);
     }
 
