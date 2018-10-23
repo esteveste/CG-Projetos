@@ -47,6 +47,7 @@ function Input() {
                 break;
             case 69:
                 //e
+                sceneManager.changeAxes();
                 break;
             default: return;
         }

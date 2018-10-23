@@ -2,6 +2,7 @@ var GraphicalEntity = function () {
     THREE.Group.call(this);
 
     this.materialWireframe=false;
+    this.axes = false;
 };
 GraphicalEntity.prototype = Object.create(THREE.Group.prototype);
 
@@ -15,3 +16,5 @@ GraphicalEntity.prototype.changeWireframe= function() {
 
     this.materialWireframe=!this.materialWireframe;
 };
+
+

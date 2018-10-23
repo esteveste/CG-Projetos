@@ -10,6 +10,8 @@ var colidiu =false;
 
 var num_balls = 4;
 
+var axes=false;
+
 
 
 function SceneManager() {
@@ -18,6 +20,8 @@ function SceneManager() {
     this.FRONTVIEW=[0,50,100];
     this.SIDEVIEW=[100,0,0];
     this.CAMERA_POS = new THREE.Vector3(20, 20, 20);
+
+    
 
     var scene = new THREE.Scene();
 
@@ -152,6 +156,20 @@ function SceneManager() {
             el.changeWireframe();
         });
 
+    };
+
+    this.changeAxes=()=>{
+        if(!axes){
+            balls.forEach(el=>{
+                el.showAxes();
+            });
+        }
+        else{
+            balls.forEach(el=>{
+                el.hideAxes();
+            });
+        }
+        axes = !axes;
     };
 
     function trackballAnimate() {

@@ -10,6 +10,8 @@ var y = height/2 + 0.5;
 
 let ball_geo = [radius, 10, 5];
 
+//var axes = new THREE.AxesHelper(10);
+
 /*var deltaTime, rotateRight = false, rotateLeft = false, moveForward = false, moveBackward = false,
     accelRotLeft = 0.05,accelRotRight = 0.05, accelPosZ = 0.15, accelNegZ = 0.15,
     vleft=0, vright=0, vforward=0, vbackward=0;*/
@@ -27,6 +29,7 @@ var Ball = function () {
     this.z = Math.random() * ((depth/2)-radius-0.5 - (-depth/2 + radius+0.5)) + (-depth/2 + radius+0.5);
     this.y = y;
 
+    this.axes = new THREE.AxesHelper(10);    
 
     //Math.random() * (max - min) + min;
 
@@ -40,8 +43,11 @@ var Ball = function () {
 
     ball.getWorldDirection(vectorVelocity);
     vectorVelocity.multiplyScalar(0.1);
+
+    ball.add(this.axes);
     this.add(ball);
-    ball.add(new THREE.AxesHelper(10))
+    
+
 
 
     this.getPosition=function (){
@@ -63,6 +69,16 @@ var Ball = function () {
     this.saveOldPosition=function(){
         this.old_position = this.position;
     }
+
+    this.showAxes=function(){
+        this.ball.add(axes);
+    }
+
+    this.hideAxes=function(){
+        ball.remove(axes);
+    }
+
+
 
     this.setCollision=(ballCollVel, ballCollPos)=>{
 
