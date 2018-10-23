@@ -115,7 +115,7 @@ var Ball = function () {
 
 
         this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
-        // ball.position.add(vectorVelocity);
+        ball.position.add(vectorVelocity);
     }
   
     this.animate=()=>{
@@ -131,7 +131,9 @@ var Ball = function () {
         this.old_position = this.position.clone();
         //console.log("old: ",old_position);
         //console.log("");
+        vectorVelocity.y=0;
         this.position.add(vectorVelocity);
+        console.log(vectorVelocity);
         let rotate_axis=vectorVelocity.clone().cross(new THREE.Vector3(0,1,0));
         let matrix = new THREE.Matrix4();
         matrix.makeRotationAxis(rotate_axis.normalize(),vectorVelocity.length()/ball_geo[0])
