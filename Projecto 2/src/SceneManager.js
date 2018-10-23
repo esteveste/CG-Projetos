@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 10;
+var num_balls = 2;
 
 function SceneManager() {
 
@@ -98,8 +98,11 @@ function SceneManager() {
                     //console.log("A");
                     //balls[i].saveOldPosition();
                     //balls[j].saveOldPosition();
+                    console.log("sup")
+                    let vel=balls[i].getVelocityVector().clone();
+                    let pos=balls[i].getPosition().clone();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
-                    balls[j].setCollision(balls[i].getVelocityVector(), balls[i].getPosition());
+                    balls[j].setCollision(vel, pos);
                 }
             }
         }
@@ -109,7 +112,7 @@ function SceneManager() {
     clock.start();
 
     this.animate();
-    this.collisionAnimate();
+    // this.collisionAnimate();
 
 
 
