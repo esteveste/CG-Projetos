@@ -71,11 +71,11 @@ var Ball = function () {
     }
 
     this.showAxes=function(){
-        this.ball.add(axes);
+        ball.add(this.axes);
     }
 
     this.hideAxes=function(){
-        ball.remove(axes);
+        ball.remove(this.axes);
     }
 
 
