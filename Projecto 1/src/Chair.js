@@ -44,6 +44,7 @@ var Chair = function () {
         chairWheelSupp.position.set(0, -12, 0);
         this.chairBottomGroup.add(chairWheelSupp);
 
+
     }
 
     this.chairWheelArray=[];
@@ -53,6 +54,7 @@ var Chair = function () {
         var chairWheel = new THREE.Mesh(cwgeo, material);
         chairWheel.position.set(wheelPosArray[i][0], wheelPosArray[i][1], wheelPosArray[i][2]);
         chairWheel.rotateY(Math.PI / 2);
+        chairWheel.add(new THREE.AxisHelper(10));
         this.chairBottomGroup.add(chairWheel);
         this.chairWheelArray.push(chairWheel);
     }

@@ -37,10 +37,11 @@ var Ball = function () {
     let velocity = Math.random()*2;
     let accel = Math.random()*0.1;
     let vectorVelocity=new THREE.Vector3();
+
     ball.getWorldDirection(vectorVelocity);
     vectorVelocity.multiplyScalar(0.1);
     this.add(ball);
-    this.add(new THREE.AxesHelper(10))
+    ball.add(new THREE.AxesHelper(10))
 
 
     this.getPosition=function (){
@@ -131,6 +132,12 @@ var Ball = function () {
         //console.log("old: ",old_position);
         //console.log("");
         this.position.add(vectorVelocity);
+        let rotate_axis=vectorVelocity.clone().cross(new THREE.Vector3(0,1,0));
+        let matrix = new THREE.Matrix4();
+        matrix.makeRotationAxis(rotate_axis.normalize(),vectorVelocity.length()/ball_geo[0])
+        // console.log(rotate_axis.normalize());
+        ball.applyMatrix(matrix);
+        // ball.rotateOnWorldAxis(rotate_axis.normalize(),0.05)
         // let rot=vectorVelocity.clone().divideScalar(ball_geo[0]);
         // console.log(ball.rotation)
         // console.log(rot)
@@ -139,6 +146,7 @@ var Ball = function () {
         // ball.rotateZ((vectorVelocity.z)/ball_geo[0]);
         // ball.rotateX((vectorVelocity.x)/ball_geo[0]);
         // ball.rotation.z-=rot.z;
+        // ball.rotateAround()
 
         // console.log("new"+ball.position.x);
     }
