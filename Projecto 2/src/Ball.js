@@ -85,7 +85,7 @@ var Ball = function () {
         let calc1 = v1minusv2.dot(c1minusc2);
         let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
         vectorVelocity.add(calcfinal.multiplyScalar(-1));
-
+        vectorVelocity.y=0;
         // var ang = Math.atan2(-ballCollPos.x + ball.position.x,-ballCollPos.z + ball.position.z);
         //
         // let d1 = Math.atan2(vectorVelocity.z, vectorVelocity.x); //ball 1 direction in angles
@@ -131,7 +131,7 @@ var Ball = function () {
         this.old_position = this.position.clone();
         //console.log("old: ",old_position);
         //console.log("");
-        vectorVelocity.y=0;
+
         this.position.add(vectorVelocity);
         console.log(vectorVelocity);
         let rotate_axis=vectorVelocity.clone().cross(new THREE.Vector3(0,1,0));
