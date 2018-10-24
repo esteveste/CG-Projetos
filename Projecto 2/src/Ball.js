@@ -86,6 +86,7 @@ var Ball = function () {
 
         //let l  = vectorVelocity.length();
         vectorVelocity=ballCollVel.clone();
+        this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         //vectorVelocity.normalize();
         //vectorVelocity.multiplyScalar(l);
 
