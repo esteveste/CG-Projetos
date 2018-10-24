@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 1;
+var num_balls = 4;
 
 var axes=false;
 

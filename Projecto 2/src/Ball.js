@@ -86,11 +86,18 @@ var Ball = function () {
     this.setCollision=(ballCollVel, ballCollPos)=>{
 
 
-        //let l  = vectorVelocity.length();
+        /*//let l  = vectorVelocity.length();
         vectorVelocity=ballCollVel.clone();
         this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
         //vectorVelocity.normalize();
-        //vectorVelocity.multiplyScalar(l);
+        //vectorVelocity.multiplyScalar(l);*/
+
+
+        let l = vectorVelocity.length();
+        let vv = new THREE.Vector3(this.position.x - ballCollPos.x, this.position.y - ballCollPos.y, this.position.z - ballCollPos.z);
+        vv.normalize();
+        vv.multiplyScalar(l);
+        vectorVelocity = vv.clone();
 
     }
   
