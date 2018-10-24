@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 10;
+var num_balls = 1;
 
 var axes=false;
 
@@ -19,7 +19,7 @@ function SceneManager() {
     this.TOPVIEW=[0,100,0];
     this.FRONTVIEW=[0,50,100];
     this.SIDEVIEW=[100,0,0];
-    this.CAMERA_POS = new THREE.Vector3(20, 20, 20);
+    this.CAMERA_POS = new THREE.Vector3(0, 40, 0);
 
     
 
@@ -93,8 +93,11 @@ function SceneManager() {
         this.collisionAnimate();
 
         let ball_pos = balls[0].position.clone();
-        // console.log(ball_pos);
+        let vv = balls[0].getVelocityVector();
+        vv.normalize().multiplyScalar(-10);
+        //console.log(vv);
         ball_pos.add(this.CAMERA_POS);
+        ball_pos.add(vv);
 
         // console.log(ball_pos);
         //console.log(camerapos);

@@ -65,7 +65,7 @@ var Ball = function () {
     }
 
     this.getVelocityVector=function(){
-        return vectorVelocity;
+        return vectorVelocity.clone();
     }
 
     this.saveOldPosition=function(){
@@ -79,6 +79,7 @@ var Ball = function () {
     this.hideAxes=function(){
         ball.remove(this.axes);
     }
+
 
 
 
