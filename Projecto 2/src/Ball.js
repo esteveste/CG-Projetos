@@ -83,60 +83,12 @@ var Ball = function () {
 
     this.setCollision=(ballCollVel, ballCollPos)=>{
 
-        // let direction =new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
-        // let vel=ballCollVel.clone().add(vectorVelocity.clone().multiplyScalar(-1));
-        // // let dotProd = vel.clone();
-        // let d=vel.dot(direction);
-        // // console.log(d);
-        // if(d<=0){
-        //     console.log("sai");
-        //     return;
-        // }
 
-        //ball.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
-
-        // let vectorVelocityTemp = vectorVelocity.clone();
-        // let v1minusv2 = vectorVelocityTemp.add(ballCollVel.multiplyScalar(-1));
-        // let c1minusc2 = new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
-        // let c1c2norm = (c1minusc2.length())**2;
-        // let calc1 = v1minusv2.dot(c1minusc2);
-        // let calcfinal = c1minusc2.multiplyScalar((calc1/c1c2norm));
-        // vectorVelocity.add(calcfinal.multiplyScalar(-1));
-        // vectorVelocity.y=0;
-
-        // var ang = Math.atan2(ballCollPos.z - ball.position.z,ballCollPos.x - ball.position.x);
-        //
-        // let d1 = Math.atan2(vectorVelocity.z, vectorVelocity.x); //ball 1 direction in angles
-        // let d2 = Math.atan2(ballCollVel.z, ballCollVel.x); //ball 2 direction in angles
-        //
-        // var v1 = vectorVelocity.length();
-        // var v2 = ballCollVel.clone().length();
-        //
-        // let v1_lx=v2*Math.cos(d2-ang)*Math.cos(ang) + v1*Math.sin(d1-ang)*Math.sin(ang);
-        // let v1_lz=v2*Math.cos(d2-ang)*Math.sin(ang) + v1*Math.sin(d1-ang)*Math.cos(ang);
-        // vectorVelocity=new THREE.Vector3(v1_lx,0,v1_lz);
-
-        
+        //let l  = vectorVelocity.length();
         vectorVelocity=ballCollVel.clone();
+        //vectorVelocity.normalize();
+        //vectorVelocity.multiplyScalar(l);
 
-        //  direction =new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
-        // vel=ballCollVel.clone().add(vectorVelocity.multiplyScalar(-1));
-        // // let dotProd = vel.clone();
-        //  d=vel.dot(direction);
-        // // console.log(d);
-        // if(d<=0){
-        //     console.log("A velocidade esta mal")
-        // }
-
-
-        // vectorVelocity=new THREE.Vector3(ball.position.x - ballCollPos.x,ball.position.y - ballCollPos.y,ball.position.z - ballCollPos.z);
-        // vectorVelocity=calcfinal.multiplyScalar(1);
-        // console.log("old:"+this.old_position.x)
-
-
-
-        // this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
-        // ball.position.add(vectorVelocity);
     }
   
     this.animate=()=>{
