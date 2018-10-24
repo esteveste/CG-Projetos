@@ -24,6 +24,7 @@ var Ball = function () {
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, material);
+    this.ball=ball;
 
     this.x = Math.random() * ((width/2)-radius-0.5 - (-width/2 + radius+0.5)) + (-width/2 + radius+0.5);
     this.z = Math.random() * ((depth/2)-radius-0.5 - (-depth/2 + radius+0.5)) + (-depth/2 + radius+0.5);
@@ -110,7 +111,7 @@ var Ball = function () {
         this.old_position = this.position.clone();
         //console.log("old: ",old_position);
         //console.log("");
-        console.log(vectorVelocity);
+        // console.log(vectorVelocity);
         this.position.add(vectorVelocity);
         let rotate_axis=vectorVelocity.clone().cross(new THREE.Vector3(0,1,0));
         let matrix = new THREE.Matrix4();
