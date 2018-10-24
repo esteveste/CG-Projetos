@@ -39,7 +39,7 @@ var Ball = function () {
     // ball.rotateY(Math.random()*360);
     // ball.rotateX(Math.random()*360);
     let velocity = Math.random()*2;
-    let accel = Math.random()*0.1;
+    let accel = Math.random()*0.0001;
     let vectorVelocity=new THREE.Vector3(Math.random(),0,Math.random());
 
     // ball.getWorldDirection(vectorVelocity);
@@ -94,8 +94,13 @@ var Ball = function () {
     this.animate=()=>{
         deltaTime=clock.getDelta();
         levelUpTime+=deltaTime;
-        if (levelUpTime >= 5)
-            velocity+=levelUpTime*accel;
+        if (levelUpTime >= 0.5){
+            let norm = vectorVelocity.clone().length();
+            vectorVelocity.normalize();
+            norm += accel;
+            vectorVelocity.multiplyScalar(norm);
+        }
+
         if ((this.position.x >= 30 - radius - 0.5 && vectorVelocity.x>0) || ( this.position.x <= -30 + radius + 0.5 && vectorVelocity.x<0))
             vectorVelocity.x *= -1;
         if ((this.position.z >= 15 - radius - 0.5 && vectorVelocity.z>0)|| (this.position.z <= -15 + radius + 0.5 && vectorVelocity.z<0))
