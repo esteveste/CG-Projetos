@@ -8,7 +8,7 @@ var balls = [];
 
 var colidiu =false;
 
-var num_balls = 4;
+var num_balls = 2;
 
 var axes=false;
 
@@ -93,10 +93,10 @@ function SceneManager() {
         this.collisionAnimate();
 
         let ball_pos = balls[0].position.clone();
-        console.log(ball_pos);
+        // console.log(ball_pos);
         ball_pos.add(this.CAMERA_POS);
 
-        console.log(ball_pos);
+        // console.log(ball_pos);
         //console.log(camerapos);
         this.camera3.position.set(ball_pos.x , ball_pos.y, ball_pos.z);
         this.camera3.lookAt(balls[0].position);
@@ -227,7 +227,7 @@ function sceneSetup(scene) {
 
         let tamanho = balls.length;
 
-        colidiu=false;
+        let colidiu=false;
 
         for(let j = 0; j<tamanho; j++){
 
