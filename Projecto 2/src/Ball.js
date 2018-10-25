@@ -96,9 +96,9 @@ var Ball = function () {
             vectorVelocity.multiplyScalar(norm);
         }
 
-        if ((this.position.x >= 30 - radius - 0.5 && vectorVelocity.x>0) || ( this.position.x <= -30 + radius + 0.5 && vectorVelocity.x<0))
+        if ((this.position.x >= arenaLat2PosArray[1][0] - radius - arenalat2_geo[0]/2 && vectorVelocity.x>0) || ( this.position.x <= arenaLat2PosArray[0][0] + radius + arenalat2_geo[0]/2 && vectorVelocity.x<0))
             vectorVelocity.x *= -1;
-        if ((this.position.z >= 15 - radius - 0.5 && vectorVelocity.z>0)|| (this.position.z <= -15 + radius + 0.5 && vectorVelocity.z<0))
+        if ((this.position.z >= arenaLat1PosArray[0][2] - radius - arenalat1_geo[2]/2 && vectorVelocity.z>0)|| (this.position.z <= arenaLat1PosArray[1][2] + radius + arenalat1_geo[2]/2 && vectorVelocity.z<0))
             vectorVelocity.z *= -1;
 
 
