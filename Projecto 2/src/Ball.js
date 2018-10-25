@@ -8,13 +8,13 @@ var height = 0.1*(Math.sqrt((width**2)+(depth**2)));
 var radius = height/2;
 var y = height/2 + 0.5;
 
-let ball_geo = [radius, 10, 5];
+let ball_geo = [radius, 10, 10];
 
 
 var Ball = function () {
     GraphicalEntity.call(this);
 
-    let material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+    let material = new THREE.MeshBasicMaterial({ color: Math.random()*0xFFFFFF<<0, wireframe: true });
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, material);

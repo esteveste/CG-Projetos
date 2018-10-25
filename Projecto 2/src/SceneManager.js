@@ -3,10 +3,7 @@
 let chair, ball, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
-var balls_positions = [];
 var balls = [];
-
-var colidiu =false;
 
 var num_balls = 10;
 
@@ -28,10 +25,9 @@ function SceneManager() {
     sceneSetup(scene);
 
     var renderer = new THREE.WebGLRenderer({ antialias: true });
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    
+
     let aspectRatio=window.innerWidth/ window.innerHeight;
 
     this.camera1 = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
