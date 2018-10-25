@@ -93,12 +93,19 @@ var Ball = function () {
         //vectorVelocity.multiplyScalar(l);*/
 
 
-        let l = vectorVelocity.length();
+        // let l = ballCollVel.length();
         let vv = new THREE.Vector3(this.position.x - ballCollPos.x, this.position.y - ballCollPos.y, this.position.z - ballCollPos.z);
-        vv.add(ballCollVel);
-        vv.normalize();
-        vv.multiplyScalar(l);
-        vectorVelocity = vv.clone();
+        // vv.add(vectorVelocity);
+        // vv.setLength(l);
+        // vectorVelocity = vv.clone();
+        let norm =vv.length()**2;
+        let v1v2 = vectorVelocity.clone().sub(ballCollVel);
+        let dot=v1v2.clone().dot(vv);
+        let fraq=dot/norm;
+        let mul=vv.clone().multiplyScalar(fraq);
+        vectorVelocity.sub(mul);
+        this.position.set(this.old_position.x, this.old_position.y, this.old_position.z);
+
 
     }
   
