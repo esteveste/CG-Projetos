@@ -95,6 +95,7 @@ var Ball = function () {
 
         let l = vectorVelocity.length();
         let vv = new THREE.Vector3(this.position.x - ballCollPos.x, this.position.y - ballCollPos.y, this.position.z - ballCollPos.z);
+        vv.add(ballCollVel);
         vv.normalize();
         vv.multiplyScalar(l);
         vectorVelocity = vv.clone();
