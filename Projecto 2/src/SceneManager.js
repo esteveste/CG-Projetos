@@ -3,12 +3,9 @@
 let chair, ball, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
-var balls_positions = [];
 var balls = [];
 
-var colidiu =false;
-
-var num_balls = 2;
+var num_balls = 10;
 
 var axes=false;
 
@@ -28,11 +25,9 @@ function SceneManager() {
     sceneSetup(scene);
 
     var renderer = new THREE.WebGLRenderer({ antialias: true });
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // this.canvas = document.getElementsByTagName( 'canvas' );
     let aspectRatio=window.innerWidth/ window.innerHeight;
 
     this.camera1 = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
@@ -83,8 +78,10 @@ function SceneManager() {
 
     this.changeCamera(this.camera1);
 
+
+    balls[0].add(this.camera3);
+
     this.animate=()=>{
-        //createEventAnimate();
         balls.forEach(el=>{
             el.animate();
         })
@@ -92,17 +89,15 @@ function SceneManager() {
 
         this.collisionAnimate();
 
-        let ball_pos = balls[0].position.clone();
-        let vv = balls[0].getVelocityVector();
-        vv.normalize().multiplyScalar(-10);
-        //console.log(vv);
-        ball_pos.add(this.CAMERA_POS);
-        ball_pos.add(vv);
-
-        // console.log(ball_pos);
-        //console.log(camerapos);
-        this.camera3.position.set(ball_pos.x , ball_pos.y, ball_pos.z);
-        this.camera3.lookAt(balls[0].position);
+        // let ball_pos = balls[0].position.clone();
+        // let vv = balls[0].getVelocityVector();
+        // vv.normalize().multiplyScalar(-10);
+        //
+        // ball_pos.add(this.CAMERA_POS);
+        // ball_pos.add(vv);
+        //
+        // this.camera3.position.set(ball_pos.x , ball_pos.y, ball_pos.z);
+        // this.camera3.lookAt(balls[0].position);
  
 
 
@@ -121,7 +116,7 @@ function SceneManager() {
                     //console.log("A");
                     //balls[i].saveOldPosition();
                     //balls[j].saveOldPosition();
-                    console.log("sup")
+                    // console.log("sup")
                     let vel=balls[i].getVelocityVector().clone();
                     let pos=balls[i].getPosition().clone();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
@@ -206,21 +201,13 @@ function checkBallCollision(pos1, pos2, radius) {
 
 }
 
-/*function getBallIntersection(pos1, pos2, radius) {
-    let dist = Math.sqrt(((pos1.z - pos2.z)**2) + ((pos1.x - pos2.x)**2));
-    return ((radius*2) - dist)/2;
-}*/
-
-
 function sceneSetup(scene) {
     scene.add(new THREE.AxesHelper(10));
     arena = new Arena();
     scene.add(arena);
 
     var ball = new Ball();
-    //var pos = ball.getPosition();
     balls.push(ball);
-    //balls_positions.push(pos);  
     scene.add(ball);
 
     while(balls.length<num_balls){
@@ -241,7 +228,6 @@ function sceneSetup(scene) {
         }
         if(!colidiu){
             balls.push(ball);
-            //balls_positions.push(pos);
             scene.add(ball);
         }
     }    
