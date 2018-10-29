@@ -143,5 +143,8 @@ function createEventAnimate() {
 
 
 function sceneSetup(scene) {
+    let plane = new Plane();
+    scene.add(plane);
+    scene.add(new THREE.AxisHelper(10))
 
 }
