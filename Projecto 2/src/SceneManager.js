@@ -78,6 +78,9 @@ function SceneManager() {
 
     this.changeCamera(this.camera1);
 
+
+    balls[0].add(this.camera3);
+
     this.animate=()=>{
         balls.forEach(el=>{
             el.animate();
@@ -86,15 +89,15 @@ function SceneManager() {
 
         this.collisionAnimate();
 
-        let ball_pos = balls[0].position.clone();
-        let vv = balls[0].getVelocityVector();
-        vv.normalize().multiplyScalar(-10);
-
-        ball_pos.add(this.CAMERA_POS);
-        ball_pos.add(vv);
-
-        this.camera3.position.set(ball_pos.x , ball_pos.y, ball_pos.z);
-        this.camera3.lookAt(balls[0].position);
+        // let ball_pos = balls[0].position.clone();
+        // let vv = balls[0].getVelocityVector();
+        // vv.normalize().multiplyScalar(-10);
+        //
+        // ball_pos.add(this.CAMERA_POS);
+        // ball_pos.add(vv);
+        //
+        // this.camera3.position.set(ball_pos.x , ball_pos.y, ball_pos.z);
+        // this.camera3.lookAt(balls[0].position);
  
 
 
@@ -113,7 +116,7 @@ function SceneManager() {
                     //console.log("A");
                     //balls[i].saveOldPosition();
                     //balls[j].saveOldPosition();
-                    console.log("sup")
+                    // console.log("sup")
                     let vel=balls[i].getVelocityVector().clone();
                     let pos=balls[i].getPosition().clone();
                     balls[i].setCollision(balls[j].getVelocityVector(), balls[j].getPosition());
