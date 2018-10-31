@@ -147,4 +147,17 @@ function sceneSetup(scene) {
     scene.add(plane);
     scene.add(new THREE.AxisHelper(10))
 
+
+    let vertexList = [];
+    let facesList = [];
+    for (let i = 0; i < plane.children.length; i++){
+        vertexList.push(plane.children[i].geometry.vertices);
+        facesList.push(plane.children[i].geometry.faces);
+    }
+
+    
 }
+
+var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
+var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+var mesh = new THREE.Mesh( g, material );
