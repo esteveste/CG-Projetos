@@ -155,6 +155,14 @@ function sceneSetup(scene) {
         facesList.push(plane.children[i].geometry.faces);
     }
 
+    vertexList.forEach(el=>{
+        el.forEach(el1=>{
+            el1.forEach(el2=>{
+                console.log(el2);
+            })
+        });
+    });
+
     
 }
 
