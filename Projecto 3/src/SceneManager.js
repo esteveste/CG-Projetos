@@ -142,14 +142,14 @@ function createEventAnimate() {
 }
 
 
+var vertexList = [];
+var facesList = [];
 function sceneSetup(scene) {
     let plane = new Plane();
     scene.add(plane);
     scene.add(new THREE.AxisHelper(10))
 
 
-    let vertexList = [];
-    let facesList = [];
     for (let i = 0; i < plane.children.length; i++){
         vertexList.push(plane.children[i].geometry.vertices);
         facesList.push(plane.children[i].geometry.faces);
@@ -157,9 +157,10 @@ function sceneSetup(scene) {
 
     vertexList.forEach(el=>{
         el.forEach(el1=>{
-            el1.forEach(el2=>{
-                console.log(el2);
-            })
+            // el1.forEach(el2=>{
+            //     console.log(el2);
+            // })
+            console.log(el1);
         });
     });
 
@@ -175,6 +176,6 @@ function sceneSetup(scene) {
 
 }
 
-var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
-var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-var mesh = new THREE.Mesh( g, material );
+// var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
+// var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+// var mesh = new THREE.Mesh( g, material );

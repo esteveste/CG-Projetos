@@ -9,6 +9,7 @@ var Plane = function () {
     
     //le go do some boxes
     geometry = new THREE.BoxGeometry(15, 15, 10);
+    console.log(geometry.vertices);
     mesh = new THREE.Mesh( geometry, material );
     this.add(mesh);
 
@@ -115,6 +116,6 @@ var Plane = function () {
 Plane.prototype = Object.create(GraphicalEntity.prototype);
 
 
-var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
-var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-var mesh = new THREE.Mesh( g, material );
+// var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
+// var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+// var mesh = new THREE.Mesh( g, material );
