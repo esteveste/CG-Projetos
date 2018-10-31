@@ -164,6 +164,15 @@ function sceneSetup(scene) {
     });
 
     
+
+
+
+    let light = new THREE.AmbientLight( 0x404040 ); // soft white light
+    scene.add( light );
+
+
+
+
 }
 
 var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
