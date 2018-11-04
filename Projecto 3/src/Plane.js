@@ -29,8 +29,10 @@ var Plane = function () {
     GraphicalEntity.call(this);
 
     var geometry, mesh;
-    var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-
+    // var material = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x0033ff, specular: 0x555555, shininess: 30 } );
+    var material = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0x112211, shininess: 5, wireframe: false } );
+    // var material = new THREE.MeshLambertMaterial( { color: 0xff0000, wireframe: false} );
+    // material.side=THREE.DoubleSide;
     //corpo principal do aviao
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[0]);
@@ -40,7 +42,7 @@ var Plane = function () {
     this.add(mesh);
 
     //triangulo da cauda
-    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[1]);
     geometry.faces.push(...faces[1]);
@@ -51,7 +53,7 @@ var Plane = function () {
     this.add(mesh);
 
     //asa grande no meio
-    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[2]);
     geometry.faces.push(...faces[2]);
@@ -61,7 +63,7 @@ var Plane = function () {
     this.add(mesh);
 
     //rodas
-    material = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[3]);
     geometry.faces.push(...faces[3]);
@@ -73,7 +75,7 @@ var Plane = function () {
     this.add(mesh);
 
     //rodas
-    material = new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[4]);
     geometry.faces.push(...faces[4]);
@@ -85,7 +87,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cubo na frente 1
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[5]);
     geometry.faces.push(...faces[5]);
@@ -96,7 +98,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cockpit parte tras
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[6]);
     geometry.faces.push(...faces[6]);
@@ -107,7 +109,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cockpit parte frente
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[7]);
     geometry.faces.push(...faces[7]);
@@ -118,7 +120,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cubo na frente 2
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[8]);
     geometry.faces.push(...faces[8]);
@@ -129,7 +131,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cubo na frente 3
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[9]);
     geometry.faces.push(...faces[9]);
@@ -140,7 +142,7 @@ var Plane = function () {
     this.add(mesh);
 
     //cubo na frente 4
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[10]);
     geometry.faces.push(...faces[10]);
@@ -151,7 +153,7 @@ var Plane = function () {
     this.add(mesh);
 
     //helice
-    material = new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[11]);
     geometry.faces.push(...faces[11]);
@@ -162,7 +164,7 @@ var Plane = function () {
     this.add(mesh);
 
     //asa traseira
-    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true} );
+    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[12]);
     geometry.faces.push(...faces[12]);
@@ -178,5 +180,5 @@ Plane.prototype = Object.create(GraphicalEntity.prototype);
 
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
-// var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+// var material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
 // var mesh = new THREE.Mesh( g, material );

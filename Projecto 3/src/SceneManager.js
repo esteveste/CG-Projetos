@@ -1,6 +1,6 @@
 'use strict';
 
-let chair, ball, arena, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let global_light,plane, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -15,7 +15,7 @@ function SceneManager() {
     this.SIDEVIEW=[100,0,0];
     this.CAMERA_POS = new THREE.Vector3(0, 40, 0);
 
-    
+
 
     var scene = new THREE.Scene();
 
@@ -38,6 +38,21 @@ function SceneManager() {
     this.camera1.lookAt(scene.position);
     this.camera2.lookAt(scene.position);
     this.camera3.lookAt(scene.position);
+
+
+
+    // renderer.shadowMapEnabled = true;
+    // renderer.shadowMapSoft = false;
+    //
+    // renderer.shadowCameraNear = 3;
+    // // renderer.shadowCameraFar = this.camera1.far;
+    // renderer.shadowCameraFov = 45;
+    //
+    // renderer.shadowMapBias = 0.0039;
+    // renderer.shadowMapDarkness = 0.5;
+    // renderer.shadowMapWidth = 1024;
+    // renderer.shadowMapHeight = 1024;
+
 
     this.onResize=()=>{
         console.log("REZISE");
@@ -112,7 +127,7 @@ function SceneManager() {
 
     this.changeWireframe=()=>{
 
-
+        plane.changeWireframe();
     };
 
 
@@ -145,9 +160,9 @@ function createEventAnimate() {
 var vertexList = [];
 var facesList = [];
 function sceneSetup(scene) {
-    let plane = new Plane();
+    plane = new Plane();
     scene.add(plane);
-    scene.add(new THREE.AxisHelper(10))
+    scene.add(new THREE.AxisHelper(10));
 
 
     for (let i = 0; i < plane.children.length; i++){
@@ -155,21 +170,34 @@ function sceneSetup(scene) {
         facesList.push(plane.children[i].geometry.faces);
     }
 
-    vertexList.forEach(el=>{
-        el.forEach(el1=>{
-            // el1.forEach(el2=>{
-            //     console.log(el2);
-            // })
-            console.log(el1);
-        });
-    });
-
-    
 
 
+    // global_light = new THREE.DirectionalLight(0xffffff,0.5);
+    // global_light.position.set(0,0,1);
+    // // global_light.shadowCameraVisible = true;
+    // // global_light.shadowCameraNear = 1;
+    // // global_light.shadowCameraFar = 150;
+    // // global_light.castshadow = true;
+    // global_light.target=plane;
+    // global_light.castShadow=true;
+    // global_light.position.set( 0, 1, 1 ).normalize();
+    // scene.add(global_light);
 
-    let light = new THREE.AmbientLight( 0x404040 ); // soft white light
-    scene.add( light );
+    // var light = new THREE.SpotLight( 0xFFAA55,1 );
+    // light.position.set(0,0,-10);
+    // light.target.position.set(0,0,10);
+    // light.castShadow = true;
+
+
+    // let helper = new THREE.CameraHelper(this.camera1);
+    // scene.add(helper);
+    // var helper = new THREE.CameraHelper( light.shadow.camera );
+    // scene.add( helper );
+
+    // var slight=new
+
+    // let light = new THREE.AmbientLight( 0xff ); // soft white light
+    // scene.add( light );
 
 
 
