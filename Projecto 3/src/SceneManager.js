@@ -1,6 +1,6 @@
 'use strict';
 
-let global_light,plane, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let global_light,plane, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -17,7 +17,7 @@ function SceneManager() {
 
 
 
-    var scene = new THREE.Scene();
+    scene = new THREE.Scene();
 
     sceneSetup(scene);
 
@@ -165,28 +165,39 @@ function sceneSetup(scene) {
     scene.add(new THREE.AxisHelper(10));
 
 
-    for (let i = 0; i < plane.children.length; i++){
-        vertexList.push(plane.children[i].geometry.vertices);
-        facesList.push(plane.children[i].geometry.faces);
-    }
-
-
 
     // global_light = new THREE.DirectionalLight(0xffffff,0.5);
-    // global_light.position.set(0,0,1);
-    // // global_light.shadowCameraVisible = true;
-    // // global_light.shadowCameraNear = 1;
-    // // global_light.shadowCameraFar = 150;
-    // // global_light.castshadow = true;
+    // global_light.position.set(1,1,1).normalize();
+    // global_light.shadowCameraVisible = true;
+    // global_light.shadowCameraNear = 1;
+    // global_light.shadowCameraFar = 150;
+    // global_light.castshadow = true;
     // global_light.target=plane;
     // global_light.castShadow=true;
     // global_light.position.set( 0, 1, 1 ).normalize();
     // scene.add(global_light);
+    // let global_light_helper=new THREE.DirectionalLightHelper(global_light);
+    // scene.add(global_light_helper);
 
-    // var light = new THREE.SpotLight( 0xFFAA55,1 );
-    // light.position.set(0,0,-10);
-    // light.target.position.set(0,0,10);
-    // light.castShadow = true;
+    let ball=new THREE.SphereGeometry(5,25,25);
+    var material = new THREE.MeshPhongMaterial( { color: 0x00ff00});
+    let mesh = new THREE.Mesh(ball,material);
+    mesh.position.y=10;
+    scene.add(mesh);
+
+    var slight = new THREE.SpotLight( 0x008888,1,90,Math.PI/6,10 );
+    slight.position.set(0,50,0);
+    slight.target.position.set(0,0,0);
+    slight.castShadow = true;
+    slight.penumbra=.2;
+    scene.add(slight);
+    scene.add(slight.target);
+    let spotter = new THREE.SpotLightHelper(slight);
+    scene.add(spotter);
+
+    // var light = new THREE.PointLight( 0xff0000, 1, 100 );
+    // light.position.set( 50, 50, 50 );
+    // scene.add( light );
 
 
     // let helper = new THREE.CameraHelper(this.camera1);
@@ -195,9 +206,9 @@ function sceneSetup(scene) {
     // scene.add( helper );
 
     // var slight=new
-
-    // let light = new THREE.AmbientLight( 0xff ); // soft white light
-    // scene.add( light );
+    //
+    let light = new THREE.AmbientLight( 0x444444 ); // soft white light
+    scene.add( light );
 
 
 
