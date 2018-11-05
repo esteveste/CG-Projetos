@@ -16,5 +16,3 @@ GraphicalEntity.prototype.changeWireframe= function() {
 
     this.materialWireframe=!this.materialWireframe;
 };
-
-

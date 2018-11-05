@@ -24,156 +24,175 @@ let faces=[[new THREE.Face3(1, 2, 3), new THREE.Face3(1, 0, 2), new THREE.Face3(
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)], 
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)], 
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)],
-          [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)]]
+          [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)]];
+
+let isMaterialPhong=false;
+
 var Plane = function () {
     GraphicalEntity.call(this);
+    //init material
+    this.changeMaterial();
 
     var geometry, mesh;
     // var material = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x0033ff, specular: 0x555555, shininess: 30 } );
     // var material = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0x112211, shininess: 5, wireframe: false } );
-    var material = new THREE.MeshPhongMaterial( { color: 0xff0000});
+    // var material = new THREE.MeshPhongMaterial( { color: 0xff0000});
     // var material = new THREE.MeshLambertMaterial( { color: 0xff0000, wireframe: false} );
-    material.side=THREE.DoubleSide;
+    // material.side=THREE.DoubleSide;
     //corpo principal do aviao
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[0]);
     geometry.faces.push(...faces[0]);
-
-    geometry.computeFaceNormals();
     geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
     // console.log(geometry.vertices);
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.redMaterial );
     this.add(mesh);
 
     //triangulo da cauda
-    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
+    // material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[1]);
     geometry.faces.push(...faces[1]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.redMaterial );
     mesh.position.x = -29.5;
     mesh.position.y = 11.25;
     this.add(mesh);
 
     //asa grande no meio
-    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
+    // material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[2]);
     geometry.faces.push(...faces[2]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.redMaterial );
     mesh.position.x = 10;
     this.add(mesh);
 
     //rodas
-    material = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[3]);
     geometry.faces.push(...faces[3]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.blueMaterial );
     mesh.position.x = 20;
     mesh.position.y = -10;
     mesh.position.z = 4;
     this.add(mesh);
 
     //rodas
-    material = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[4]);
     geometry.faces.push(...faces[4]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.blueMaterial );
     mesh.position.x = 20;
     mesh.position.y = -10;
     mesh.position.z = -4;
     this.add(mesh);
 
     //cubo na frente 1
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[5]);
     geometry.faces.push(...faces[5]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.x = 30;
     mesh.position.y = 2;
     this.add(mesh);
 
     //cockpit parte tras
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[6]);
     geometry.faces.push(...faces[6]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.y = 10;
     mesh.position.x = 5;
     this.add(mesh);
 
     //cockpit parte frente
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[7]);
     geometry.faces.push(...faces[7]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.y = 10;
     mesh.position.x = 20;
     this.add(mesh);
 
     //cubo na frente 2
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[8]);
     geometry.faces.push(...faces[8]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.x = 33.5;
     mesh.position.y = 2;
     this.add(mesh);
 
     //cubo na frente 3
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[9]);
     geometry.faces.push(...faces[9]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.x = 35.5;
     mesh.position.y = 2;
     this.add(mesh);
 
     //cubo na frente 4
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[10]);
     geometry.faces.push(...faces[10]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.x = 37;
     mesh.position.y = 2;
     this.add(mesh);
 
     //helice
-    material = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[11]);
     geometry.faces.push(...faces[11]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
     mesh.position.x = 37.75;
     mesh.position.y = 2;
     this.add(mesh);
 
     //asa traseira
-    material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[12]);
     geometry.faces.push(...faces[12]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometry, this.redMaterial );
     mesh.position.x = -24.5;
     mesh.position.y = 11.25;
     this.add(mesh);
@@ -181,6 +200,20 @@ var Plane = function () {
 
 };
 Plane.prototype = Object.create(GraphicalEntity.prototype);
+
+Plane.prototype.changeMaterial=function(){
+    if(isMaterialPhong){
+        this.redMaterial=new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
+        this.blueMaterial = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
+        this.whiteMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
+    }else {
+        this.redMaterial=new THREE.MeshLambertMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
+        this.blueMaterial=new THREE.MeshLambertMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
+        this.whiteMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
+    }
+    isMaterialPhong=!isMaterialPhong;
+};
+
 
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();

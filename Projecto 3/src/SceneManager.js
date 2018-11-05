@@ -179,13 +179,7 @@ function sceneSetup(scene) {
     // let global_light_helper=new THREE.DirectionalLightHelper(global_light);
     // scene.add(global_light_helper);
 
-    let ball=new THREE.SphereGeometry(5,25,25);
-    var material = new THREE.MeshPhongMaterial( { color: 0x00ff00});
-    let mesh = new THREE.Mesh(ball,material);
-    mesh.position.y=10;
-    scene.add(mesh);
-
-    var slight = new THREE.SpotLight( 0x008888,1,90,Math.PI/6,10 );
+    var slight = new THREE.SpotLight( 0xffffff,1,90,Math.PI/5,10 );
     slight.position.set(0,50,0);
     slight.target.position.set(0,0,0);
     slight.castShadow = true;
@@ -207,8 +201,8 @@ function sceneSetup(scene) {
 
     // var slight=new
     //
-    let light = new THREE.AmbientLight( 0x444444 ); // soft white light
-    scene.add( light );
+    // let light = new THREE.AmbientLight( 0x444444 ); // soft white light
+    // scene.add( light );
 
 
 
