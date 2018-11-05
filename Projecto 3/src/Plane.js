@@ -212,6 +212,7 @@ Plane.prototype.changeMaterial=function(){
         this.whiteMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
     }
     isMaterialPhong=!isMaterialPhong;
+    console.log(isMaterialPhong);
 };
 
 

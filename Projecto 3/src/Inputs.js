@@ -48,6 +48,10 @@ function Input() {
             case 69:
                 //e
                 break;
+            case 71:
+                //g
+                plane.changeMaterial();
+                break;
             default: return;
         }
         e.preventDefault();
