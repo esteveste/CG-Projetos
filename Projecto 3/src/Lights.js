@@ -1,11 +1,13 @@
-let isLightLit = false;
+'use strict';
+
+let global_light,isLightLit = true,SUN_INTENSITY=0.6;
 
 var Lights = function () {
     GraphicalEntity.call(this);
 
 
 
-    global_light = new THREE.DirectionalLight(0xffffff,0.6);
+    global_light = new THREE.DirectionalLight(0xffffff,SUN_INTENSITY);
     global_light.position.set(1,1,1).normalize();
     global_light.shadowCameraVisible = true;
     global_light.shadowCameraNear = 1;
@@ -28,6 +30,11 @@ var Lights = function () {
 };
 Lights.prototype = Object.create(GraphicalEntity.prototype);
 
-Lights.prototype.changeLightCalc=function(){
-
+Lights.prototype.changeSun=function(){
+    if(isLightLit){
+        global_light.intensity=0;
+    }else{
+        global_light.intensity=SUN_INTENSITY;
+    }
+    isLightLit=!isLightLit;
 };

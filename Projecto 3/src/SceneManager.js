@@ -1,6 +1,6 @@
 'use strict';
 
-let global_light,plane, lights,cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let plane, lights,cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 

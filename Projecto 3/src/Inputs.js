@@ -53,8 +53,12 @@ function Input() {
                 plane.changeMaterial();
                 break;
             case 76:
-                // lights.changeLightCalc();
+                //l
                 plane.setBasic();
+                break;
+            case  78:
+                //n
+                lights.changeSun();
                 break;
             default: return;
         }
