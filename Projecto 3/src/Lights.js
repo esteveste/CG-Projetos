@@ -1,4 +1,4 @@
-
+let isLightLit = false;
 
 var Lights = function () {
     GraphicalEntity.call(this);

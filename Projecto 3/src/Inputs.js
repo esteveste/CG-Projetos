@@ -52,6 +52,10 @@ function Input() {
                 //g
                 plane.changeMaterial();
                 break;
+            case 76:
+                // lights.changeLightCalc();
+                plane.setBasic();
+                break;
             default: return;
         }
         e.preventDefault();

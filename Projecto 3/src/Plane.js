@@ -31,7 +31,11 @@ let isMaterialPhong=false;
 var Plane = function () {
     GraphicalEntity.call(this);
     //init material
-    this.changeMaterial();
+
+
+    this.redMaterial=new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
+    this.blueMaterial = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
+    this.whiteMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
 
     var geometry, mesh;
     // var material = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x0033ff, specular: 0x555555, shininess: 30 } );
@@ -202,20 +206,36 @@ var Plane = function () {
 Plane.prototype = Object.create(GraphicalEntity.prototype);
 
 Plane.prototype.changeMaterial=function(){
-    if(isMaterialPhong){
-        this.redMaterial=new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
-        this.blueMaterial = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
-        this.whiteMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
-    }else {
-        this.redMaterial=new THREE.MeshLambertMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
-        this.blueMaterial=new THREE.MeshLambertMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
-        this.whiteMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
-    }
+    this.traverse((child)=> {
+        if (child instanceof THREE.Mesh){
+            if(isMaterialPhong) {
+                child.material = new THREE.MeshPhongMaterial( { color: child.material.color,wireframe:this.materialWireframe});
+            }else {
+                child.material = new THREE.MeshLambertMaterial( { color: child.material.color,wireframe:this.materialWireframe});
+            }
+        }
+    });
+
     isMaterialPhong=!isMaterialPhong;
     console.log(isMaterialPhong);
 };
 
+let setBasic=true;
 
+Plane.prototype.setBasic=function () {
+    if (setBasic) {
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                    child.material = new THREE.MeshBasicMaterial( { color: child.material.color,wireframe:this.materialWireframe});}
+        });
+    }else {
+        //set to previous material
+        isMaterialPhong=!isMaterialPhong;
+        this.changeMaterial();
+    }
+
+    setBasic=!setBasic;
+}
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
 // var material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
