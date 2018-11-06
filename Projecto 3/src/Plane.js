@@ -11,7 +11,10 @@ let vertices=[[new THREE.Vector3(27.5,7.5,5), new THREE.Vector3(27.5,7.5,-5), ne
              [new THREE.Vector3(1,2.5,2), new THREE.Vector3(1,2.5,-2), new THREE.Vector3(1,-2.5,2), new THREE.Vector3(1,-2.5,-2), new THREE.Vector3(-1,2.5,-2), new THREE.Vector3(-1,2.5,2), new THREE.Vector3(-1,-2.5,-2), new THREE.Vector3(-1,-2.5,2)], 
              [new THREE.Vector3(0.5,0.5,0.5), new THREE.Vector3(0.5,0.5,-0.5), new THREE.Vector3(0.5,-0.5,0.5), new THREE.Vector3(0.5,-0.5,-0.5), new THREE.Vector3(-0.5,0.5,-0.5), new THREE.Vector3(-0.5,0.5,0.5), new THREE.Vector3(-0.5,-0.5,-0.5), new THREE.Vector3(-0.5,-0.5,0.5)], 
              [new THREE.Vector3(0.25,10,0.5), new THREE.Vector3(0.25,10,-0.5), new THREE.Vector3(0.25,-10,0.5), new THREE.Vector3(0.25,-10,-0.5), new THREE.Vector3(-0.25,10,-0.5), new THREE.Vector3(-0.25,10,0.5), new THREE.Vector3(-0.25,-10,-0.5), new THREE.Vector3(-0.25,-10,0.5)],
-             [new THREE.Vector3(3,0.5,10), new THREE.Vector3(3,0.5,-10), new THREE.Vector3(3,-0.5,10), new THREE.Vector3(3,-0.5,-10), new THREE.Vector3(-3,0.5,-10), new THREE.Vector3(-3,0.5,10), new THREE.Vector3(-3,-0.5,-10), new THREE.Vector3(-3,-0.5,10)]];
+             [new THREE.Vector3(3,0.5,10), new THREE.Vector3(3,0.5,-10), new THREE.Vector3(3,-0.5,10), new THREE.Vector3(3,-0.5,-10), new THREE.Vector3(-3,0.5,-10), new THREE.Vector3(-3,0.5,10), new THREE.Vector3(-3,-0.5,-10), new THREE.Vector3(-3,-0.5,10)],
+             [new THREE.Vector3(3.75,0.5,25), new THREE.Vector3(3.75,0.5,-25), new THREE.Vector3(3.75,-0.5,25), new THREE.Vector3(3.75,-0.5,-25), new THREE.Vector3(-3.75,0.5,-25), new THREE.Vector3(-3.75,0.5,25), new THREE.Vector3(-3.75,-0.5,-25), new THREE.Vector3(-3.75,-0.5,25)]];
+
+
 let faces=[[new THREE.Face3(1, 2, 3), new THREE.Face3(1, 0, 2), new THREE.Face3(0, 9, 6), new THREE.Face3(5, 2, 6), new THREE.Face3(6, 2, 0), new THREE.Face3(4, 3, 5), new THREE.Face3(3, 2, 5), new THREE.Face3(6, 4, 5), new THREE.Face3(7, 4, 6), new THREE.Face3(6, 9, 7), new THREE.Face3(7, 9, 8), new THREE.Face3(9, 0, 8), new THREE.Face3(9, 1, 8), new THREE.Face3(0, 1, 9), new THREE.Face3(8, 1, 7), new THREE.Face3(7, 1, 3), new THREE.Face3(7, 3, 4)], 
           [new THREE.Face3(0, 2, 1), new THREE.Face3(4, 0, 3), new THREE.Face3(3, 0, 1), new THREE.Face3(0, 4, 2), new THREE.Face3(0, 2, 1)], 
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)], 
@@ -24,7 +27,9 @@ let faces=[[new THREE.Face3(1, 2, 3), new THREE.Face3(1, 0, 2), new THREE.Face3(
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)], 
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)], 
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)],
+          [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)],
           [new THREE.Face3(0,2,1), new THREE.Face3(2,3,1), new THREE.Face3(4,6,5), new THREE.Face3(6,7,5), new THREE.Face3(4,5,1), new THREE.Face3(5,0,1), new THREE.Face3(7,6,2), new THREE.Face3(6,3,2), new THREE.Face3(5,7,0), new THREE.Face3(7,2,0), new THREE.Face3(1,3,4), new THREE.Face3(3,6,4)]];
+
 
 let isMaterialPhong=false;
 
@@ -188,6 +193,55 @@ var Plane = function () {
     mesh.position.y = 2;
     this.add(mesh);
 
+    //pau direita tras
+    geometry= new THREE.Geometry();
+    geometry.vertices.push(...vertices[11]);
+    geometry.faces.push(...faces[11]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
+    mesh.position.z = 25 - 3;
+    mesh.position.y = 10;
+    mesh.position.x = 10 - 2.5;
+    this.add(mesh);
+    //pao direita frente
+    geometry= new THREE.Geometry();
+    geometry.vertices.push(...vertices[11]);
+    geometry.faces.push(...faces[11]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
+    mesh.position.z = 25 - 3;
+    mesh.position.y = 10;
+    mesh.position.x = 10 + 2.5;
+    this.add(mesh);
+    //pao esquerda tras
+    geometry= new THREE.Geometry();
+    geometry.vertices.push(...vertices[11]);
+    geometry.faces.push(...faces[11]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
+    mesh.position.z = -25 + 3 ;
+    mesh.position.y = 10;
+    mesh.position.x = 10 - 2.5;
+    this.add(mesh);
+    //pao direita tras
+    geometry= new THREE.Geometry();
+    geometry.vertices.push(...vertices[11]);
+    geometry.faces.push(...faces[11]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
+    mesh = new THREE.Mesh( geometry, this.whiteMaterial );
+    mesh.position.z = -25 + 3;
+    mesh.position.y = 10;
+    mesh.position.x = 10 + 2.5;
+    this.add(mesh);
+
     //asa traseira
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[12]);
@@ -199,6 +253,20 @@ var Plane = function () {
     mesh.position.x = -24.5;
     mesh.position.y = 11.25;
     this.add(mesh);
+
+    //asa grande em cima
+    // material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
+    geometry= new THREE.Geometry();
+    geometry.vertices.push(...vertices[13]);
+    geometry.faces.push(...faces[13]);
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+
+    mesh = new THREE.Mesh( geometry, this.redMaterial );
+    mesh.position.x = 10;
+    mesh.position.y = 20;
+    this.add(mesh);
+
 
     window.addEventListener('animate', this.rotatePlane);
 
@@ -259,6 +327,9 @@ Plane.prototype.rotatePlane=function(){
         axisToRotate = new THREE.Vector3(-1, 0, 0);
         plane.rotateOnAxis(axisToRotate, speed);
     }
+
+    axisToRotate = new THREE.Vector3(-1, 0, 0);
+    plane.children[11].rotateOnAxis(axisToRotate, speed*5);
 };
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
