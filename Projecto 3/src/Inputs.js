@@ -28,22 +28,19 @@ function Input() {
                 break;
             case 49:
                 //1
-                INPUT_1 = true;
-                sceneManager.changeCamera(sceneManager.camera1);
+                lights.changeLightOnOff(0);
                 break;
             case 50:
                 //2
-                INPUT_2 = true;
-                sceneManager.changeCamera(sceneManager.camera2);
+                lights.changeLightOnOff(1);
                 break;
             case 51:
                 //3
-                INPUT_3 = true;
-                sceneManager.changeCamera(sceneManager.camera3);
+                lights.changeLightOnOff(2);
                 break;
             case 52:
                 //4
-                sceneManager.changeCamera(cameratrackball);
+                lights.changeLightOnOff(3);
                 break;
             case 69:
                 //e

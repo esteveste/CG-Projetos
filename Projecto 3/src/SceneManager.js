@@ -92,7 +92,7 @@ function SceneManager() {
 
 
     this.animate=()=>{
-
+        createEventAnimate();
 
         requestAnimationFrame(this.animate);
 

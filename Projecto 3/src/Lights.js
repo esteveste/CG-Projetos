@@ -4,7 +4,8 @@ let global_light,isLightLit = true,SUN_INTENSITY=0.6;
 
 var Lights = function () {
     GraphicalEntity.call(this);
-
+    var slight;
+    var slight_positions = [[-50, 50, 50], [-50, 50, -50], [50, 50, 50], [50, 50, -50]];
 
 
     global_light = new THREE.DirectionalLight(0xffffff,SUN_INTENSITY);
@@ -17,15 +18,17 @@ var Lights = function () {
     // global_light.position.set( 0, 1, 1 ).normalize();
     this.add(global_light);
 
-    var slight = new THREE.SpotLight( 0xffffff,1,90,Math.PI/5,10 );
-    slight.position.set(0,50,0);
-    slight.target.position.set(0,0,0);
-    slight.castShadow = true;
-    slight.penumbra=.2;
-    this.add(slight);
-    this.add(slight.target);
-    let spotter = new THREE.SpotLightHelper(slight);
-    this.add(spotter);
+    for (let i=0; i<4; i++){
+        slight = new THREE.SpotLight( 0xffffff,1,90,Math.PI/5,10 );
+        slight.position.set(...slight_positions[i]);
+        slight.target.position.set(0,0,0);
+        slight.castShadow = true;
+        slight.penumbra=.2;
+        this.add(slight);
+        this.add(slight.target);
+        let spotter = new THREE.SpotLightHelper(slight);
+        this.add(spotter);
+    }
 
 };
 Lights.prototype = Object.create(GraphicalEntity.prototype);
@@ -37,4 +40,11 @@ Lights.prototype.changeSun=function(){
         global_light.intensity=SUN_INTENSITY;
     }
     isLightLit=!isLightLit;
+};
+
+Lights.prototype.changeLightOnOff=function(lightN){
+    if(this.children[lightN*3 + 1].intensity == 0)
+        this.children[lightN*3 + 1].intensity = 1;
+    else
+        this.children[lightN*3 + 1].intensity = 0;
 };

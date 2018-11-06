@@ -30,9 +30,8 @@ let isMaterialPhong=false;
 
 var Plane = function () {
     GraphicalEntity.call(this);
+    
     //init material
-
-
     this.redMaterial=new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
     this.blueMaterial = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
     this.whiteMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
@@ -201,6 +200,7 @@ var Plane = function () {
     mesh.position.y = 11.25;
     this.add(mesh);
 
+    window.addEventListener('animate', this.rotatePlane);
 
 };
 Plane.prototype = Object.create(GraphicalEntity.prototype);
@@ -236,6 +236,30 @@ Plane.prototype.setBasic=function () {
 
     setBasic=!setBasic;
 }
+
+Plane.prototype.rotatePlane=function(){
+    var axisToRotate;
+    let speed = 0.05;
+    if (INPUT_UP){
+        axisToRotate = new THREE.Vector3(0, 0, 1);
+        plane.rotateOnAxis(axisToRotate, speed);
+    }
+    
+    if (INPUT_DOWN){
+        axisToRotate = new THREE.Vector3(0, 0, -1);
+        plane.rotateOnAxis(axisToRotate, speed);
+    }
+
+    if (INPUT_LEFT){
+        axisToRotate = new THREE.Vector3(1, 0, 0);
+        plane.rotateOnAxis(axisToRotate, speed);
+    }
+
+    if (INPUT_RIGHT){
+        axisToRotate = new THREE.Vector3(-1, 0, 0);
+        plane.rotateOnAxis(axisToRotate, speed);
+    }
+};
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
 // var material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
