@@ -1,6 +1,6 @@
 'use strict';
 
-let plane, lights,cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let plane, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -12,7 +12,7 @@ function SceneManager() {
 
     this.TOPVIEW=[0,100,0];
     this.FRONTVIEW=[0,50,100];
-    this.SIDEVIEW=[100,0,0];
+    this.SIDEVIEW=[100,100,100];
     this.CAMERA_POS = new THREE.Vector3(0, 40, 0);
 
 
@@ -27,17 +27,12 @@ function SceneManager() {
 
     let aspectRatio=window.innerWidth/ window.innerHeight;
 
-    this.camera1 = new THREE.OrthographicCamera(-aspectRatio*VIEW_SIZE / 2, aspectRatio*VIEW_SIZE / 2, VIEW_SIZE / 2, -VIEW_SIZE / 2, 1, 1000);
-    this.camera2 = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
-    this.camera3 = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+    this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
 
-    this.camera1.position.set(...this.TOPVIEW);
-    this.camera2.position.set(...this.FRONTVIEW);
-    this.camera3.position.set(...this.SIDEVIEW);
+    
+    this.camera.position.set(...this.SIDEVIEW);
 
-    this.camera1.lookAt(scene.position);
-    this.camera2.lookAt(scene.position);
-    this.camera3.lookAt(scene.position);
+    this.camera.lookAt(scene.position);
 
 
 
@@ -55,27 +50,11 @@ function SceneManager() {
 
 
     this.onResize=()=>{
-        console.log("REZISE");
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         let aspectRatio=window.innerWidth/window.innerHeight;
-        if(this.camera.type=="PerspectiveCamera"){
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-        }else {
-            if (aspectRatio > 1) {
-                this.camera.left = -aspectRatio * VIEW_SIZE / 2;
-                this.camera.right = aspectRatio * VIEW_SIZE / 2;
-                this.camera.top = VIEW_SIZE / 2;
-                this.camera.bottom = -VIEW_SIZE / 2;
-            } else {
-                this.camera.left = -VIEW_SIZE / 2;
-                this.camera.right = VIEW_SIZE / 2;
-                this.camera.top = VIEW_SIZE / (2 * aspectRatio);
-                this.camera.bottom = -VIEW_SIZE / (2 * aspectRatio);
-            }
-            this.camera.updateProjectionMatrix();
-        }
+        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.updateProjectionMatrix();
 
 
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -88,7 +67,7 @@ function SceneManager() {
         renderer.render(scene, this.camera);
     };
 
-    this.changeCamera(this.camera1);
+    this.changeCamera(this.camera);
 
 
     this.animate=()=>{
@@ -160,5 +139,8 @@ function sceneSetup(scene) {
 
     lights = new Lights();
     scene.add(lights);
+
+    holofotes = new Holofotes();
+    scene.add(holofotes);
 
 }

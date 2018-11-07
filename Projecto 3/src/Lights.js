@@ -26,8 +26,8 @@ var Lights = function () {
         slight.penumbra=.2;
         this.add(slight);
         this.add(slight.target);
-        let spotter = new THREE.SpotLightHelper(slight);
-        this.add(spotter);
+        //let spotter = new THREE.SpotLightHelper(slight);
+        //this.add(spotter);
     }
 
 };
@@ -43,8 +43,8 @@ Lights.prototype.changeSun=function(){
 };
 
 Lights.prototype.changeLightOnOff=function(lightN){
-    if(this.children[lightN*3 + 1].intensity == 0)
-        this.children[lightN*3 + 1].intensity = 1;
+    if(this.children[lightN*2 + 1].intensity == 0)
+        this.children[lightN*2 + 1].intensity = 1;
     else
-        this.children[lightN*3 + 1].intensity = 0;
+        this.children[lightN*2 + 1].intensity = 0;
 };
