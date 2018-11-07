@@ -33,13 +33,17 @@ let faces=[[new THREE.Face3(1, 2, 3), new THREE.Face3(1, 0, 2), new THREE.Face3(
 
 let isMaterialPhong=false;
 
+let phongMaterial=[new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:false}),new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: false} ),new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: false} )];
+let lambertMaterial=[new THREE.MeshLambertMaterial( { color: 0xff0000,wireframe:false}),new THREE.MeshLambertMaterial( { color: 0x0000ff, wireframe: false} ),new THREE.MeshLambertMaterial( { color: 0xffffff ,  wireframe: false} )];
+let basicMaterial=[new THREE.MeshBasicMaterial( { color: 0xff0000,wireframe:false}),new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: false} ),new THREE.MeshBasicMaterial( { color: 0xffffff ,  wireframe: false} )];
+
 var Plane = function () {
     GraphicalEntity.call(this);
     
     //init material
-    this.redMaterial=new THREE.MeshPhongMaterial( { color: 0xff0000,wireframe:this.materialWireframe});
-    this.blueMaterial = new THREE.MeshPhongMaterial( { color: 0x0000ff, wireframe: this.materialWireframe} );
-    this.whiteMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff ,  wireframe: this.materialWireframe} );
+    this.redMaterial=phongMaterial[0];
+    this.blueMaterial = phongMaterial[1];
+    this.whiteMaterial = phongMaterial[2];
 
     var geometry, mesh;
     // var material = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x0033ff, specular: 0x555555, shininess: 30 } );
@@ -274,12 +278,14 @@ var Plane = function () {
 Plane.prototype = Object.create(GraphicalEntity.prototype);
 
 Plane.prototype.changeMaterial=function(){
+    setBasic=true;
+
     this.traverse((child)=> {
         if (child instanceof THREE.Mesh){
             if(isMaterialPhong) {
-                child.material = new THREE.MeshPhongMaterial( { color: child.material.color,wireframe:this.materialWireframe});
+                child.material = this.getMaterial(phongMaterial,child.material.color);
             }else {
-                child.material = new THREE.MeshLambertMaterial( { color: child.material.color,wireframe:this.materialWireframe});
+                child.material = this.getMaterial(lambertMaterial,child.material.color);
             }
         }
     });
@@ -294,15 +300,15 @@ Plane.prototype.setBasic=function () {
     if (setBasic) {
         this.traverse((child)=> {
             if (child instanceof THREE.Mesh){
-                    child.material = new THREE.MeshBasicMaterial( { color: child.material.color,wireframe:this.materialWireframe});}
+                    child.material = this.getMaterial(basicMaterial,child.material.color);}
         });
+
+        setBasic=!setBasic;
     }else {
         //set to previous material
         isMaterialPhong=!isMaterialPhong;
         this.changeMaterial();
     }
-
-    setBasic=!setBasic;
 }
 
 Plane.prototype.rotatePlane=function(){
@@ -331,6 +337,26 @@ Plane.prototype.rotatePlane=function(){
     axisToRotate = new THREE.Vector3(-1, 0, 0);
     plane.children[11].rotateOnAxis(axisToRotate, speed*5);
 };
+
+Plane.prototype.getMaterial=function (matArray,color) {
+    let material = matArray[colorToMaterialIndext(color)];
+    material.wireframe = !this.materialWireframe;
+    return material;
+};
+
+function colorToMaterialIndext(color) {
+    switch (color.getHex()) {
+        case 0xff0000:
+            return 0;
+        case 0x0000ff:
+            return 1;
+        case 0xffffff:
+            return 2;
+        default:
+            return 0;
+    }
+
+}
 
 // var g = new THREE.Geometry(); g.vertices.push( ...geometry2.vertices ); g.faces.push( ...geometry2.faces); g.computeBoundingSphere();
 // var material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
