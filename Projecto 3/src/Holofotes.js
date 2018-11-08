@@ -5,6 +5,7 @@ var Holofotes = function () {
     GraphicalEntity.call(this);
     //var slight;
     var slight_positions = [[-50, 50, 50], [-50, 50, -50], [50, 50, 50], [50, 50, -50]];
+    var slight_positions2 = [[-50+2.5, 50, 50-2.5], [-50+2.5, 50, -50+2.5], [50-2.5, 50, 50-2.5], [50-2.5, 50, -50+2.5]];
     var look_at = [[-100, 0, 100], [-100, 0, -100], [100, 0, 100], [100, 0, -100]];
 
 
@@ -22,13 +23,13 @@ var Holofotes = function () {
         var geometry = new THREE.CylinderGeometry( 0, 4, 10, 32 );
         var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         var cylinder = new THREE.Mesh( geometry, material );
-        var geometry = new THREE.SphereGeometry( 4, 4, 32);
+        var geometry = new THREE.SphereGeometry( 4, 10, 10);
         var material = new THREE.MeshBasicMaterial( {color: 0x166456} );
         var sphere = new THREE.Mesh( geometry, material );
         cylinder.position.set(...slight_positions[i]);
         cylinder.lookAt(...look_at[i]);
         //cylinder.lookAt(new THREE.Vector3(0,0,0));
-        sphere.position.set(slight_positions[i][0]-5,slight_positions[i][1]-7,slight_positions[i][2]-5,);
+        sphere.position.set(slight_positions2[i][0],slight_positions2[i][1]-5,slight_positions2[i][2]);
         this.add( cylinder );
         this.add(sphere);
     }

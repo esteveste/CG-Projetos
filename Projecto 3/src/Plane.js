@@ -53,7 +53,7 @@ var Plane = function () {
     geometry.vertices.push(...vertices[0]);
     geometry.faces.push(...faces[0]);
     geometry.computeVertexNormals();
-    //geometry.computeFaceNormals();
+    geometry.computeFaceNormals();
 
     // console.log(geometry.vertices);
     mesh = new THREE.Mesh( geometry, this.redMaterial );

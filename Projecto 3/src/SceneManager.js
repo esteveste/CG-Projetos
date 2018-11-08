@@ -10,10 +10,9 @@ var axes=false;
 
 function SceneManager() {
 
-    this.TOPVIEW=[0,100,0];
-    this.FRONTVIEW=[0,50,100];
-    this.SIDEVIEW=[100,100,100];
-    this.CAMERA_POS = new THREE.Vector3(0, 40, 0);
+
+    this.CAMERAVIEW=[0,200,100];
+    this.CAMERA_POS = new THREE.Vector3(0, 0, 0);
 
 
 
@@ -30,7 +29,7 @@ function SceneManager() {
     this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
 
     
-    this.camera.position.set(...this.SIDEVIEW);
+    this.camera.position.set(...this.CAMERAVIEW);
 
     this.camera.lookAt(scene.position);
 

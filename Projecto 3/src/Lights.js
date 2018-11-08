@@ -13,7 +13,7 @@ var Lights = function () {
     this.add(global_light);
 
     for (let i=0; i<4; i++){
-        slight = new THREE.SpotLight( 0xffffff,2,90,Math.PI/5,10 );
+        slight = new THREE.SpotLight( 0xffffff,2,90,Math.PI/5,1 );
         slight.position.set(...slight_positions[i]);
         slight.target.position.set(0,0,0);
         slight.castShadow = true;
