@@ -47,24 +47,19 @@ var Plane = function () {
     this.whiteMaterial = phongMaterial[2];
 
     var geometry, mesh;
-    // var material = new THREE.MeshPhongMaterial( { ambient: 0x050505, color: 0x0033ff, specular: 0x555555, shininess: 30 } );
-    // var material = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0x112211, shininess: 5, wireframe: false } );
-    // var material = new THREE.MeshPhongMaterial( { color: 0xff0000});
-    // var material = new THREE.MeshLambertMaterial( { color: 0xff0000, wireframe: false} );
-    // material.side=THREE.DoubleSide;
+
     //corpo principal do aviao
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[0]);
     geometry.faces.push(...faces[0]);
     geometry.computeVertexNormals();
-    geometry.computeFaceNormals();
+    //geometry.computeFaceNormals();
 
     // console.log(geometry.vertices);
     mesh = new THREE.Mesh( geometry, this.redMaterial );
     this.add(mesh);
 
     //triangulo da cauda
-    // material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: false} );
     geometry= new THREE.Geometry();
     geometry.vertices.push(...vertices[1]);
     geometry.faces.push(...faces[1]);
@@ -279,20 +274,21 @@ var Plane = function () {
 Plane.prototype = Object.create(GraphicalEntity.prototype);
 
 Plane.prototype.changeMaterial=function(){
-    setBasic=true;
 
-    this.traverse((child)=> {
-        if (child instanceof THREE.Mesh){
-            if(isMaterialPhong) {
-                child.material = this.getMaterial(phongMaterial,child.material.color);
-            }else {
-                child.material = this.getMaterial(lambertMaterial,child.material.color);
+    if(setBasic){
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                if(isMaterialPhong) {
+                    child.material = this.getMaterial(phongMaterial,child.material.color);
+                }else {
+                    child.material = this.getMaterial(lambertMaterial,child.material.color);
+                }
             }
-        }
     });
 
-    isMaterialPhong=!isMaterialPhong;
-    console.log(isMaterialPhong);
+        isMaterialPhong=!isMaterialPhong;
+        console.log(isMaterialPhong);
+    }
 };
 
 let setBasic=true;
@@ -308,6 +304,7 @@ Plane.prototype.setBasic=function () {
     }else {
         //set to previous material
         isMaterialPhong=!isMaterialPhong;
+        setBasic=true;
         this.changeMaterial();
     }
 }
@@ -326,12 +323,12 @@ Plane.prototype.rotatePlane=function(){
     }
 
     if (INPUT_LEFT){
-        axisToRotate = new THREE.Vector3(1, 0, 0);
+        axisToRotate = new THREE.Vector3(0, 1, 0);
         plane.rotateOnAxis(axisToRotate, speed);
     }
 
     if (INPUT_RIGHT){
-        axisToRotate = new THREE.Vector3(-1, 0, 0);
+        axisToRotate = new THREE.Vector3(0, -1, 0);
         plane.rotateOnAxis(axisToRotate, speed);
     }
 
