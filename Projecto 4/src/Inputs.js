@@ -27,10 +27,11 @@ function Input() {
                 break;
             case 68:
                 //d
-                
+                lights.changeDLightOnOff();
                 break;
             case 80:
                 //p
+                lights.changeSLightOnOff();
                 break;
             case 66:
                 //b
