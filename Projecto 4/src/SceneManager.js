@@ -1,12 +1,13 @@
 'use strict';
 
-let camera, ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let camera, ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
 var axes=false;
 var aspectRatio=window.innerWidth/ window.innerHeight;
-
+var renderer = new THREE.WebGLRenderer({ antialias: true });
+var scene = new THREE.Scene();
 
 function SceneManager() {
 
@@ -14,11 +15,11 @@ function SceneManager() {
     this.CAMERA_POS=[100,120,100];
 
 
-    scene = new THREE.Scene();
+    //scene = new THREE.Scene();
 
     sceneSetup(scene);
 
-    var renderer = new THREE.WebGLRenderer({ antialias: true });
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
@@ -128,7 +129,7 @@ function sceneSetup(scene) {
     lights = new Lights();
     scene.add(lights);
 
-    camera = new Camera(aspectRatio);
+    camera = new Camera(aspectRatio, renderer, scene);
     scene.add(camera);
 
 }
