@@ -37,3 +37,7 @@ var Rubik = function () {
 
 }
 Rubik.prototype = Object.create(GraphicalEntity.prototype);
+
+Rubik.prototype.changeWireframe=function(){
+
+}

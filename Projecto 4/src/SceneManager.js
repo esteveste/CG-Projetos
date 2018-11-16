@@ -1,6 +1,6 @@
 'use strict';
 
-let camera, ball,board, lights,rubik, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true;
+let camera, ball,board, lights,rubik, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,id;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -8,6 +8,8 @@ var axes=false;
 var aspectRatio=window.innerWidth/ window.innerHeight;
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 var scene = new THREE.Scene();
+
+let freezeFlag=true;
 
 function SceneManager() {
 
@@ -62,9 +64,8 @@ function SceneManager() {
         camera.animate();
 
 
-        requestAnimationFrame(this.animate);
-
         renderer.render(scene, this.camera.camera);
+        requestAnimationFrame(this.animate);
 
     };
 
@@ -92,7 +93,9 @@ function SceneManager() {
     // };
 
     this.changeWireframe=()=>{
-
+        ball.changeWireframe();
+        board.changeWireframe();
+        rubik.changeWireframe();
         // plane.changeWireframe();
     };
     this.setBallRotation=()=>{
@@ -117,6 +120,16 @@ function SceneManager() {
         ball.reset();
         camera.reset();
         lights.reset();
+    }
+    this.freeze_time=()=>{
+        if(freezeFlag){
+            // cancelAnimationFrame( id );
+            clock.stop();
+        }else {
+            clock.start();
+        }
+        freezeFlag=!freezeFlag;
+
     }
 }
 

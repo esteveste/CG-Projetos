@@ -47,7 +47,7 @@ function Input() {
                 break;
             case  83:
                 //s
-
+                sceneManager.freeze_time();
                 break;
             default: return;
         }
