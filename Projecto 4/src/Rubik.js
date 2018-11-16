@@ -5,10 +5,12 @@ let side=10;
 var Rubik = function () {
     GraphicalEntity.call(this);
 
-    let board_geo = new THREE.BoxGeometry(side,side,side);
+    this.setBasicFlag=true;
 
-    board_geo.computeFaceNormals();
-    board_geo.computeVertexNormals();
+    let rubik_geo = new THREE.BoxGeometry(side,side,side);
+
+    rubik_geo.computeFaceNormals();
+    rubik_geo.computeVertexNormals();
 
     let rubik_texture = new THREE.TextureLoader().load('./src/utils/Textures/rubik.png');
     let rubik_bump = new THREE.ImageUtils.loadTexture('./src/utils/Textures/face1.jpg');
@@ -25,13 +27,13 @@ var Rubik = function () {
     for ( var i = 1; i <= 6; i ++ ) {
         material_phong.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true , bumpMap:rubik_bump,bumpScale:1 } ) );
     }
-    this.rubik_mats=[material_phong,material_basic];
+    this.material=[material_phong,material_basic];
 
 
-    let board_mesh = new THREE.Mesh(board_geo, this.rubik_mats[0]);
+    let rubik_mesh = new THREE.Mesh(rubik_geo, this.material[0]);
 
 
-    this.add(board_mesh);
+    this.add(rubik_mesh);
 
     this.position.y=side/2+0.5;
 
@@ -39,6 +41,31 @@ var Rubik = function () {
 Rubik.prototype = Object.create(GraphicalEntity.prototype);
 
 Rubik.prototype.changeWireframe=function(){
-    for (let i=0; i<this.children[0].material.length; i++ )
-        this.children[0].material[i].wireframe = !this.children[0].material[i].wireframe;
+    for (let i=0; i<this.children[0].material.length; i++ ){
+        for (let j=0; j< 6; j++){
+            this.material[0][j].wireframe = this.materialWireframe;
+            this.material[1][j].wireframe = this.materialWireframe;
+        }
+        this.children[0].material[i].wireframe = this.materialWireframe;
+    }
+    this.materialWireframe = !this.materialWireframe;
 }
+
+
+Rubik.prototype.setBasic=function(){
+    if (this.setBasicFlag) {
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                    child.material = this.material[1]}
+        });
+
+        this.setBasicFlag=!this.setBasicFlag;
+    }else {
+        //set to previous material
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                    child.material = this.material[0]}
+        });
+        this.setBasicFlag=true;
+    }
+};

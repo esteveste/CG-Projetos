@@ -6,14 +6,12 @@ var deltaTime, levelUpTime=0, collisionParameters=[];
 let radius = 5;
 let ball_geo = [radius, 25, 25];
 
-
-
-
 var Ball = function () {
     GraphicalEntity.call(this);
 
     let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball13.jpg');
     
+    this.setBasicFlag = true;
     this.velocity=0;
     this.velocity_flag=true;
 
@@ -60,3 +58,21 @@ Ball.prototype.reset=function () {
     this.ball.rotation.z=0;
 
 }
+
+Ball.prototype.setBasic=function(){
+    if (this.setBasicFlag) {
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                    child.material = this.material[1]}
+        });
+
+        this.setBasicFlag=!this.setBasicFlag;
+    }else {
+        //set to previous material
+        this.traverse((child)=> {
+            if (child instanceof THREE.Mesh){
+                    child.material = this.material[0]}
+        });
+        this.setBasicFlag=true;
+    }
+};

@@ -39,7 +39,9 @@ function Input() {
                 break;
             case 76:
                 //l
-                //.setBasic();
+                board.setBasic();
+                rubik.setBasic();
+                ball.setBasic();
                 break;
             case  82:
                 //r
