@@ -1,0 +1,38 @@
+'use strict';
+//material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+
+
+var Camera = function (aspectRatio) {
+    GraphicalEntity.call(this);
+
+
+    this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+    this.CAMERA_POS=[100,120,100];
+    
+   
+
+    this.camera.position.set(...this.CAMERA_POS);
+    this.camera.lookAt(0,0,0);
+
+    let velocity = Math.random()*2;
+    
+
+    this.add(this.camera);
+
+    this.animate=()=>{
+        deltaTime=clock.getDelta();
+
+        this.rotateY(-0.005);
+        //this.camera.lookAt(0,0,0);
+        // ball.applyMatrix(matrix);
+
+    }
+
+
+
+
+};
+
+
+Camera.prototype = Object.create(GraphicalEntity.prototype);

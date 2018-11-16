@@ -1,19 +1,17 @@
 'use strict';
 
-let ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let camera, ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
 var axes=false;
-
+var aspectRatio=window.innerWidth/ window.innerHeight;
 
 
 function SceneManager() {
 
 
-    this.CAMERAVIEW=[50,100,50];
-    this.CAMERA_POS = new THREE.Vector3(0, 0, 0);
-
+    this.CAMERA_POS=[100,120,100];
 
 
     scene = new THREE.Scene();
@@ -24,14 +22,14 @@ function SceneManager() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    let aspectRatio=window.innerWidth/ window.innerHeight;
+    
 
-    this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+    //this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
 
     
-    this.camera.position.set(...this.CAMERAVIEW);
+    //this.camera.position.set(...this.CAMERA_POS);
 
-    this.camera.lookAt(scene.position);
+    //this.camera.lookAt(scene.position);
 
 
     this.onResize=()=>{
@@ -39,7 +37,7 @@ function SceneManager() {
 
         let aspectRatio=window.innerWidth/window.innerHeight;
         this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
+        this.camera.camera.updateProjectionMatrix();
 
 
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -49,20 +47,23 @@ function SceneManager() {
         TRACKBALL_CAMERA=false;
         this.camera = camera;
         this.onResize();
-        renderer.render(scene, this.camera);
+        renderer.render(scene, this.camera.camera);
     };
 
-    this.changeCamera(this.camera);
+    this.changeCamera(camera);
+
 
 
     this.animate=()=>{
         createEventAnimate();
 
         ball.animate();
+        camera.animate();
+
 
         requestAnimationFrame(this.animate);
 
-        renderer.render(scene, this.camera);
+        renderer.render(scene, this.camera.camera);
 
     };
 
@@ -126,5 +127,8 @@ function sceneSetup(scene) {
 
     lights = new Lights();
     scene.add(lights);
+
+    camera = new Camera(aspectRatio);
+    scene.add(camera);
 
 }
