@@ -9,8 +9,8 @@ var Camera = function (aspectRatio, renderer, scene) {
 
     this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
     this.CAMERA_POS=[100,120,100];
-    
-   
+
+
 
     this.camera.position.set(...this.CAMERA_POS);
     this.camera.lookAt(0,0,0);
@@ -19,7 +19,7 @@ var Camera = function (aspectRatio, renderer, scene) {
     this.control.rotateSpeed = 3.0;
     this.control.zoomSpeed = 3.0;
     this.control.panSpeed = 3.0;
-    this.control.addEventListener('change', trackballRender);
+    this.control.addEventListener('change', this.trackballRender);
     
 
     this.add(this.camera);
@@ -43,10 +43,12 @@ var Camera = function (aspectRatio, renderer, scene) {
     }
 
 
-    function trackballRender() {
+    this.trackballRender=() =>{
         renderer.render(scene, this.camera);
     }
-
+    this.reset=()=>{
+        this.rotation.y=0;
+    }
 
 };
 

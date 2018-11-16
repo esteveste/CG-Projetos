@@ -43,7 +43,7 @@ function Input() {
                 break;
             case  82:
                 //r
-
+                sceneManager.reset();
                 break;
             case  83:
                 //s

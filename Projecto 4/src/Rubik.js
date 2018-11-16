@@ -11,20 +11,21 @@ var Rubik = function () {
     board_geo.computeVertexNormals();
 
     let rubik_texture = new THREE.TextureLoader().load('./src/utils/Textures/rubik.png');
-    rubik_texture.wrapS = rubik_texture.wrapT = THREE.RepeatWrapping;
-    rubik_texture.repeat.set(1, 1);
+    let rubik_bump = new THREE.ImageUtils.loadTexture('./src/utils/Textures/face1.jpg');
+    // rubik_texture.wrapS = rubik_texture.wrapT = THREE.RepeatWrapping;
+    // rubik_texture.repeat.set(1, 1);
 
     // this.rubik_mats = [new THREE.MeshLambertMaterial( {map: rubik_texture, emissive: 0x2a2a2a, emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: rubik_texture})]
     
     let material_basic=[];
     for ( var i = 1; i <= 6; i ++ ) {
-        material_basic.push( new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true } ) );
+        material_basic.push( new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true,bumpMap:rubik_bump,bumpScale:1 } ) );
     }
-    let material_lamb=[];
+    let material_phong=[];
     for ( var i = 1; i <= 6; i ++ ) {
-        material_lamb.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true , } ) );
+        material_phong.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true ,bumpMap:rubik_bump,bumpScale:1 } ) );
     }
-    this.rubik_mats=[material_lamb,material_basic];
+    this.rubik_mats=[material_phong,material_basic];
 
 
     let board_mesh = new THREE.Mesh(board_geo, this.rubik_mats[0]);

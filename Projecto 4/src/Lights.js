@@ -10,14 +10,12 @@ var Lights = function () {
     dlight.target.position.set(0,0,0);
     
     slight = new THREE.SpotLight(0xffffff,2,140,Math.PI/5,1 );
-    slight.position.set(0, 50, 0);
+    slight.position.set(50, 50, 50);
     slight.target.position.set(0,0,0);
     slight.castShadow = true;
     slight.penumbra=.2;
 
-    // this.add(slight);
-    // let spotter = new THREE.SpotLightHelper(slight);
-    // this.add(spotter);
+    this.add(slight);
     this.add(dlight);
 };
 Lights.prototype = Object.create(GraphicalEntity.prototype);
@@ -35,3 +33,8 @@ Lights.prototype.changeSLightOnOff=function(){
     else
         this.children[0].intensity = 0;
 };
+Lights.prototype.reset=function () {
+    this.children[0].intensity = 1;
+    this.children[1].intensity = 1;
+}
+

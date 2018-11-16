@@ -21,11 +21,12 @@ var Ball = function () {
     this.velocity_flag=true;
 
 
-    this.material = [new THREE.MeshPhongMaterial( {map: ball_texture,
+    this.material = [new THREE.MeshPhongMaterial( {map: ball_texture,specular:0x999999,shininess:100
     }), new THREE.MeshBasicMaterial( {map: ball_texture})]
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, this.material[0]);
+    this.ball=ball;
     // this.ball=ball;
     //
     // var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
@@ -80,3 +81,10 @@ var Ball = function () {
 
 
 Ball.prototype = Object.create(GraphicalEntity.prototype);
+Ball.prototype.reset=function () {
+    this.velocity_flag=true;
+    this.velocity=0;
+    this.rotation.y=0;
+    this.ball.rotation.z=0;
+
+}
