@@ -1,6 +1,6 @@
 'use strict';
 
-let board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -118,6 +118,9 @@ function createEventAnimate() {
 function sceneSetup(scene) {
     board = new Board();
     scene.add(board);
+
+    ball = new Ball();
+    scene.add(ball);
 
     lights = new Lights();
     scene.add(lights);

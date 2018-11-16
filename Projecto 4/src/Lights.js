@@ -5,17 +5,19 @@ var Lights = function () {
     var slight;
     var dlight;
 
-    dlight = new THREE.DirectionalLight(0xffffff, 0.5);
+    dlight = new THREE.DirectionalLight(0xffffff, 1);
     dlight.position.set(-50, 50, -50);
     dlight.target.position.set(0,0,0);
     
     slight = new THREE.SpotLight(0xffffff,2,140,Math.PI/5,1 );
-    slight.position.set(50, 50, 50);
+    slight.position.set(0, 50, 0);
     slight.target.position.set(0,0,0);
     slight.castShadow = true;
     slight.penumbra=.2;
 
-    this.add(slight);
+    // this.add(slight);
+    // let spotter = new THREE.SpotLightHelper(slight);
+    // this.add(spotter);
     this.add(dlight);
 };
 Lights.prototype = Object.create(GraphicalEntity.prototype);
