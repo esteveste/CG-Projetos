@@ -19,11 +19,11 @@ var Rubik = function () {
     
     let material_basic=[];
     for ( var i = 1; i <= 6; i ++ ) {
-        material_basic.push( new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true,bumpMap:rubik_bump,bumpScale:1 } ) );
+        material_basic.push( new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true, bumpMap:rubik_bump,bumpScale:1 } ) );
     }
     let material_phong=[];
     for ( var i = 1; i <= 6; i ++ ) {
-        material_phong.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true ,bumpMap:rubik_bump,bumpScale:1 } ) );
+        material_phong.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true , bumpMap:rubik_bump,bumpScale:1 } ) );
     }
     this.rubik_mats=[material_phong,material_basic];
 
@@ -39,5 +39,6 @@ var Rubik = function () {
 Rubik.prototype = Object.create(GraphicalEntity.prototype);
 
 Rubik.prototype.changeWireframe=function(){
-
+    for (let i=0; i<this.children[0].material.length; i++ )
+        this.children[0].material[i].wireframe = !this.children[0].material[i].wireframe;
 }

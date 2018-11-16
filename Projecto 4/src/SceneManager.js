@@ -88,7 +88,6 @@ function SceneManager() {
         ball.changeWireframe();
         board.changeWireframe();
         rubik.changeWireframe();
-        // plane.changeWireframe();
     };
     this.setBallRotation=()=>{
       ball.velocity_flag=!ball.velocity_flag;
