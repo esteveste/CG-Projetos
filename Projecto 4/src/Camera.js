@@ -28,7 +28,7 @@ var Camera = function (aspectRatio, renderer, scene) {
 
         deltaTime=clock.getDelta();
 
-        this.rotateY(-0.005);
+        this.rotation.y -= 0.5*deltaTime;
         //this.camera.lookAt(0,0,0);
         // ball.applyMatrix(matrix);
 
