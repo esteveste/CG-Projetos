@@ -12,7 +12,7 @@ var Board = function () {
     board_texture.wrapS = board_texture.wrapT = THREE.RepeatWrapping;
     board_texture.repeat.set(1, 1);
 
-    this.board_mats = [new THREE.MeshLambertMaterial( {map: board_texture, emissive: 0x2a2a2a, emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: board_texture})]
+    this.board_mats = [new THREE.MeshPhongMaterial( {map: board_texture,}), new THREE.MeshBasicMaterial( {map: board_texture})]
     let board_mesh = new THREE.Mesh(board_geo, this.board_mats[0]);
 
 

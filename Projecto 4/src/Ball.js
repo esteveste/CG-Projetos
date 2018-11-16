@@ -21,12 +21,11 @@ var Ball = function () {
     this.velocity_flag=true;
 
 
-    this.material = [new THREE.MeshLambertMaterial( {map: ball_texture,
-        emissive: 0x2a2a2a,
-        emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: ball_texture})]
+    this.material = [new THREE.MeshPhongMaterial( {map: ball_texture,
+    }), new THREE.MeshBasicMaterial( {map: ball_texture})]
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
-    let ball = new THREE.Mesh(ballgeo, this.material[1]);
+    let ball = new THREE.Mesh(ballgeo, this.material[0]);
     // this.ball=ball;
     //
     // var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];

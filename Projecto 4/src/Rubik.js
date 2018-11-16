@@ -22,7 +22,7 @@ var Rubik = function () {
     }
     let material_lamb=[];
     for ( var i = 1; i <= 6; i ++ ) {
-        material_lamb.push( new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true ,emissive: 0x2a2a2a, emissiveIntensity: .5, } ) );
+        material_lamb.push( new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture( './src/utils/Textures/face' + i + '.jpg'), overdraw: true , } ) );
     }
     this.rubik_mats=[material_lamb,material_basic];
 
