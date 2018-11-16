@@ -35,6 +35,7 @@ function Input() {
                 break;
             case 66:
                 //b
+                sceneManager.setBallRotation();
                 break;
             case 76:
                 //l

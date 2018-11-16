@@ -7,88 +7,70 @@ let radius = 5;
 let ball_geo = [radius, 25, 25];
 
 
+
+
 var Ball = function () {
     GraphicalEntity.call(this);
 
 
-    let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball.png');
+    let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball13.jpg');
     // ball_texture.wrapS = ball_texture.wrapT = THREE.RepeatWrapping;
     // ball_texture.repeat.set(1, 1);
+    
+    this.velocity=0;
+    this.velocity_flag=true;
 
 
-
-    this.material = [new THREE.MeshLambertMaterial( {map: ball_texture,
-        emissive: 0x2a2a2a,
-        emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: ball_texture})]
+    this.material = [new THREE.MeshPhongMaterial( {map: ball_texture,
+    }), new THREE.MeshBasicMaterial( {map: ball_texture})]
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
-    let ball = new THREE.Mesh(ballgeo, this.material);
+    let ball = new THREE.Mesh(ballgeo, this.material[0]);
     // this.ball=ball;
+    //
+    // var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
+    // for ( let i = 0; i < faceVertexUvs.length; i ++ ) {
+    //
+    //     var uvs = faceVertexUvs[ i ];
+    //     var face = ballgeo.faces[ i ];
+    //
+    //     for ( var j = 0; j < 3; j ++ ) {
+    //
+    //         uvs[ j ].x = face.vertexNormals[ j ].x * 0.5 + 0.5;
+    //         uvs[ j ].y = face.vertexNormals[ j ].y * 0.5 + 0.5;
+    //
+    //     }
+    //
+    // }
 
-    var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
-    for ( let i = 0; i < faceVertexUvs.length; i ++ ) {
-
-        var uvs = faceVertexUvs[ i ];
-        var face = ballgeo.faces[ i ];
-
-        for ( var j = 0; j < 3; j ++ ) {
-
-            uvs[ j ].x = face.vertexNormals[ j ].x * 0.5 + 0.5;
-            uvs[ j ].y = face.vertexNormals[ j ].y * 0.5 + 0.5;
-
-        }
-
-    }
-
-    this.x =0;
-    this.z =0;
-    this.y =0.5+radius/2;
+    this.position.y =0.5+radius/2;
 
     ball.position.z=20;
 
-    this.axes = new THREE.AxesHelper(10);
-    this.position.set(this.x, this.y ,this.z);
+    // this.axes = new THREE.AxesHelper(10);
+    // this.position.set(this.x, this.y ,this.z);
 
-    let velocity = Math.random()*2;
-    let accel = Math.random()*0.0001;
-    let vectorVelocity=new THREE.Vector3(Math.random(),0,Math.random());
+    // let accel = Math.random()*0.0001;
+    // let vectorVelocity=new THREE.Vector3(Math.random(),0,Math.random());
+    //
+    // vectorVelocity.multiplyScalar(0.2);
 
-    vectorVelocity.multiplyScalar(0.2);
-
-    ball.add(this.axes);
+    // ball.add(this.axes);
     this.add(ball);
 
-
-
-
-    this.getPosition=function (){
-        return this.position;
-    }
-
-    this.setPosition=function (x1, z1){
-        this.position.set(x1, this.y, z1);
-    }
-
-    this.getRadius=function(){
-        return radius;
-    }
-
-    this.getVelocityVector=function(){
-        return vectorVelocity.clone();
-    }
-
-    this.showAxes=function(){
-        ball.add(this.axes);
-    }
-
-    this.hideAxes=function(){
-        ball.remove(this.axes);
-    }
     this.animate=()=>{
         deltaTime=clock.getDelta();
-
-        this.rotateY(deltaTime);
-        ball.rotateZ(-(20/radius)*deltaTime);
+        
+        if(this.velocity_flag && this.velocity<1){
+            this.velocity+=deltaTime;
+        }else if(this.velocity_flag) this.velocity=1;
+        if(!this.velocity_flag & this.velocity>0){
+            this.velocity-=deltaTime;
+        }else if(!this.velocity_flag) this.velocity=0;
+        
+        let ball_velocity=deltaTime*this.velocity;
+        this.rotateY(ball_velocity);
+        ball.rotateZ(-(20/radius)*ball_velocity);
         // ball.applyMatrix(matrix);
 
     }

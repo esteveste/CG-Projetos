@@ -93,7 +93,10 @@ function SceneManager() {
 
     this.changeWireframe=()=>{
 
-        plane.changeWireframe();
+        // plane.changeWireframe();
+    };
+    this.setBallRotation=()=>{
+      ball.velocity_flag=!ball.velocity_flag;
     };
 
 
@@ -125,6 +128,9 @@ function sceneSetup(scene) {
 
     ball = new Ball();
     scene.add(ball);
+
+    rubik = new Rubik();
+    scene.add(rubik);
 
     lights = new Lights();
     scene.add(lights);
