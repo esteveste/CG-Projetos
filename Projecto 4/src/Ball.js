@@ -11,7 +11,7 @@ var Ball = function () {
     GraphicalEntity.call(this);
 
 
-    let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball.png');
+    let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball13.jpg');
     // ball_texture.wrapS = ball_texture.wrapT = THREE.RepeatWrapping;
     // ball_texture.repeat.set(1, 1);
 
@@ -22,32 +22,30 @@ var Ball = function () {
         emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: ball_texture})]
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
-    let ball = new THREE.Mesh(ballgeo, this.material);
+    let ball = new THREE.Mesh(ballgeo, this.material[1]);
     // this.ball=ball;
+    //
+    // var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
+    // for ( let i = 0; i < faceVertexUvs.length; i ++ ) {
+    //
+    //     var uvs = faceVertexUvs[ i ];
+    //     var face = ballgeo.faces[ i ];
+    //
+    //     for ( var j = 0; j < 3; j ++ ) {
+    //
+    //         uvs[ j ].x = face.vertexNormals[ j ].x * 0.5 + 0.5;
+    //         uvs[ j ].y = face.vertexNormals[ j ].y * 0.5 + 0.5;
+    //
+    //     }
+    //
+    // }
 
-    var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
-    for ( let i = 0; i < faceVertexUvs.length; i ++ ) {
-
-        var uvs = faceVertexUvs[ i ];
-        var face = ballgeo.faces[ i ];
-
-        for ( var j = 0; j < 3; j ++ ) {
-
-            uvs[ j ].x = face.vertexNormals[ j ].x * 0.5 + 0.5;
-            uvs[ j ].y = face.vertexNormals[ j ].y * 0.5 + 0.5;
-
-        }
-
-    }
-
-    this.x =0;
-    this.z =0;
-    this.y =0.5+radius/2;
+    this.position.y =0.5+radius/2;
 
     ball.position.z=20;
 
-    this.axes = new THREE.AxesHelper(10);
-    this.position.set(this.x, this.y ,this.z);
+    // this.axes = new THREE.AxesHelper(10);
+    // this.position.set(this.x, this.y ,this.z);
 
     let velocity = Math.random()*2;
     let accel = Math.random()*0.0001;

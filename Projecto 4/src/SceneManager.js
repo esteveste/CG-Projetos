@@ -1,6 +1,6 @@
 'use strict';
 
-let camera, ball,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
+let camera,ball,rubik,board, lights, holofotes, cameratrackball, control, clock,TRACKBALL_CAMERA=true,scene;
 let h_orig = window.innerHeight,w_orig=window.innerWidth,VIEW_SIZE=80;
 
 
@@ -124,6 +124,9 @@ function sceneSetup(scene) {
 
     ball = new Ball();
     scene.add(ball);
+
+    rubik = new Rubik();
+    scene.add(rubik);
 
     lights = new Lights();
     scene.add(lights);
