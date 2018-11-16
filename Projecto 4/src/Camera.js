@@ -28,7 +28,7 @@ var Camera = function (aspectRatio, renderer, scene) {
     let pause_mesh = new THREE.Mesh(pause_geo, this.pause_mat);
 
     pause_mesh.visible = false;
-    pause_mesh.position.set(60, 80, 60);
+    pause_mesh.position.set(60, 75, 60);
     pause_mesh.lookAt(0, 0, 0);
     
     this.add(pause_mesh);
