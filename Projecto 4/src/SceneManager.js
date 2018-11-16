@@ -11,7 +11,7 @@ var axes=false;
 function SceneManager() {
 
 
-    this.CAMERAVIEW=[0,200,100];
+    this.CAMERAVIEW=[50,100,50];
     this.CAMERA_POS = new THREE.Vector3(0, 0, 0);
 
 
@@ -61,8 +61,6 @@ function SceneManager() {
         requestAnimationFrame(this.animate);
 
         renderer.render(scene, this.camera);
-
-
 
     };
 
