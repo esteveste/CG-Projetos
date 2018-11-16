@@ -29,17 +29,20 @@ var Ball = function () {
 
     this.add(ball);
 
-    this.animate=()=>{
-        deltaTime=clock.getDelta();
+    this.animate=(deltaTime)=>{
+
         
         if(this.velocity_flag && this.velocity<1){
             this.velocity+=deltaTime;
         }else if(this.velocity_flag) this.velocity=1;
-        if(!this.velocity_flag & this.velocity>0){
+        if(!this.velocity_flag && this.velocity>0){
             this.velocity-=deltaTime;
         }else if(!this.velocity_flag) this.velocity=0;
-        
+
+
+
         let ball_velocity=deltaTime*this.velocity;
+
         this.rotateY(ball_velocity);
         ball.rotateZ(-(20/radius)*ball_velocity);
         // ball.applyMatrix(matrix);

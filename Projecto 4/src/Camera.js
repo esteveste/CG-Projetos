@@ -33,17 +33,8 @@ var Camera = function (aspectRatio, renderer, scene) {
     
     this.add(pause_mesh);
 
-    this.animate=()=>{
-        //requestAnimationFrame(trackballAnimate);
-        //this.control.update();       
-
-
-        deltaTime=clock.getDelta();
-
+    this.animate=(deltaTime)=>{
         this.rotation.y -= 0.5*deltaTime;
-        //this.camera.lookAt(0,0,0);
-        // ball.applyMatrix(matrix);
-
     }
 
     this.reset=()=>{

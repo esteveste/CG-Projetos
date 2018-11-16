@@ -54,12 +54,15 @@ function SceneManager() {
 
 
     this.animate=()=>{
-        createEventAnimate();
-        requestAnimationFrame(this.animate);
-        camera.animate();
-        ball.animate();
+        // createEventAnimate();
+        deltaTime=clock.getDelta();
+
+        camera.animate(deltaTime);
+        ball.animate(deltaTime);
         renderer.render(scene, camera.camera);
-        this.controls.update();
+        // this.controls.update();
+
+        requestAnimationFrame(this.animate);
     };
 
 
