@@ -7,6 +7,8 @@ let radius = 5;
 let ball_geo = [radius, 25, 25];
 
 
+
+
 var Ball = function () {
     GraphicalEntity.call(this);
 
@@ -14,7 +16,9 @@ var Ball = function () {
     let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball13.jpg');
     // ball_texture.wrapS = ball_texture.wrapT = THREE.RepeatWrapping;
     // ball_texture.repeat.set(1, 1);
-
+    
+    this.velocity=0;
+    this.velocity_flag=true;
 
 
     this.material = [new THREE.MeshLambertMaterial( {map: ball_texture,
@@ -47,46 +51,27 @@ var Ball = function () {
     // this.axes = new THREE.AxesHelper(10);
     // this.position.set(this.x, this.y ,this.z);
 
-    let velocity = Math.random()*2;
-    let accel = Math.random()*0.0001;
-    let vectorVelocity=new THREE.Vector3(Math.random(),0,Math.random());
+    // let accel = Math.random()*0.0001;
+    // let vectorVelocity=new THREE.Vector3(Math.random(),0,Math.random());
+    //
+    // vectorVelocity.multiplyScalar(0.2);
 
-    vectorVelocity.multiplyScalar(0.2);
-
-    ball.add(this.axes);
+    // ball.add(this.axes);
     this.add(ball);
 
-
-
-
-    this.getPosition=function (){
-        return this.position;
-    }
-
-    this.setPosition=function (x1, z1){
-        this.position.set(x1, this.y, z1);
-    }
-
-    this.getRadius=function(){
-        return radius;
-    }
-
-    this.getVelocityVector=function(){
-        return vectorVelocity.clone();
-    }
-
-    this.showAxes=function(){
-        ball.add(this.axes);
-    }
-
-    this.hideAxes=function(){
-        ball.remove(this.axes);
-    }
     this.animate=()=>{
         deltaTime=clock.getDelta();
-
-        this.rotateY(deltaTime);
-        ball.rotateZ(-(20/radius)*deltaTime);
+        
+        if(this.velocity_flag && this.velocity<1){
+            this.velocity+=deltaTime;
+        }else if(this.velocity_flag) this.velocity=1;
+        if(!this.velocity_flag & this.velocity>0){
+            this.velocity-=deltaTime;
+        }else if(!this.velocity_flag) this.velocity=0;
+        
+        let ball_velocity=deltaTime*this.velocity;
+        this.rotateY(ball_velocity);
+        ball.rotateZ(-(20/radius)*ball_velocity);
         // ball.applyMatrix(matrix);
 
     }

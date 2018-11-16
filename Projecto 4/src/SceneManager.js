@@ -92,7 +92,10 @@ function SceneManager() {
 
     this.changeWireframe=()=>{
 
-        plane.changeWireframe();
+        // plane.changeWireframe();
+    };
+    this.setBallRotation=()=>{
+      ball.velocity_flag=!ball.velocity_flag;
     };
 
 
