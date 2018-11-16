@@ -58,6 +58,8 @@ function SceneManager() {
     this.animate=()=>{
         createEventAnimate();
 
+        ball.animate();
+
         requestAnimationFrame(this.animate);
 
         renderer.render(scene, this.camera);

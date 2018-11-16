@@ -4,20 +4,41 @@
 var deltaTime, levelUpTime=0, collisionParameters=[];
 
 let radius = 5;
-let ball_geo = [radius, 10, 10];
+let ball_geo = [radius, 25, 25];
 
 
 var Ball = function () {
     GraphicalEntity.call(this);
 
-    this.material = [new THREE.MeshLambertMaterial( {//map: board_texture,
+
+    let ball_texture = new THREE.TextureLoader().load('./src/utils/Textures/ball.png');
+    // ball_texture.wrapS = ball_texture.wrapT = THREE.RepeatWrapping;
+    // ball_texture.repeat.set(1, 1);
+
+
+
+    this.material = [new THREE.MeshLambertMaterial( {map: ball_texture,
         emissive: 0x2a2a2a,
-        emissiveIntensity: .5,}), //new THREE.MeshBasicMaterial( {map: board_texture})
-    ]
+        emissiveIntensity: .5,}), new THREE.MeshBasicMaterial( {map: ball_texture})]
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, this.material);
     // this.ball=ball;
+
+    var faceVertexUvs = ballgeo.faceVertexUvs[ 0 ];
+    for ( let i = 0; i < faceVertexUvs.length; i ++ ) {
+
+        var uvs = faceVertexUvs[ i ];
+        var face = ballgeo.faces[ i ];
+
+        for ( var j = 0; j < 3; j ++ ) {
+
+            uvs[ j ].x = face.vertexNormals[ j ].x * 0.5 + 0.5;
+            uvs[ j ].y = face.vertexNormals[ j ].y * 0.5 + 0.5;
+
+        }
+
+    }
 
     this.x =0;
     this.z =0;
@@ -66,7 +87,8 @@ var Ball = function () {
     this.animate=()=>{
         deltaTime=clock.getDelta();
 
-        this.rotateY(1);
+        this.rotateY(deltaTime);
+        ball.rotateZ(-(20/radius)*deltaTime);
         // ball.applyMatrix(matrix);
 
     }
