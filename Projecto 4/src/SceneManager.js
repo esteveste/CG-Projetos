@@ -27,12 +27,15 @@ function SceneManager() {
 
     
 
-    //this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
+    this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
 
     
-    //this.camera.position.set(...this.CAMERA_POS);
+    this.camera.position.set(...this.CAMERA_POS);
 
-    //this.camera.lookAt(scene.position);
+    this.camera.lookAt(scene.position);
+
+    this.controls = new THREE.OrbitControls( this.camera );
+    this.controls.update();
 
 
     this.onResize=()=>{
@@ -54,19 +57,14 @@ function SceneManager() {
     // };
     //
     // this.changeCamera(camera);
-    this.camera = camera;
+    //this.camera = camera;
 
 
     this.animate=()=>{
         createEventAnimate();
-
-        ball.animate();
-        camera.animate();
-
-
-        renderer.render(scene, this.camera.camera);
         requestAnimationFrame(this.animate);
-
+        renderer.render(scene, this.camera);
+        this.controls.update();
     };
 
 
@@ -153,7 +151,5 @@ function sceneSetup(scene) {
     lights = new Lights();
     scene.add(lights);
 
-    camera = new Camera(aspectRatio, renderer, scene);
-    scene.add(camera);
 
 }
