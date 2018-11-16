@@ -25,16 +25,8 @@ function SceneManager() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    
 
-    this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
-
-    
-    this.camera.position.set(...this.CAMERA_POS);
-
-    this.camera.lookAt(scene.position);
-
-    this.controls = new THREE.OrbitControls( this.camera );
+    this.controls = new THREE.OrbitControls(camera.camera);
     this.controls.update();
 
 
@@ -42,8 +34,8 @@ function SceneManager() {
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         let aspectRatio=window.innerWidth/window.innerHeight;
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.camera.updateProjectionMatrix();
+        camera.camera.aspect = window.innerWidth / window.innerHeight;
+        camera.camera.updateProjectionMatrix();
 
 
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -63,7 +55,8 @@ function SceneManager() {
     this.animate=()=>{
         createEventAnimate();
         requestAnimationFrame(this.animate);
-        renderer.render(scene, this.camera);
+        camera.animate();
+        renderer.render(scene, camera.camera);
         this.controls.update();
     };
 
@@ -150,6 +143,9 @@ function sceneSetup(scene) {
 
     lights = new Lights();
     scene.add(lights);
+
+    camera = new Camera();
+    scene.add(camera);
 
 
 }
