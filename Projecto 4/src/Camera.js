@@ -10,16 +10,28 @@ var Camera = function (aspectRatio, renderer, scene) {
     this.camera = new THREE.PerspectiveCamera( 45, aspectRatio, 1, 1000 );
     this.CAMERA_POS=[100,120,100];
 
-
-
     this.camera.position.set(...this.CAMERA_POS);
     this.camera.lookAt(0,0,0);
 
-
-
     this.add(this.camera);
   
+    let pause_geo = new THREE.PlaneGeometry(50, 50, 1, 1);
 
+    pause_geo.computeFaceNormals();
+    pause_geo.computeVertexNormals();
+
+    let pause_texture = new THREE.TextureLoader().load('./src/utils/Textures/pausa.png');
+    pause_texture.wrapS = pause_texture.wrapT = THREE.RepeatWrapping;
+    pause_texture.repeat.set(1, 1);
+
+    this.pause_mat = new THREE.MeshBasicMaterial( {map: pause_texture, side: THREE.BackSide})
+    let pause_mesh = new THREE.Mesh(pause_geo, this.pause_mat);
+
+    pause_mesh.visible = false;
+    pause_mesh.position.set(60, 80, 60);
+    pause_mesh.lookAt(0, 0, 0);
+    
+    this.add(pause_mesh);
 
     this.animate=()=>{
         //requestAnimationFrame(trackballAnimate);

@@ -10,6 +10,7 @@ var renderer = new THREE.WebGLRenderer({ antialias: true });
 var scene = new THREE.Scene();
 
 let freezeFlag=true;
+let pauseVisibleFlag=true;
 
 function SceneManager() {
 
@@ -116,8 +117,11 @@ function SceneManager() {
         if(freezeFlag){
             // cancelAnimationFrame( id );
             clock.stop();
+            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            renderer.render(scene, camera.camera);
         }else {
             clock.start();
+            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
         }
         freezeFlag=!freezeFlag;
 
