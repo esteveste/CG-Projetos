@@ -15,7 +15,7 @@ var Camera = function (aspectRatio, renderer, scene) {
 
     this.add(this.camera);
   
-    let pause_geo = new THREE.PlaneGeometry(50, 50, 1, 1);
+    let pause_geo = new THREE.PlaneGeometry(25, 25, 1, 1);
 
     pause_geo.computeFaceNormals();
     pause_geo.computeVertexNormals();
