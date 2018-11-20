@@ -120,11 +120,11 @@ function SceneManager() {
         if(freezeFlag){
             // cancelAnimationFrame( id );
             clock.stop();
-            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
             renderer.render(scene, camera.camera);
         }else {
             clock.start();
-            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
         }
         freezeFlag=!freezeFlag;
 
