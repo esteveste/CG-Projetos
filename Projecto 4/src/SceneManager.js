@@ -120,12 +120,12 @@ this.controls.enabled=false;
         if(freezeFlag){
             // cancelAnimationFrame( id );
             clock.stop();
-            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
             renderer.render(scene, camera.camera);
             this.controls.enabled=false;
         }else {
             clock.start();
-            scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
             this.controls.enabled=true;
         }
         freezeFlag=!freezeFlag;

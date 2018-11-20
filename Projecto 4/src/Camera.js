@@ -28,10 +28,10 @@ var Camera = function (aspectRatio, renderer, scene) {
     let pause_mesh = new THREE.Mesh(pause_geo, this.pause_mat);
 
     pause_mesh.visible = false;
-    pause_mesh.position.set(60, 75, 60);
     pause_mesh.lookAt(0, 0, 0);
-    
-    this.add(pause_mesh);
+    pause_mesh.position.set(0, 0, 25);
+
+    this.camera.add(pause_mesh);
 
     this.animate=(deltaTime)=>{
         this.rotation.y -= 0.5*deltaTime;
