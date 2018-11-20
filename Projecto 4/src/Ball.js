@@ -21,11 +21,11 @@ var Ball = function () {
 
     let ballgeo = new THREE.SphereGeometry(ball_geo[0],ball_geo[1], ball_geo[2]);
     let ball = new THREE.Mesh(ballgeo, this.material[0]);
-    this.ball=ball;
 
     this.position.y =0.5+radius;
 
     ball.position.z=20;
+    this.ball=ball;
 
     this.add(ball);
 
@@ -43,8 +43,8 @@ var Ball = function () {
 
         let ball_velocity=deltaTime*this.velocity;
 
-        this.rotateY(ball_velocity);
-        ball.rotateZ(-(20/radius)*ball_velocity);
+        this.rotation.y+=(ball_velocity);
+        ball.rotation.z+=(-(20/radius)*ball_velocity);
         // ball.applyMatrix(matrix);
 
     }
@@ -57,9 +57,8 @@ Ball.prototype = Object.create(GraphicalEntity.prototype);
 Ball.prototype.reset=function () {
     this.velocity_flag=true;
     this.velocity=0;
-    this.rotation.y=0;
     this.ball.rotation.z=0;
-
+    this.rotation.y=0;
 }
 
 Ball.prototype.setBasic=function(){

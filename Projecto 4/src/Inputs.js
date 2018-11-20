@@ -35,7 +35,8 @@ function Input() {
                 break;
             case 66:
                 //b
-                sceneManager.setBallRotation();
+                if (sceneManager.freezeFlag)
+                    sceneManager.setBallRotation();
                 break;
             case 76:
                 //l
@@ -45,7 +46,10 @@ function Input() {
                 break;
             case  82:
                 //r
+                if (!sceneManager.freezeFlag)
+                    sceneManager.freeze_time();
                 sceneManager.reset();
+
                 break;
             case  83:
                 //s

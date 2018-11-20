@@ -9,14 +9,13 @@ var aspectRatio=window.innerWidth/ window.innerHeight;
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 var scene = new THREE.Scene();
 
-let freezeFlag=true;
 let pauseVisibleFlag=true;
 
 function SceneManager() {
 
 
     this.CAMERA_POS=[100,120,100];
-
+    this.freezeFlag=true;
 
     //scene = new THREE.Scene();
 
@@ -117,7 +116,7 @@ this.controls.enabled=false;
         lights.reset();
     }
     this.freeze_time=()=>{
-        if(freezeFlag){
+        if(this.freezeFlag){
             // cancelAnimationFrame( id );
             clock.stop();
             scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
@@ -128,7 +127,7 @@ this.controls.enabled=false;
             scene.children[4].children[0].children[0].visible = !scene.children[4].children[0].children[0].visible;
             this.controls.enabled=true;
         }
-        freezeFlag=!freezeFlag;
+        this.freezeFlag=!this.freezeFlag;
 
     }
 
