@@ -52,7 +52,7 @@ function SceneManager() {
     // this.changeCamera(camera);
     //this.camera = camera;
 
-
+this.controls.enabled=false;
     this.animate=()=>{
         // createEventAnimate();
         deltaTime=clock.getDelta();
@@ -131,6 +131,10 @@ function SceneManager() {
         freezeFlag=!freezeFlag;
 
     }
+
+
+
+    this.controls.enabled=true;
 }
 
 
