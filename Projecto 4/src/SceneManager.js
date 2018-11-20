@@ -41,7 +41,7 @@ function SceneManager() {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
     };
-
+    this.onResize();
     // this.changeCamera = (camera) =>{
     //     TRACKBALL_CAMERA=false;
     //     this.camera = camera;
@@ -122,9 +122,11 @@ function SceneManager() {
             clock.stop();
             scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
             renderer.render(scene, camera.camera);
+            this.controls.enabled=false;
         }else {
             clock.start();
             scene.children[4].children[1].visible = !scene.children[4].children[1].visible;
+            this.controls.enabled=true;
         }
         freezeFlag=!freezeFlag;
 
