@@ -23,15 +23,18 @@ function Input() {
                 break;
             case 87:
                 //w
-                sceneManager.changeWireframe();
+                if (sceneManager.freezeFlag)
+                    sceneManager.changeWireframe();
                 break;
             case 68:
                 //d
-                lights.changeDLightOnOff();
+                if (sceneManager.freezeFlag)
+                    lights.changeDLightOnOff();
                 break;
             case 80:
                 //p
-                lights.changeSLightOnOff();
+                if (sceneManager.freezeFlag)
+                    lights.changeSLightOnOff();
                 break;
             case 66:
                 //b
@@ -40,9 +43,11 @@ function Input() {
                 break;
             case 76:
                 //l
-                board.setBasic();
-                rubik.setBasic();
-                ball.setBasic();
+                if (sceneManager.freezeFlag){
+                    board.setBasic();
+                    rubik.setBasic();
+                    ball.setBasic();
+                }
                 break;
             case  82:
                 //r

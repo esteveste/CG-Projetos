@@ -9,9 +9,9 @@ var Lights = function () {
     dlight.position.set(-50, 50, -50);
     dlight.target.position.set(0,0,0);
     
-    slight = new THREE.SpotLight(0xffffff,2,140,Math.PI/5,1 );
+    slight = new THREE.PointLight(0xffffff, 1, 100 );
     slight.position.set(0, 50, 0);
-    slight.target.position.set(0,0,0);
+    //slight.target.position.set(0,0,0);
     slight.castShadow = true;
     slight.penumbra=.2;
 
